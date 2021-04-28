@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gxGpWxoArR4TQTm7Qx4B2gxh2kI67CUak2Ouz5fb0+JFEFQdqNaIb4fvJJV51LLO5dsGnz1FguH64IXUEFMDfQ==",
+  "dgSpecHash": "FjMJCi9Ndt+YGw+kRWRD7sQA5qoA0KOYSH0nW+EEs2X85vUrjPcfdUv43Re0S3g+Tue3waFP5MYwDOaWEb5TgQ==",
   "success": true,
-  "projectFilePath": "C:\\source-code\\Proyecto-1-IF4101\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
+  "projectFilePath": "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\diego\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.7\\microsoft.aspnet.mvc.5.2.7.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.7\\microsoft.aspnet.razor.3.2.7.nupkg.sha512",

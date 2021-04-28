@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     hydeShowSection('about');
-
+    GetStudents();
 });
 
 
@@ -70,6 +70,30 @@ function Add() {
     }
 
 }
+
+function GetStudents() {
+
+    $.ajax({
+        url: "/Home/GetStudents",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+
+            $.each(result, function (key, item) {
+                html += '<option value="' + item.idCard + '">' + item.name + '</option>';
+            });
+            $('#student').append(html);
+
+        },
+        error: function (errorMessage) {
+
+            alert(errorMessage.responseText);
+        }
+    });
+}
+
 
 function clean() {
     document.getElementById('studentCard').value = '';

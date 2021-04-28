@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using LabMVC15_04_2021.Models.DomainD;
 using System.Data;
+using System.Collections.Generic;
 
 namespace LabMVC.Models.Data
 {
@@ -49,6 +50,37 @@ namespace LabMVC.Models.Data
             }
 
             return resultToReturn;
+
+
+        }
+
+
+        public List<Student> Get()
+        {
+            List<Student> students = new List<Student>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                connection.Open();
+                SqlCommand command = new SqlCommand("ReadStudents", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader sqlDataReader = command.ExecuteReader();
+                while (sqlDataReader.Read())
+                {
+                    students.Add(new Student
+                    {
+                        IdCard = sqlDataReader["Id_Card"].ToString(),
+                        Name = sqlDataReader["Name"].ToString(),
+                        LastName = sqlDataReader["Last_Name"].ToString(),
+                        Email = sqlDataReader["Email"].ToString(),
+                        Phone = sqlDataReader["Phone"].ToString()
+                    });
+                }
+
+                connection.Close();
+            }
+            return students;
 
 
         }
