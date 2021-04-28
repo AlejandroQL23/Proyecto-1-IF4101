@@ -69,6 +69,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><i class="fa fa-phone-square"></i> +506 2511-7550</a></li>
+                    <li><a  href="#about" onclick="return hydeShowSection('about')"><i class="fa fa-user"></i> Registrate</a></li>
                 </ul>
             </div>
 
@@ -124,7 +125,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-3 col-sm-3">
                     <div class="feature-thumb">
                         <span>01</span>
                         <h3>Conoce el plan de estudio.</h3>
@@ -132,7 +133,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-3 col-sm-3">
                     <div class="feature-thumb">
                         <span>02</span>
                         <h3>Un poco de historia </h3>
@@ -140,7 +141,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-3 col-sm-3">
                     <div class="feature-thumb">
                         <span>03</span>
                         <h3>Transporte</h3>
@@ -148,17 +149,65 @@
                     </div>
                 </div>
 
+                <div class= "col-md-3 col-sm-3">
+                    <div class="feature-thumb">
+
+                        <h2>Inicia sesión</h2>
+                        <input type="text" name="full name" id="nameI" class="form-control" placeholder="Nombre de usuario" required="">
+
+                        <input type="password" name="password" id="passwordI" class="form-control" placeholder="Contraseña" required="">
+
+                        <div>
+                            <button class="submit-btn form-control" onclick="return Add()" id="form-submitI">Iniciar sesión</button>
+                        </div>
+
+                        <div id="incorrectLabel" class="hide" role="alert">Error</div>
+                        <div id="correctLabel" class="hide" role="alert">Saved information</div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
-
 
     <!-- ABOUT -->
     <section id="about">
         <div class="container">
             <div class="row">
 
+
                 <div class="col-md-6 col-sm-12">
+                    <div class="about-info">
+                        <h2>Bienvenido al proceso de registro de la carrera de Informática Empresarial!</h2>
+
+                        <figure>
+                            <span><i class="fa fa-mail-forward"></i></span>
+                            <figcaption>
+                                <h3>Paso 1</h3>
+                                <p>Completas cada espacio del formulario que se presenta a tu derecha.</p>
+                            </figcaption>
+                        </figure>
+
+                        <figure>
+                            <span><i class="fa fa-mail-reply  "></i></span>
+                            <figcaption>
+                                <h3>Paso 2</h3>
+                                <p>El administrador verifica que eres parte de la carrera de Informática Empresarial.</p>
+                            </figcaption>
+                        </figure>
+
+                        <figure>
+                            <span><i class="fa fa-list"></i></span>
+                            <figcaption>
+                                <h3>Paso 3</h3>
+                                <p>Llega a tu correo una notificacion de que fuiste aceptado y ahora puedes disfrutar de esta página.</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-1 col-md-4 col-sm-12"">
                     <div class="entry-form">
                         <!--<form action="#" method="post">-->
 
@@ -188,34 +237,11 @@
                     </div>
                 </div>
 
-                <div class="col-md-offset-1 col-md-4 col-sm-12">
-                    <div class="entry-form">
-                        <!--<form action="#" method="post">-->
 
-                        <h2>Inicia sesión</h2>
-                        <input type="text" name="full name" id="name" class="form-control" placeholder="Nombre de usuario" required="">
-
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" required="">
-
-                        <div>
-                            <button class="submit-btn form-control" onclick="return Add()" id="form-submit">Iniciar sesión</button>
-                        </div>
-
-
-                        <div id="incorrectLabel" class="hide" role="alert">Error</div>
-                        <div id="correctLabel" class="hide" role="alert">Saved information</div>
-
-
-                        <!--</form>-->
-                    </div>
-                </div>
 
             </div>
         </div>
     </section>
-
-
-   
 
 
     <!-- FOOTER -->
@@ -259,7 +285,7 @@
                     </div>
                 </div>
 
-               
+
 
             </div>
         </div>

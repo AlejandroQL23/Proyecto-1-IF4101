@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj": {}
+    "C:\\ProyectoLengo1\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj": {
+    "C:\\ProyectoLengo1\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj",
+        "projectUniqueName": "C:\\ProyectoLengo1\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
         "projectName": "LabMVC",
-        "projectPath": "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj",
+        "projectPath": "C:\\ProyectoLengo1\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
         "packagesPath": "C:\\Users\\Ale\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\obj\\",
+        "outputPath": "C:\\ProyectoLengo1\\Proyecto-1-IF4101\\PL\\LabMVC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ale\\AppData\\Roaming\\NuGet\\NuGet.Config",

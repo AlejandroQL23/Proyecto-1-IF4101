@@ -406,10 +406,11 @@ h3 {
   -----------------------------------------*/
 
 .feature-thumb {
-    border: 1px solid #29ca8e;
+    border: 1px solid #000000;
     padding: 5em 3em;
     background: #1878B6;
-   
+    width: 300px;
+    height: 400px;
 }
 
 
@@ -601,9 +602,15 @@ h3 {
 
 
 
+
+
+
   /*---------------------------------------
      RESPONSIVE STYLES              
   -----------------------------------------*/
+
+
+
 
   @media screen and (max-width: 1170px) {
     .custom-navbar .navbar-nav.navbar-nav-first {
