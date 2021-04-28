@@ -4,8 +4,28 @@
     //.
 
 
+<<<<<<< HEAD
+=======
+$(document).ready(function () {
+    GetNationality();
+    GetMajors();
+    hydeShowSection('about');
+>>>>>>> f324e0bfb31ca4d1f4f45479fb2d46f321490024
 
 });
+
+
+function hydeShowSection(a) {
+    var e = document.getElementById(a);
+    if (!e) return true;
+    if (e.style.display == "none") {
+        e.style.display = "block"
+    }
+    else {
+        e.style.display = "none"
+    }
+    return true;
+}
 
 function Add() {
 
