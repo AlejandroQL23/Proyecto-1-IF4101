@@ -4,6 +4,7 @@ using LabMVC15_04_2021.Models.DomainD;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 
@@ -57,6 +58,16 @@ namespace LabMVC.Controllers
             }
         }
 
+        public IActionResult GetStudents()
+        {
+            //llamada al modelo para obtener las carreras
+            studentDAO = new StudentDAO(_configuration);
+
+            List<Student> students = new List<Student>();
+            students = studentDAO.Get();
+
+            return Json(students);
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
