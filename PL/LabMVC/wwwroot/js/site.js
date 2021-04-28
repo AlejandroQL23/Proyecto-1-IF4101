@@ -1,28 +1,24 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
 
-// Write your JavaScript code.
-
-$(document).ready(function () {
-    GetNationality();
-    GetMajors();
-   
 
 });
 
 function Add() {
-  
-    var student = {
 
+    var student = {
+        idCard: $('#studentCard').val(),
         name: $('#name').val(),
+        lastName: $('#lastName').val(),
         email: $('#email').val(),
         password: $('#password').val(),
-         nationality: $("#nationality").val(),
-        major: $("#major").val()
+        phone: $('#phone').val(),
+        address: $('#address').val()
+
     };
 
     var messageValidate = validateStudent(student);
     if (messageValidate == "") {
+
 
         $.ajax({
             url: "/Home/Insert",
@@ -32,12 +28,8 @@ function Add() {
             dataType: "json",
             success: function (result) {
 
-                document.getElementById('name').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('password').value = '';
-                document.getElementById('nationality').value = 0;
-                document.getElementById('major').value = 0;
-                //-----------------------------------------------
+                clean();
+
                 var done = $('#correctLabel');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")
@@ -49,102 +41,54 @@ function Add() {
                 var response = $('#incorrectLabel');
                 response.removeClass();
                 response.addClass("alert alert-warning register-alert");
-                response.html("This email has already been registered");
+                response.html("El usuario ya está registrado");
                 response.fadeIn(500);
                 response.fadeOut(4000);
-
 
             }
         });
     } else {
-        var error = $('#incorrectLabel');
-        error.removeClass();
-        error.addClass("alert alert-danger register-alert");
-        error.html(messageValidate);
-        error.fadeIn(500);
-        error.fadeOut(4000);
+        var response = $('#incorrectLabel');
+        response.removeClass();
+        response.addClass("alert alert-danger register-alert");
+        response.html(messageValidate);
+        response.fadeIn(800);
+        response.fadeOut(4000);
     }
-        
 
+}
+
+function clean() {
+    document.getElementById('studentCard').value = '';
+    document.getElementById('name').value = '';
+    document.getElementById('lastName').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('address').value = '';
 }
 
 function validateStudent(student) {
     var e = student.email + '';
-    var eval = e.includes("@gmail.com");
-    if (student.name == "") {
-        return "Name is required";
+    if (student.idCard == "") {
+        return "Se requiere una identificación";
+    } else if (student.name == "") {
+        return "Se requiere un nombre";
+    } else if (student.lastName == "") {
+        return "Se requieren apellidos";
     } else if (student.email == "") {
-        return "Email is required";
+        return "Se requiere un correo electrónico";
+    } else if ((student.email + '').includes("@gmail.com") == false) {
+        return "El correo debe contener @gmail.com";
+    } else if (student.phone == "") {
+        return "Se requiere un número de teléfono";
+    } else if (student.address == "") {
+        return "Se requiere una dirección";
     } else if (student.password == "") {
-        return "Password is required";
-    } else if (eval == false) {
-        return "Email required an '@gmail.com'";
-    } else if (student.nationality == 0) {
-        return "Nationality is required";
-    } else if (student.major == 0) {
-        return "Major is required";
-    }else {
+        return "Se requiere una contraseña";
+
+    } else {
         return "";
     }
 }
 
-
-function GetMajors() {
-
-    $.ajax({
-        url: "/Home/GetMajors",
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-           
-            //llenar el dropdowns
-            var html = '';
-            $.each(result, function (key, item) {
-                html += '<option value="' + item.id + '">' + item.name + '</option>';
-            });
-            $('#major').append(html);
-
-        },
-        error: function (errorMessage) {
-            alert("Error");
-            alert(errorMessage.responseText);
-
-        }
-    });
-
-    //alert("Botón sirve");
-
-
-}
-
-
-
-function GetNationality() {
-
-    $.ajax({
-        url: "/Home/GetNationality",
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-
-            //llenar el dropdowns
-            var html = '';
-            $.each(result, function (key, item) {
-                html += '<option value="' + item.id + '">' + item.name + '</option>';
-            });
-            $('#nationality').append(html);
-
-        },
-        error: function (errorMessage) {
-            alert("Error");
-            alert(errorMessage.responseText);
-
-        }
-    });
-
-    //alert("Botón sirve");
-
-
-}

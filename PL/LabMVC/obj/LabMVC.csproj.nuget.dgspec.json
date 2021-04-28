@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj": {}
+    "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj": {
+    "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj",
+        "projectUniqueName": "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
         "projectName": "LabMVC",
-        "projectPath": "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\LabMVC.csproj",
-        "packagesPath": "C:\\Users\\Ale\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ale\\Desktop\\PL\\LabMVC\\obj\\",
+        "projectPath": "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ale\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
