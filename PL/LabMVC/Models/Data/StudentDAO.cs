@@ -56,7 +56,7 @@ namespace LabMVC.Models.Data
 
 
         public List<Student> Get()
-        {
+        { 
             List<Student> students = new List<Student>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))

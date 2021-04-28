@@ -59,7 +59,7 @@ namespace LabMVC.Controllers
         }
 
         public IActionResult GetStudents()
-        {
+        { 
             //llamada al modelo para obtener las carreras
             studentDAO = new StudentDAO(_configuration);
 
