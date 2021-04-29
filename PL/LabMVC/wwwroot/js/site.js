@@ -179,13 +179,13 @@ function AddProfessor() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-
+                alert("Bien");
                 
 
             },
             error: function (errorMessage) {
                
-
+                alert("Mal");
             }
         });
     
@@ -195,12 +195,12 @@ function AddProfessor() {
 function AddCourse() {
 
     var course = {
-        acronymCourse: $('#acronymCourse').val(),
-        nameCourse: $('#nameCourse').val(),
-        creditsCourse: $('#creditsCourse').val(),
+        initials: $('#acronymCourse').val(),
+        name: $('#nameCourse').val(),
+        credits: $('#creditsCourse').val(),
         semester: $('#semester').val(),
-        scheduleCourse: $('#scheduleCourse').val(),
-        conditionCourse: $('#conditionCourse').val(),
+        scheduleId: $('#scheduleCourse').val(),
+        activity: $('#conditionCourse').val()
 
     };
 
@@ -211,13 +211,13 @@ function AddCourse() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            alert("Bien");
 
-           
 
         },
         error: function (errorMessage) {
 
-
+            alert("Mal");
         }
     });
 
