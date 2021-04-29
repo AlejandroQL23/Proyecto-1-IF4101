@@ -1,5 +1,13 @@
 ﻿$(document).ready(function () {
     hydeShowSection('about');
+    hydeShowSection('adminProfile');
+    hydeShowSection('adminAcceptDeny');
+    hydeShowSection('adminProfessor');
+    hydeShowSection('adminCourses');
+    hydeShowSection('studentProfile');
+    hydeShowSection('studentCourses');
+    hydeShowSection('studentHoursOfAttention');
+    hydeShowSection('studentNews');
     GetStudents();
 });
 
