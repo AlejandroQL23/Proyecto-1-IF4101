@@ -70,6 +70,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><i class="fa fa-phone-square"></i> +506 2511-7550</a></li>
                     <li><a href="#about" onclick="return hydeShowSection('about')"><i class="fa fa-user"></i> Registrate</a></li>
+                    <li><a href="#feature"><i class="fa fa-sign-in"></i> Inicia sesión</a></li>
                 </ul>
             </div>
 
@@ -162,7 +163,7 @@
                         </div>
 
                         <!--<div id="incorrectLabel" class="hide" role="alert">Error</div>
-    <div id="correctLabel" class="hide" role="alert">Saved information</div>-->
+                        <div id="correctLabel" class="hide" role="alert">Saved information</div>-->
 
                     </div>
                 </div>
@@ -230,7 +231,7 @@
                             <button class="submit-btn form-control" onclick="return Add()" id="form-submit">Registrar</button>
                         </div>
                         <div id="incorrectLabel" class="hide" role="alert">Error</div>
-                        <div id="correctLabel" class="hide" role="alert">Bieeeeeen</div>
+                        <div id="correctLabel" class="hide" role="alert">Saved information</div>
 
 
                         <!--</form>-->
@@ -243,6 +244,106 @@
         </div>
     </section>
 
+
+    <!--Admin-->
+    <section id="admin">
+
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Perfil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Solicitudes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Ingreso de profesores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">registro de cursos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Agregar nooticias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+
+        <div class="container">
+            <div class="row">
+                <p>Perfil administrador</p>
+
+                <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                        <select class="form-control without-margin" id="studentAcceptDeny" name=" studentAcceptDeny" onChange="return fillInputs()">
+                            <option value="0" selected>Elija un estudiante</option>
+
+                        </select>
+                        <input type="text" id="chargedId">
+                        <input type="text" id="chargedName">
+                        <input type="text" id="chargedLastName">
+                        <input type="text" id="chargedEmail">
+                        <input type="text" id="chargedPhone">
+
+                    </div>
+                    <div class="col-auto my-1">
+                        <div class="custom-control custom-checkbox mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                            <label class="custom-control-label" for="customControlAutosizing">Remember my preference</label>
+                        </div>
+                    </div>
+                    <div class="col-auto my-1">
+                        <button type="submit" onclick="return AcceptStudent()" class="btn btn-primary" id="acceptStudent" name="accepStudent">Aceptar</button>
+                        <button type="submit" onclick="return denyStudent()" class="btn btn-primary" id="denyStudent" name="denyStudent">Denegar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+
+
+
+
+
+
+                <div class="col-md-offset-1 col-md-4 col-sm-12" ">
+                    <div class="entry-form">
+                        <!--<form action="#" method="post">-->
+
+                        <h2>Ingresar nuevo profesor</h2>
+                        <input type="text" name="CardProfessor" id="CardProfessor" class="form-control" placeholder="Carné profesor" required="">
+
+                        <input type="text" name="full nameProfessor" id="nameProfessor" class="form-control" placeholder="Nombre" required="">
+
+                        <input type="text" name="lastNameProfessor" id="lastNameProfessor" class="form-control" placeholder="Apellidos" required="">
+
+                        <input type="text" name="emailProfessor" id="emailProfessor" class="form-control" placeholder="Correo electrónico" required="">
+
+                        <input type="text" name="phoneProfessor" id="phoneProfessor" class="form-control" placeholder="Teléfono" required="">
+
+                        <input type="text" name="addressProfessor" id="addressProfessor" class="form-control" placeholder="Dirección" required="">
+
+                        <input type="password" name="passwordProfessor" id="passwordProfessor" class="form-control" placeholder="Contraseña" required="">
+
+                        <div>
+                            <button class="submit-btn form-control" onclick="" id="form-submitProfessor">Registrar Profesor</button>
+                        </div>
+
+
+
+                        <!--</form>-->
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </section>
 
     <!-- FOOTER -->
     <footer id="footer">

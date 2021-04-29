@@ -25,7 +25,7 @@ function Add() {
         email: $('#email').val(),
         password: $('#password').val(),
         phone: $('#phone').val(),
-        address: $('#address').val()
+        address: $('#address').dropdow
 
     };
 
@@ -82,9 +82,11 @@ function GetStudents() {
             var html = '';
 
             $.each(result, function (key, item) {
-                html += '<option value="' + item.idCard + '">' + item.name + '</option>';
+                html += '<option id="' + item.idCard + '" name= "' + item.name + '"  lastName= "' + item.lastName +
+                    '"email= "' + item.email + '" phone= "' + item.phone + '" >' + item.idCard + " - " + item.name + " " + item.lastName + '</option>';
+
             });
-            $('#student').append(html);
+            $('#studentAcceptDeny').append(html);
 
         },
         error: function (errorMessage) {
@@ -92,6 +94,68 @@ function GetStudents() {
             alert(errorMessage.responseText);
         }
     });
+}
+
+function AcceptStudent() {
+
+    var student = {
+
+        idCard: $("#chargedId").val(),
+        name: $("#chargedName").val(),
+        email: $("#chargedEmail").val(),
+        Approval: "Aceptado"
+    };
+
+    $.ajax({
+        url: "/Home/UpdateApprovalAccept",
+        data: JSON.stringify(student),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+
+
+        },
+        error: function (errorMessage) {
+
+
+        }
+    });
+
+
+}
+
+
+function denyStudent() {
+
+    var student = {
+
+        idCard: $("#chargedId").val(),
+        name: $("#chargedName").val(),
+        email: $("#chargedEmail").val(),
+        Approval: "Rechazado"
+
+    };
+
+    $.ajax({
+        url: "/Home/UpdateApprovalDeny",
+        data: JSON.stringify(student),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+
+
+        },
+        error: function (errorMessage) {
+
+
+        }
+    });
+
+
 }
 
 
@@ -127,4 +191,25 @@ function validateStudent(student) {
     } else {
         return "";
     }
+}
+
+function fillInputs() {
+    var ddl = document.getElementById("studentAcceptDeny");
+    var selectedOption = ddl.options[ddl.selectedIndex];
+
+    var idValue = selectedOption.getAttribute("id");
+    var textBox0 = document.getElementById("chargedId");
+    textBox0.value = idValue;
+    var nameValue = selectedOption.getAttribute("name");
+    var textBox1 = document.getElementById("chargedName");
+    textBox1.value = nameValue;
+    var lastNameValue = selectedOption.getAttribute("lastName");
+    var textBox2 = document.getElementById("chargedLastName");
+    textBox2.value = lastNameValue;
+    var emailValue = selectedOption.getAttribute("email");
+    var textBox3 = document.getElementById("chargedEmail");
+    textBox3.value = emailValue;
+    var phoneValue = selectedOption.getAttribute("phone");
+    var textBox4 = document.getElementById("chargedPhone");
+    textBox4.value = phoneValue;
 }

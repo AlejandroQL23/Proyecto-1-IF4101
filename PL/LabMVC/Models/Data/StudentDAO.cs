@@ -51,6 +51,28 @@ namespace LabMVC.Models.Data
 
             return resultToReturn;
 
+        }
+
+        public int UpdateApproval(Student student)
+        {
+
+            int resultToReturn;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                connection.Open();
+                SqlCommand command = new SqlCommand("UpdateStudentApproval", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Id_Card", student.IdCard);
+                command.Parameters.AddWithValue("@Approval", student.Approval);
+
+                resultToReturn = command.ExecuteNonQuery();
+                connection.Close();
+
+            }
+
+            return resultToReturn;
 
         }
 
