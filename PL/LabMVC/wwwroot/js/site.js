@@ -1,5 +1,13 @@
 ﻿$(document).ready(function () {
     hydeShowSection('about');
+    hydeShowSection('adminProfile');
+    hydeShowSection('adminAcceptDeny');
+    hydeShowSection('adminProfessor');
+    hydeShowSection('adminCourses');
+    hydeShowSection('studentProfile');
+    hydeShowSection('studentCourses');
+    hydeShowSection('studentHoursOfAttention');
+    hydeShowSection('studentNews');
     GetStudents();
 });
 
@@ -197,10 +205,10 @@ function AddCourse() {
     var course = {
         initials: $('#acronymCourse').val(),
         name: $('#nameCourse').val(),
-        credits: $('#creditsCourse').val(),
+        credits: parseInt($('#creditsCourse').val()),
         semester: $('#semester').val(),
-        scheduleId: $('#scheduleCourse').val(),
-        activity: $('#conditionCourse').val()
+        scheduleId: parseInt($('#scheduleCourse').val()),
+        activity: parseInt($('#conditionCourse').val())
 
     };
 
@@ -211,13 +219,12 @@ function AddCourse() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            alert("Bien");
-
+            alert("nice");
 
         },
         error: function (errorMessage) {
-
-            alert("Mal");
+            alert("jajant");
+        
         }
     });
 
