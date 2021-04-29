@@ -6,6 +6,10 @@
 *.exe
 *.o
 *.so
+*.cache
+*.pdb
+*.suo
+*.dtvcache.v2
 
 # Packages #
 ############
@@ -35,4 +39,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.dtbcache.v2
+_Layout.cshtml.g.cs
+
 
