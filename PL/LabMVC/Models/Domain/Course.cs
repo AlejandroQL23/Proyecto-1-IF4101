@@ -12,10 +12,14 @@ namespace LabMVC15_04_2021.Models.DomainD
         private string name;
         private int credits;
         private string semester;
-        private string scheduleId;
+        private int scheduleId;
         private int activity;
 
-        public Course(int id, string initials, string name, int credits, string semester, string scheduleId, int activity)
+        public Course()
+        {
+        }
+
+        public Course(int id, string initials, string name, int credits, string semester, int scheduleId, int activity)
         {
             this.Id = id;
             this.Initials = initials;
@@ -31,7 +35,7 @@ namespace LabMVC15_04_2021.Models.DomainD
         public string Name { get => name; set => name = value; }
         public int Credits { get => credits; set => credits = value; }
         public string Semester { get => semester; set => semester = value; }
-        public string ScheduleId { get => scheduleId; set => scheduleId = value; }
+        public int ScheduleId { get => scheduleId; set => scheduleId = value; }
         public int Activity { get => activity; set => activity = value; }
     }
 }

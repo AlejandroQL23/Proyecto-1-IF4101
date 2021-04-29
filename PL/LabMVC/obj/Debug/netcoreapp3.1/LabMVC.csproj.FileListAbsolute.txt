@@ -306,7 +306,6 @@ C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\win-x64
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.csprojAssemblyReference.cache
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.AssemblyInfoInputs.cache
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.AssemblyInfo.cs
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.csproj.CoreCompileInputs.cache

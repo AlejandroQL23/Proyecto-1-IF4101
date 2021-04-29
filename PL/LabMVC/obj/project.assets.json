@@ -599,19 +599,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\diego\\.nuget\\packages\\": {}
+    "C:\\Users\\Ale\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
+      "projectUniqueName": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
       "projectName": "LabMVC",
-      "projectPath": "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
-      "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
-      "outputPath": "C:\\source-code\\Proyecto-1-IF4101\\PL\\LabMVC\\obj\\",
+      "projectPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
+      "packagesPath": "C:\\Users\\Ale\\.nuget\\packages\\",
+      "outputPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ale\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -668,7 +668,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   },

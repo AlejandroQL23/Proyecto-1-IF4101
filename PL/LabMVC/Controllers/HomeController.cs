@@ -4,6 +4,7 @@ using LabMVC15_04_2021.Models.DomainD;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -39,10 +40,10 @@ namespace LabMVC.Controllers
 
         public IActionResult InsertCourses([FromBody] Course course)
         {
-
+            
             courseDAO = new CourseDAO(_configuration);
             int resultToReturn = courseDAO.Insert(course);
-
+           
             return Ok(resultToReturn);
 
         }
