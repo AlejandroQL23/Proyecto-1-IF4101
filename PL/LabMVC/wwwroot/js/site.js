@@ -1,5 +1,13 @@
 ﻿$(document).ready(function () {
     hydeShowSection('about');
+    hydeShowSection('adminProfile');
+    hydeShowSection('adminAcceptDeny');
+    hydeShowSection('adminProfessor');
+    hydeShowSection('adminCourses');
+    hydeShowSection('studentProfile');
+    hydeShowSection('studentCourses');
+    hydeShowSection('studentHoursOfAttention');
+    hydeShowSection('studentNews');
     GetStudents();
 });
 
@@ -179,13 +187,13 @@ function AddProfessor() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                alert("Bien");
+
                 
 
             },
             error: function (errorMessage) {
                
-                alert("Mal");
+
             }
         });
     
@@ -195,12 +203,12 @@ function AddProfessor() {
 function AddCourse() {
 
     var course = {
-        initials: $('#acronymCourse').val(),
-        name: $('#nameCourse').val(),
-        credits: $('#creditsCourse').val(),
+        acronymCourse: $('#acronymCourse').val(),
+        nameCourse: $('#nameCourse').val(),
+        creditsCourse: $('#creditsCourse').val(),
         semester: $('#semester').val(),
-        scheduleId: $('#scheduleCourse').val(),
-        activity: $('#conditionCourse').val()
+        scheduleCourse: $('#scheduleCourse').val(),
+        conditionCourse: $('#conditionCourse').val(),
 
     };
 
@@ -211,13 +219,13 @@ function AddCourse() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            alert("Bien");
 
+           
 
         },
         error: function (errorMessage) {
 
-            alert("Mal");
+
         }
     });
 

@@ -15,7 +15,6 @@ namespace LabMVC.Controllers
     {
         StudentDAO studentDAO;
         ProfessorDAO professorDAO;
-        CourseDAO courseDAO;
         
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
@@ -35,16 +34,6 @@ namespace LabMVC.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult InsertCourses([FromBody] Course course)
-        {
-
-            courseDAO = new CourseDAO(_configuration);
-            int resultToReturn = courseDAO.Insert(course);
-
-            return Ok(resultToReturn);
-
         }
 
 
@@ -117,8 +106,6 @@ namespace LabMVC.Controllers
             return Ok(resultToReturn);
 
         }
-
-        
 
         public IActionResult GetStudents()
         {
