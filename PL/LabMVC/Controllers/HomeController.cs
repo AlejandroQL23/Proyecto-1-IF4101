@@ -65,7 +65,7 @@ namespace LabMVC.Controllers
             professorDAO = new ProfessorDAO(_configuration);
 
                 int resultToReturn = professorDAO.Insert(professor);
-                studentDAO.SendEmail(professor.Email, "Inscripción",
+                professorDAO.SendEmail(professor.Email, "Inscripción",
                    "<html><body ><h1>Bienvenido '" + professor.Name + "´' al sitio de inscripción de la Universidad de Costa Rica</h1><br/>" +
                    "<br/><h3>Sede: Atlántico<br/>" +
                    "<br/>Recinto de Paraíso<br/>" +
