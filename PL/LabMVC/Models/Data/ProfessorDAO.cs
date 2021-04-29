@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace LabMVC.Models.Data
@@ -50,6 +52,21 @@ namespace LabMVC.Models.Data
             }
 
             return resultToReturn;
+
+        }
+
+        public void SendEmail(String addressee, String title, String message)
+        {
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("aldifasoft0@gmail.com", "LPAC2021"),
+                EnableSsl = true,
+            };
+            MailMessage mailMessage = new MailMessage("aldifasoft0@gmail.com", addressee, title, message);
+            mailMessage.IsBodyHtml = true;
+            smtpClient.Send(mailMessage);
 
         }
 

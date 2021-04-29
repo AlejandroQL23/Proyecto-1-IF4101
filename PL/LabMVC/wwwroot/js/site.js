@@ -25,7 +25,7 @@ function Add() {
         email: $('#email').val(),
         password: $('#password').val(),
         phone: $('#phone').val(),
-        address: $('#address').dropdow
+        address: $('#address').val()
 
     };
 
@@ -147,6 +147,72 @@ function denyStudent() {
         success: function (result) {
 
 
+
+        },
+        error: function (errorMessage) {
+
+
+        }
+    });
+
+
+}
+
+
+function AddProfessor() {
+
+    var professor = {
+        idCard: $('#CardProfessor').val(),
+        name: $('#nameProfessor').val(),
+        lastName: $('#lastNameProfessor').val(),
+        email: $('#emailProfessor').val(),
+        password: $('#passwordProfessor').val(),
+        phone: $('#phoneProfessor').val(),
+        address: $('#addressProfessor').val()
+
+    };
+
+        $.ajax({
+            url: "/Home/InsertProfessor",
+            data: JSON.stringify(professor),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                
+
+            },
+            error: function (errorMessage) {
+               
+
+            }
+        });
+    
+
+}
+
+function AddCourse() {
+
+    var course = {
+        acronymCourse: $('#acronymCourse').val(),
+        nameCourse: $('#nameCourse').val(),
+        creditsCourse: $('#creditsCourse').val(),
+        semester: $('#semester').val(),
+        scheduleCourse: $('#scheduleCourse').val(),
+        conditionCourse: $('#conditionCourse').val(),
+
+    };
+
+    $.ajax({
+        url: "/Home/InsertCourses",
+        data: JSON.stringify(course),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+           
 
         },
         error: function (errorMessage) {
