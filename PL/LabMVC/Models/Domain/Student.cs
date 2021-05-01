@@ -45,7 +45,7 @@ namespace LabMVC15_04_2021.Models.DomainD
             this.Activity = activity;
             this.Approval = approval;
             this.ProfilePicure = profilePicure;
-        }     
+        }
 
         public int Id { get => id; set => id = value; }
         public string IdCard { get => idCard; set => idCard = value; }

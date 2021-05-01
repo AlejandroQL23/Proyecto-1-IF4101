@@ -9,7 +9,7 @@
     hydeShowSection('studentHoursOfAttention');
     hydeShowSection('studentNews');
     GetStudents();
-    LoadData(); 
+    LoadDataCourses();
 });
 
 
@@ -232,9 +232,11 @@ function AddCourse() {
 
 }
 
+
+
 function LoadDataCourses() {
     $.ajax({
-        url: "/Home/GetCourses",
+        url: "/Home/GetCourses", //MVC NORMAL
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -246,7 +248,7 @@ function LoadDataCourses() {
                 html += '<td>' + item.name + '</td>';
                 html += '<td>' + item.credits + '</td>';
                 html += '<td>' + item.semester + '</td>';
-                html += '<td>' + item.scheduleId + '</td>';
+                //html += '<td>' + item.scheduleId + '</td>';
                 html += '<td>' + item.activity + '</td>';
                 html += '<td><a onclick= GetById(' + item.initials + ')>Editar</a> | <a onclick="Delete(' + item.initials + ')">Borrar</a></td>';
             });
@@ -276,7 +278,7 @@ function DeleteCourse(ID) {
     });
 
 
-}
+}// delete
 
 //------------------------------------------------------------
 
@@ -292,14 +294,14 @@ function GetByInitials(ID) {
             $('#nameCourse').val(result.name);
             $('#creditsCourse').val(result.credits);
             $('#semesterCourse').val(result.semester);
-            $('#scheduleCourse').val(result.scheduleId);
+           // $('#scheduleCourse').val(result.scheduleId);
             $('#activityCourse').val(result.activity);
 
 
 
             $('#modalCourse').modal('show');
             $('#btnUpdateCourse').show();
-
+            
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -314,13 +316,13 @@ function UpdateCourse() {
 
     var student = {
 
-        id: parseInt($('#idCourse').val()),
+        id: $('#idCourse').val(),
         name: $('#nameCourse').val(),
-        credits: $('#creditsCourse').val(),
+        credits: parseInt($('#creditsCourse').val()),
         semester: $('#semesterCourse').val(),
-        scheduleId: $('#scheduleCourse').val(),
-        activity: $('#activityCourse').val(),
-
+        //scheduleId: $('#scheduleCourse').val(),
+        activity: parseInt($('#activityCourse').val())
+        
     };
 
     $.ajax({
@@ -337,7 +339,7 @@ function UpdateCourse() {
             $('#nameCourse').val("");
             $('#creditsCourse').val("");
             $('#semesterCourse').val("");
-            $('#scheduleCourse').val("");
+            //$('#scheduleCourse').val("");
             $('#activityCourse').val("");
 
 
@@ -348,12 +350,6 @@ function UpdateCourse() {
     });
 }  
 
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////
 
 function clean() {
     document.getElementById('studentCard').value = '';
