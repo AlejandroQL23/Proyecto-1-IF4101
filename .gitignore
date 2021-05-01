@@ -41,5 +41,7 @@ ehthumbs.db
 Thumbs.db
 .dtbcache.v2
 _Layout.cshtml.g.cs
-
+PL/.vs/LabMVC/v16/.suo
+PL/LabMVC/bin/Debug/netcoreapp3.1/LabMVC.Views.pdb
+PL/LabMVC/obj/Debug/netcoreapp3.1/LabMVC.Views.pdb
 
