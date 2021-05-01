@@ -9,6 +9,7 @@
     hydeShowSection('studentHoursOfAttention');
     hydeShowSection('studentNews');
     GetStudents();
+    LoadDataCourses();
 });
 
 
@@ -230,6 +231,124 @@ function AddCourse() {
 
 
 }
+
+
+
+function LoadDataCourses() {
+    $.ajax({
+        url: "/Home/GetCourses", //MVC NORMAL
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.initials + '</td>';
+                html += '<td>' + item.name + '</td>';
+                html += '<td>' + item.credits + '</td>';
+                html += '<td>' + item.semester + '</td>';
+                //html += '<td>' + item.scheduleId + '</td>';
+                html += '<td>' + item.activity + '</td>';
+                html += '<td><a onclick= GetById(' + item.initials + ')>Editar</a> | <a onclick="Delete(' + item.initials + ')">Borrar</a></td>';
+            });
+            $('.tbodyCourses').html(html);
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
+
+}
+
+function DeleteCourse(ID) {
+
+    $.ajax({
+        url: "/Home/DeleteCourse/" + ID,
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            LoadDataCourses();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+
+
+}// delete
+
+//------------------------------------------------------------
+
+function GetByInitials(ID) {
+
+    $.ajax({
+        url: "/Home/GetById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idCourse').val(result.initials);
+            $('#nameCourse').val(result.name);
+            $('#creditsCourse').val(result.credits);
+            $('#semesterCourse').val(result.semester);
+           // $('#scheduleCourse').val(result.scheduleId);
+            $('#activityCourse').val(result.activity);
+
+
+
+            $('#modalCourse').modal('show');
+            $('#btnUpdateCourse').show();
+            
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+//------------------------------------------------------------
+
+
+function UpdateCourse() {
+
+    var student = {
+
+        id: $('#idCourse').val(),
+        name: $('#nameCourse').val(),
+        credits: parseInt($('#creditsCourse').val()),
+        semester: $('#semesterCourse').val(),
+        //scheduleId: $('#scheduleCourse').val(),
+        activity: parseInt($('#activityCourse').val())
+        
+    };
+
+    $.ajax({
+        url: "/Home/UpdateCourse",
+        data: JSON.stringify(student),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            LoadDataCourses();
+            $('#myModal').modal('hide');
+
+            $('#idCourse').val("");
+            $('#nameCourse').val("");
+            $('#creditsCourse').val("");
+            $('#semesterCourse').val("");
+            //$('#scheduleCourse').val("");
+            $('#activityCourse').val("");
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}  
 
 
 function clean() {
