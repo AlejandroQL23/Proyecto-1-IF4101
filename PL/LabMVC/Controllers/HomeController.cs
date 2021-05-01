@@ -61,13 +61,13 @@ namespace LabMVC.Controllers
             else
             {
                 int resultToReturn = studentDAO.Insert(student);
-            studentDAO.SendEmail(student.Email, "Inscripción",
-               "<html><body ><h1>Bienvenido '" + student.Name + "´' al sitio de inscripción de la Universidad de Costa Rica</h1><br/>" +
-               "<br/><h3>Sede: Atlántico<br/>" +
-               "<br/>Recinto de Paraíso<br/>" +
-               "<br/>Carrera: Informática Empresarial<br/>" +
-               "<br/>Su solicitud está en espera de aprobación.</h3></body></html>");
-            return Ok(resultToReturn);
+                studentDAO.SendEmail(student.Email, "❁→❝Solicitud de inscripción En Espera❞❁",
+                              "<html><body ><h1>Estimado/a " + student.Name + "</h1><br/>" +
+                              "<br/><h3>Sede: Atlántico<br/>" +
+                              "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática Empresarial se encuentra en estado de espera hasta que uno de nuestros administradores revise su solicitud...<br/>" +
+                              "<br/>En caso de que su solicitud sea rechazada y tenga alguna consulta con el resultado del registro, puede contactarse con el servicio de atención en la página oficial de Orientación y Registro(https://ori.ucr.ac.cr/), o bien, con el coordinador de la carrera mediante correo institucional(alvaro.mena@ucr.ac.cr)<br/>" +
+                              "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+                return Ok(resultToReturn);
             }
         }
 
@@ -77,13 +77,13 @@ namespace LabMVC.Controllers
             professorDAO = new ProfessorDAO(_configuration);
 
                 int resultToReturn = professorDAO.Insert(professor);
-                professorDAO.SendEmail(professor.Email, "Inscripción",
-                   "<html><body ><h1>Bienvenido '" + professor.Name + "´' al sitio de inscripción de la Universidad de Costa Rica</h1><br/>" +
-                   "<br/><h3>Sede: Atlántico<br/>" +
-                   "<br/>Recinto de Paraíso<br/>" +
-                   "<br/>Carrera: Informática Empresarial<br/>" +
-                   "<br/>Professor ingresado.</h3></body></html>");
-                return Ok(resultToReturn);
+            professorDAO.SendEmail(professor.Email, "❁→❝Trámites de Inscripción Listo❞❁",
+                           "<html><body ><h1>Estimado/a " + professor.Name + "</h1><br/>" +
+                           "<br/><h3>Sede: Atlántico<br/>" +
+                           "<br/>Queremos informarle que el proceso de su inscripción al entorno oficial de Informática Empresarial para la Sede del Atlántico ha sido procesada y terminada con éxito, le hemos asignado una identificación oficial la cual es: " + professor.IdCard + ", el cual necesitará para autenticarse en nuestros sitios oficiales con sesión de Profesor.  <br/>" +
+                           "<br/>Le solicitamos atentamente que revise esta y más de su infomación oficial en el entorno de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/), así mismo, revisar en días posteriores al proceso de matrícula estudiantil si su respectivo entorno está habilitado en Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
+                           "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+            return Ok(resultToReturn);
            
         }
 
@@ -131,6 +131,46 @@ namespace LabMVC.Controllers
 
             return Json(students);
         }
+
+
+        public IActionResult GetCourses()
+        {
+            courseDAO = new CourseDAO(_configuration);
+            return Ok(courseDAO.Get());
+
+        }
+
+        public IActionResult GetById(int id)
+        {
+            courseDAO = new CourseDAO(_configuration);
+            return Ok(courseDAO.Get(id));
+
+        }
+        [HttpPost]
+        public IActionResult DeleteCourse(string initials)
+        {
+
+
+            //llamada al modelo para eliminar el estudiante
+            // studentDAO = new StudentDAO(_configuration);
+            courseDAO = new CourseDAO(_configuration);
+            return Ok(courseDAO.DeleteCourse(initials));
+
+        }
+
+
+        //---------------------------------------------------------------------
+        public IActionResult UpdateCourse([FromBody] Course course)
+        {
+
+            // Major major2 = new Major();
+            courseDAO = new CourseDAO(_configuration);
+            //major2.Id = student.Major_Id;
+            //student.Major = major2;
+            return Ok(courseDAO.UpdateCourse(course));
+
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
