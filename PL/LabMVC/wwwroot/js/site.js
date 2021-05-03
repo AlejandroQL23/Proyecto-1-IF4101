@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    
     hydeShowSection('about');
     hydeShowSection('adminProfile');
     hydeShowSection('adminAcceptDeny');
@@ -9,7 +10,8 @@
     hydeShowSection('studentHoursOfAttention');
     hydeShowSection('studentNews');
     GetStudents();
-    LoadData(); 
+    LoadDataCourses();
+    LoadDataAcceptDeny();
 });
 
 
@@ -105,25 +107,26 @@ function GetStudents() {
     });
 }
 
-function AcceptStudent() {
+function AcceptDenyStudent() {
 
     var student = {
 
-        idCard: $("#chargedId").val(),
-        name: $("#chargedName").val(),
-        email: $("#chargedEmail").val(),
-        Approval: "Aceptado"
+        idCard: $("#idStudent").val(),
+        name: $("#nameStudent").val(),
+        lastName: $("#lastNameStudent").val(),
+        email: $("#emailStudent").val(),
+        Approval: $("#condition").val()
     };
 
     $.ajax({
-        url: "/Home/UpdateApprovalAccept",
+        url: "/Home/UpdateApprovalAcceptDeny",
         data: JSON.stringify(student),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
 
-
+            LoadDataAcceptDeny();
 
         },
         error: function (errorMessage) {
@@ -136,36 +139,7 @@ function AcceptStudent() {
 }
 
 
-function denyStudent() {
 
-    var student = {
-
-        idCard: $("#chargedId").val(),
-        name: $("#chargedName").val(),
-        email: $("#chargedEmail").val(),
-        Approval: "Rechazado"
-
-    };
-
-    $.ajax({
-        url: "/Home/UpdateApprovalDeny",
-        data: JSON.stringify(student),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-
-
-
-        },
-        error: function (errorMessage) {
-
-
-        }
-    });
-
-
-}
 
 
 function AddProfessor() {
@@ -181,23 +155,23 @@ function AddProfessor() {
 
     };
 
-        $.ajax({
-            url: "/Home/InsertProfessor",
-            data: JSON.stringify(professor),
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                alert("Bien");
-                
+    $.ajax({
+        url: "/Home/InsertProfessor",
+        data: JSON.stringify(professor),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            alert("Bien");
 
-            },
-            error: function (errorMessage) {
-               
-                alert("Mal");
-            }
-        });
-    
+
+        },
+        error: function (errorMessage) {
+
+            alert("Mal");
+        }
+    });
+
 
 }
 
@@ -225,16 +199,18 @@ function AddCourse() {
         },
         error: function (errorMessage) {
             alert("jajant");
-        
+
         }
     });
 
 
 }
 
+
+
 function LoadDataCourses() {
     $.ajax({
-        url: "/Home/GetCourses",
+        url: "/Home/GetCourses", //MVC NORMAL
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -246,11 +222,13 @@ function LoadDataCourses() {
                 html += '<td>' + item.name + '</td>';
                 html += '<td>' + item.credits + '</td>';
                 html += '<td>' + item.semester + '</td>';
-                html += '<td>' + item.scheduleId + '</td>';
+                //html += '<td>' + item.scheduleId + '</td>';
                 html += '<td>' + item.activity + '</td>';
-                html += '<td><a onclick= GetById(' + item.initials + ')>Editar</a> | <a onclick="Delete(' + item.initials + ')">Borrar</a></td>';
+                html += '<td><a onclick= GetByInitials(' + JSON.stringify(item.initials) + ')>Actualizar</a> | <a onclick= DeleteCourse(' + JSON.stringify(item.initials) + ')>Eliminar</a></td>';
+               // html += '<td><a onclick= GetByInitials(' + JSON.stringify(item.initials) + ')>Editar</a></td>';
+                //html += '<td><a onclick= alert("Hoal click")>Eliminar</a></td>';
             });
-            $('.tbodyCourses').html(html);
+            $('.tbodyCourse').html(html);
 
         },
         error: function (errorMessage) {
@@ -261,8 +239,9 @@ function LoadDataCourses() {
 }
 
 function DeleteCourse(ID) {
-
+   
     $.ajax({
+
         url: "/Home/DeleteCourse/" + ID,
         type: "POST",
         contentType: "application/json;charset=UTF-8",
@@ -276,7 +255,7 @@ function DeleteCourse(ID) {
     });
 
 
-}
+}// delete
 
 //------------------------------------------------------------
 
@@ -290,9 +269,9 @@ function GetByInitials(ID) {
         success: function (result) {
             $('#idCourse').val(result.initials);
             $('#nameCourse').val(result.name);
-            $('#creditsCourse').val(result.credits);
+            $('#creditCourse').val(result.credits);
             $('#semesterCourse').val(result.semester);
-            $('#scheduleCourse').val(result.scheduleId);
+            // $('#scheduleCourse').val(result.scheduleId);
             $('#activityCourse').val(result.activity);
 
 
@@ -311,33 +290,39 @@ function GetByInitials(ID) {
 
 
 function UpdateCourse() {
+    alert("actualizanding");
+    var Course = {
 
-    var student = {
-
-        id: parseInt($('#idCourse').val()),
-        name: $('#nameCourse').val(),
-        credits: $('#creditsCourse').val(),
-        semester: $('#semesterCourse').val(),
-        scheduleId: $('#scheduleCourse').val(),
-        activity: $('#activityCourse').val(),
+        initials: $('#idCourse').val(), //Bien
+        name: $('#nameCourse').val(),  //bine
+        credits: parseInt($('#creditCourse').val()), //bien
+        semester: $('#semesterCourse').val(),  //bien
+        //scheduleId: $('#scheduleCourse').val(),
+        activity: parseInt($('#activityCourse').val())
 
     };
 
+  /*  alert(couse.initials);
+    alert(course.name);
+    alert(course.credits);
+    alert(course.semester);
+    alert(course.activity);
+    */
     $.ajax({
         url: "/Home/UpdateCourse",
-        data: JSON.stringify(student),
+        data: JSON.stringify(Course),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             LoadDataCourses();
-            $('#myModal').modal('hide');
+            $('#modalCourse').modal('hide');
 
             $('#idCourse').val("");
             $('#nameCourse').val("");
-            $('#creditsCourse').val("");
+            $('#creditCourse').val("");
             $('#semesterCourse').val("");
-            $('#scheduleCourse').val("");
+            //$('#scheduleCourse').val("");
             $('#activityCourse').val("");
 
 
@@ -346,14 +331,64 @@ function UpdateCourse() {
             alert(errormessage.responseText);
         }
     });
-}  
+}
+
+//--------------------------------------------
+
+function LoadDataAcceptDeny() {
+    $.ajax({
+        url: "/Home/GetStudents", //MVC NORMAL
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+                html += '<tr>';
+                html += '<td>' + item.idCard + '</td>';
+                html += '<td>' + item.name + '</td>';
+                html += '<td>' + item.lastName + '</td>';
+                html += '<td>' + item.email + '</td>';
+                html += '<td><a onclick= GetStudentByIdCard(' + JSON.stringify(item.idCard) + ')>Estado</a></td>';
+            });
+            $('.tbodyAcceptDeny').html(html);
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
+
+}
+
+
+function GetStudentByIdCard(ID) {
+
+    $.ajax({
+        url: "/Home/GetStudentById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idStudent').val(result.idCard);
+            $('#nameStudent').val(result.name);
+            $('#lastNameStudent').val(result.lastName);
+            $('#emailStudent').val(result.email);
+           // $('#condition').val(result.Approval);
 
 
 
+            $('#modalAcceptDeny').modal('show');
+            $('#btnAcceptDeny').show();
 
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
 
-
-//////////////////////////////////////////////////////////////////////
 
 function clean() {
     document.getElementById('studentCard').value = '';
