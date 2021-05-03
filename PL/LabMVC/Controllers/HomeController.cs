@@ -87,49 +87,42 @@ namespace LabMVC.Controllers
            
         }
 
-        public IActionResult UpdateApprovalAccept([FromBody] Student student)
+        public IActionResult UpdateApprovalAcceptDeny([FromBody] Student student)
         {
 
             studentDAO = new StudentDAO(_configuration);
-
+            if (student.Approval == "Aceptado")
+            {
                 int resultToReturn = studentDAO.UpdateApproval(student);
-            studentDAO.SendEmail(student.Email, "❁→❝Solicitud de inscripción Aceptada❞❁",
-           "<html><body ><h1>Estimado/a " + student.Name + "</h1><br/>" +
-           "<br/><h3>Sede: Atlántico<br/>" +
-           "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido aceptada con éxito, por este medio le recordamos de igual manera que su carné estudiantil es " + student.IdCard + ", el cuál será de suma importancia para los trámites oficiales dentro de la Universidad <br/>" +
-           "<br/>Le pedimos porfavor que verifique la carrera en el sitio oficial de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/) con motivo del cercano proceos de matrícula. Así mismo registrarse en el sitio oficial de la universidad para el manejo de cada curso, Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
-           "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
-            return Ok(resultToReturn);
+                studentDAO.SendEmail(student.Email, "❁→❝Solicitud de inscripción Aceptada❞❁",
+               "<html><body ><h1>Estimado/a " + student.Name + "</h1><br/>" +
+               "<br/><h3>Sede: Atlántico<br/>" +
+               "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido aceptada con éxito, por este medio le recordamos de igual manera que su carné estudiantil es " + student.IdCard + ", el cuál será de suma importancia para los trámites oficiales dentro de la Universidad <br/>" +
+               "<br/>Le pedimos porfavor que verifique la carrera en el sitio oficial de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/) con motivo del cercano proceos de matrícula. Así mismo registrarse en el sitio oficial de la universidad para el manejo de cada curso, Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
+               "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+                return Ok(resultToReturn);
+            }
+            else
+            {
+                int resultToReturn = studentDAO.UpdateApproval(student);
+                studentDAO.SendEmail(student.Email, "❁→❝Solicitud de inscripción Rechazada❞❁",
+                               "<html><body ><h1>Estimado/a " + student.Name + "</h1><br/>" +
+                               "<br/><h3>Sede: Atlántico<br/>" +
+                               "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido rechazada, por lo tanto su actividad dentro de la carrera estará automaticamente inactivo dentro de los registros de la carrera <br/>" +
+                               "<br/>En caso de tener una consulta con respecto al resultado de su solicitud, porfavor consultar con la Oficina de Orientación y Registros(https://ori.ucr.ac.cr/) o bien al coordinador de la carrera(alvaro.mena@ucr.ac.cr)<br/>" +
+                               "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+                return Ok(resultToReturn);
 
-        }
-
-        public IActionResult UpdateApprovalDeny([FromBody] Student student)
-        {
-
-            studentDAO = new StudentDAO(_configuration);
-
-            int resultToReturn = studentDAO.UpdateApproval(student);
-            studentDAO.SendEmail(student.Email, "❁→❝Solicitud de inscripción Rechazada❞❁",
-                           "<html><body ><h1>Estimado/a " + student.Name + "</h1><br/>" +
-                           "<br/><h3>Sede: Atlántico<br/>" +
-                           "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido rechazada, por lo tanto su actividad dentro de la carrera estará automaticamente inactivo dentro de los registros de la carrera <br/>" +
-                           "<br/>En caso de tener una consulta con respecto al resultado de su solicitud, porfavor consultar con la Oficina de Orientación y Registros(https://ori.ucr.ac.cr/) o bien al coordinador de la carrera(alvaro.mena@ucr.ac.cr)<br/>" +
-                           "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
-            return Ok(resultToReturn);
-
+            }
         }
 
         
 
         public IActionResult GetStudents()
-        {
+        { 
             //llamada al modelo para obtener las carreras
             studentDAO = new StudentDAO(_configuration);
-
-            List<Student> students = new List<Student>();
-            students = studentDAO.Get();
-
-            return Json(students);
+            return Ok(studentDAO.Get());
         }
 
 
@@ -140,21 +133,21 @@ namespace LabMVC.Controllers
 
         }
 
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
             courseDAO = new CourseDAO(_configuration);
             return Ok(courseDAO.Get(id));
 
         }
-        [HttpPost]
-        public IActionResult DeleteCourse(string initials)
+        //[HttpPost]
+        public IActionResult DeleteCourse(string id)
         {
 
-
+            //initials = "IF3000";
             //llamada al modelo para eliminar el estudiante
             // studentDAO = new StudentDAO(_configuration);
             courseDAO = new CourseDAO(_configuration);
-            return Ok(courseDAO.DeleteCourse(initials));
+            return Ok(courseDAO.DeleteCourse(id));
 
         }
 
@@ -168,6 +161,13 @@ namespace LabMVC.Controllers
             //major2.Id = student.Major_Id;
             //student.Major = major2;
             return Ok(courseDAO.UpdateCourse(course));
+
+        }
+
+        public IActionResult GetStudentById(string id)
+        {
+            studentDAO = new StudentDAO(_configuration);
+            return Ok(studentDAO.Get(id));
 
         }
 

@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
     <title>UCR_RP-Info_Emp</title>
     <!--
 
@@ -23,9 +22,9 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
+
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/templatemo-style.css">
-
 </head>
 <div class="container">
     <main role="main" class="pb-3">
@@ -249,24 +248,32 @@
     <section id="admin">
         <div class="container">
             <div class="row">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#adminProfile" onclick="return hydeShowSection('adminProfile')">Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#adminAcceptDeny" onclick="return hydeShowSection('adminAcceptDeny')">Solicitudes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#adminProfessor" onclick="return hydeShowSection('adminProfessor')">Ingreso de profesores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#adminCourses" onclick="return hydeShowSection('adminCourses')">registro de cursos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="return hydeShowSection('')">Agregar nooticias</a>
-                    </li>
-                </ul>
 
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Bienvenido Administador
+                </a>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#adminProfile" onclick="return hydeShowSection('adminProfile')">Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#adminAcceptDeny" onclick="return hydeShowSection('adminAcceptDeny')">Solicitudes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#adminProfessor" onclick="return hydeShowSection('adminProfessor')">Ingreso de profesores</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#adminCourses" onclick="return hydeShowSection('adminCourses')">registro de cursos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="return hydeShowSection('')">Agregar nooticias</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -330,34 +337,117 @@
         </div>
     </section>
 
+    <!-- <section id="adminAcceptDeny">
+           <div class="container">
+               <div class="row">
+
+
+                   <div class="form-row align-items-center">
+                       <div class="col-auto my-1">
+                           <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                           <select class="form-control without-margin" id="studentAcceptDeny" name=" studentAcceptDeny" onChange="return fillInputs()">
+                               <option value="0" selected>Elija un estudiante</option>
+
+                           </select>
+                           <div class="section-inputs">
+                               <input type="text" id="chargedId" disabled>
+                               <input type="text" id="chargedName" disabled>
+                               <input type="text" id="chargedLastName" disabled>
+                               <input type="text" id="chargedEmail" disabled>
+                               <input type="text" id="chargedPhone" disabled>
+
+                           </div>
+                           <div class="col-auto my-1">
+                               <button type="submit" onclick="return AcceptStudent()" class="btn btn-primary" id="acceptStudent" name="accepStudent">Aceptar</button>
+                               <button type="submit" onclick="return denyStudent()" class="btn btn-primary" id="denyStudent" name="denyStudent">Denegar</button>
+                           </div>
+                       </div>
+
+                   </div>
+               </div>
+       </section>
+        -->
+
     <section id="adminAcceptDeny">
         <div class="container">
             <div class="row">
+                <div class="section-title">
+                    <h2>Solicitudes de ingreso</h2>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover" id="table">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Carné
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Apellido
+                                    </th>
+                                    <th>
+                                        Correo
+                                    </th>
+                                    <th>
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodyAcceptDeny">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal fade" id="modalAcceptDeny" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Add Employee</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="idStudent">Carné</label>
+                                            <input type="text" class="form-control" id="idStudent" placeholder="Carné" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Name">Nombre</label>
+                                            <input type="text" class="form-control" id="nameStudent" placeholder="Nombre" disabled="disabled"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastNameStudent">Apellidos</label>
+                                            <input type="text" class="form-control" id="lastNameStudent" placeholder="Apellidos"  disabled="disabled"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="emailStudent">Correo</label>
+                                            <input type="text" class="form-control" id="emailStudent" placeholder="Correo" disabled="disabled"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control without-margin" name="condition" id="condition">
+                                                <option value="0" selected>Seleccione el estado de la solicitud</option>
+                                                <option>Aceptado</option>
+                                                <option>Rechazado</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-primary" id="btnAcceptDeny" style="display:none;" onclick="AcceptDenyStudent();">Finalizar</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
 
 
-                <div class="form-row align-items-center">
-                    <div class="col-auto my-1">
-                        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                        <select class="form-control without-margin" id="studentAcceptDeny" name=" studentAcceptDeny" onChange="return fillInputs()">
-                            <option value="0" selected>Elija un estudiante</option>
-
-                        </select>
-                        <div class="section-inputs">
-                            <input type="text" id="chargedId" disabled>
-                            <input type="text" id="chargedName" disabled>
-                            <input type="text" id="chargedLastName" disabled>
-                            <input type="text" id="chargedEmail" disabled>
-                            <input type="text" id="chargedPhone" disabled>
-
-                        </div>
-                        <div class="col-auto my-1">
-                            <button type="submit" onclick="return AcceptStudent()" class="btn btn-primary" id="acceptStudent" name="accepStudent">Aceptar</button>
-                            <button type="submit" onclick="return denyStudent()" class="btn btn-primary" id="denyStudent" name="denyStudent">Denegar</button>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+        </div>
     </section>
 
     <section id="adminProfessor">
@@ -404,9 +494,9 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-6 col-sm-12">
+                <!--- <div class="col-md-6 col-sm-12">
                     <div class="entry-form">
-                        <!--<form action="#" method="post">-->
+
 
                         <h2>Modificar curso</h2>
 
@@ -420,9 +510,9 @@
 
                         <select class="form-control without-margin" name="semesterEditDelete" id="semesterEditDelete">
                             <option value="0" selected>Seleccione el semestre</option>
-                            <option value="1">i</option>
-                            <option value="2">ii</option>
-                            <option value="3">iii</option>
+                            <option >i</option>
+                            <option >ii</option>
+                            <option >iii</option>
                         </select>
 
                         <select class="form-control without-margin" name="scheduleCourseEditDelete" id="scheduleCourseEditDelete">
@@ -431,8 +521,8 @@
 
                         <select class="form-control without-margin" name="conditionCourseEditDelete" id="conditionCourseEditDelete">
                             <option value="0" selected>Seleccione el estado</option>
-                            <option value="1">Activo</option>
-                            <option value="2">Inactivo</option>
+                            <option>Activo</option>
+                            <option>Inactivo</option>
                         </select>
 
                         <div>
@@ -442,9 +532,106 @@
 
 
 
-                        <!--</form>-->
+
+                    </div>
+                </div> -->
+
+
+                <div class="section-title">
+                    <h2>Cursos</h2>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-dark" id="tableCourses">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sigla
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Creditos
+                                    </th>
+                                    <th>
+                                        Semestre
+                                    </th>
+                                    <!-- <th>
+    Horario
+       </th>-->
+                                    <th>
+                                        Estado
+                                    </th>
+                                    <th>
+                                        Acciones
+                                    </th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody class="tbodyCourse">
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="modal fade" id="modalCourse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Add Employee</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="courseId">ID</label>
+                                            <input type="text" class="form-control" id="idCourse" placeholder="Id" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Name">Name</label>
+                                            <input type="text" class="form-control" id="nameCourse" placeholder="Nombre" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Creditos">Creditos</label>
+                                            <input type="text" class="form-control" id="creditCourse" placeholder="Creditos" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control without-margin" name="semesterCourse" id="semesterCourse">
+                                                <option value="0" selected>Seleccione el semestre</option>
+                                                <option>i</option>
+                                                <option>ii</option>
+                                                <option>iii</option>
+                                            </select>
+                                        </div>
+                                        <!--<div class="form-group">
+                                            <select class="form-control without-margin" name="scheduleCourse" id="scheduleCourse">
+                                                <option value="0" selected>Seleccione el horario</option>
+                                            </select>
+                                        </div> -->
+                                        <div class="form-group">
+                                            <select class="form-control without-margin" name="activityCourse" id="activityCourse">
+                                                <option value="0" selected>Seleccione el estado</option>
+                                                <option>0</option>
+                                                <option>1</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-primary" id="btnUpdateCourse" style="display:none;" onclick="UpdateCourse();">Update</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+
+
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
                 <div class="col-md-offset-1 col-md-4 col-sm-12">
                     <div class="entry-form">
                         <!--<form action="#" method="post">-->
@@ -458,9 +645,9 @@
 
                         <select class="form-control without-margin" name="semester" id="semester">
                             <option value="0" selected>Seleccione el semestre</option>
-                            <option >i</option>
-                            <option >ii</option>
-                            <option >iii</option>
+                            <option>i</option>
+                            <option>ii</option>
+                            <option>iii</option>
                         </select>
 
                         <select class="form-control without-margin" name="scheduleCourse" id="scheduleCourse">
@@ -469,8 +656,8 @@
 
                         <select class="form-control without-margin" name="conditionCourse" id="conditionCourse">
                             <option value="0" selected>Seleccione el estado</option>
-                            <option >1</option>
-                            <option >0</option>
+                            <option>1</option>
+                            <option>0</option>
                         </select>
 
                         <div>
@@ -495,21 +682,27 @@
     <section id="student">
         <div class="container">
             <div class="row">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#studentProfile" onclick="return hydeShowSection('studentProfile')">Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#studentCourses" onclick="return hydeShowSection('studentCourses')">Cursos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#studentHoursOfAttention" onclick="return hydeShowSection('studentHoursOfAttention')">Consultas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#studentNews" onclick="return hydeShowSection('studentNews')">Noticias</a>
-                    </li>
-                </ul>
-
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseStudent" role="button" aria-expanded="false" aria-controls="collapseStudent">
+                    Bienvenido Estudiante
+                </a>
+                <div class="collapse" id="collapseStudent">
+                    <div class="card card-body">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#studentProfile" onclick="return hydeShowSection('studentProfile')">Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#studentCourses" onclick="return hydeShowSection('studentCourses')">Cursos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#studentHoursOfAttention" onclick="return hydeShowSection('studentHoursOfAttention')">Consultas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#studentNews" onclick="return hydeShowSection('studentNews')">Noticias</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -988,6 +1181,13 @@
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/site.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css%22%3E">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E</script>"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js%22%3E</script>"></script>
+
 
 </body>
 </html>

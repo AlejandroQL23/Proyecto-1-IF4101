@@ -107,6 +107,33 @@ namespace LabMVC.Models.Data
 
         }
 
+
+        public Student Get(string id)
+        {
+            Student student = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SelectStudentByID", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@StudentId", id);
+
+                SqlDataReader sqlDataReader = command.ExecuteReader();
+                student = new Student();
+                if (sqlDataReader.Read())
+                {
+                    student.IdCard = sqlDataReader["Id_Card"].ToString();
+                    student.Name = sqlDataReader["Name"].ToString();
+                    student.LastName = sqlDataReader["Last_Name"].ToString();
+                    student.Email = sqlDataReader["Email"].ToString();
+
+                }
+                connection.Close();
+            }
+            return student;
+
+        }
+
         public Boolean VerifyEmail(string studentEmail)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

@@ -31,9 +31,13 @@
     ".NETCoreApp,Version=v3.1": {
       "LabMVC/1.0.0": {
         "dependencies": {
+          "bootstrap.less": "3.4.1",
           "Microsoft.AspNet.Mvc": "5.2.7",
           "Polly": "7.2.2",
           "System.Data.SqlClient": "4.8.2",
+          "bootstrap": "4.6.0",
+          "bootstrap-sortable": "2.0.0",
+          "jQuery1": "1.12.4",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -324,6 +328,25 @@
           "LabMVC.dll": {}
         }
       },
+      "bootstrap/4.6.0": {
+        "dependencies": {
+          "jQuery": "3.0.0",
+          "popper.js": "1.16.1"
+        }
+      },
+      "bootstrap-sortable/2.0.0": {
+        "dependencies": {
+          "Moment.js": "2.3.1",
+          "jQuery": "3.0.0"
+        }
+      },
+      "bootstrap.less/3.4.1": {
+        "dependencies": {
+          "jQuery": "3.0.0"
+        }
+      },
+      "jQuery/3.0.0": {},
+      "jQuery1/1.12.4": {},
       "Microsoft.AspNet.Mvc/5.2.7": {
         "dependencies": {
           "Microsoft.AspNet.Razor": "3.2.7",
@@ -398,6 +421,7 @@
           "System.Security.Principal.Windows": "4.7.0"
         }
       },
+      "Moment.js/2.3.1": {},
       "Polly/7.2.2": {
         "runtime": {
           "lib/netstandard2.0/Polly.dll": {
@@ -409,6 +433,7 @@
           "lib/netstandard2.0/Polly.dll": {}
         }
       },
+      "popper.js/1.16.1": {},
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -2180,6 +2205,41 @@
       "serviceable": false,
       "sha512": ""
     },
+    "bootstrap/4.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nGsIRcbAcBybxBeoL5H6Uax8bb+nrT+tbx3/3n1yXCWq/s+fgEvdo0BAYIq1GmbBizA2KKShyFNiJaSanonIIQ==",
+      "path": "bootstrap/4.6.0",
+      "hashPath": "bootstrap.4.6.0.nupkg.sha512"
+    },
+    "bootstrap-sortable/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0iBfyWppBf7r7bll+a69/rC1BIkGAQV9DeXq292KkS6pLlBrKRAzWdj+rXg19AzXd5SOsDt4E2VuF/acVPdJdw==",
+      "path": "bootstrap-sortable/2.0.0",
+      "hashPath": "bootstrap-sortable.2.0.0.nupkg.sha512"
+    },
+    "bootstrap.less/3.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G/laxBbHVHq4G7LCbfRLISrJf8wjaMsx7qpEDzAorUr+jbl66xP5Pd7IPmqAIi5u8six7/ETv9M4nU7amvbN7g==",
+      "path": "bootstrap.less/3.4.1",
+      "hashPath": "bootstrap.less.3.4.1.nupkg.sha512"
+    },
+    "jQuery/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xFfntV19HzCtKdJWOp/XT9PUY3SslokTDDLFJZdBug36j1XVhw1+vPQ/n7Gd5y+jdpesn5B1m1yn1qIUq57jlA==",
+      "path": "jquery/3.0.0",
+      "hashPath": "jquery.3.0.0.nupkg.sha512"
+    },
+    "jQuery1/1.12.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HfdStjiQQJ+tpY/k5sXkSRyd+el7bfjZ0UYdo2k6h5+SuJknXZoZGMThqZr8Bs734hTpcywtm0e59MEd8UlSBg==",
+      "path": "jquery1/1.12.4",
+      "hashPath": "jquery1.1.12.4.nupkg.sha512"
+    },
     "Microsoft.AspNet.Mvc/5.2.7": {
       "type": "package",
       "serviceable": true,
@@ -2222,12 +2282,26 @@
       "path": "microsoft.win32.registry/4.7.0",
       "hashPath": "microsoft.win32.registry.4.7.0.nupkg.sha512"
     },
+    "Moment.js/2.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-M2wL2F5MI65w4mqEz7x+UXh1nDuvackyoScn7wyd4lobL0cvTdlID9omqzZZt4q+je0l/MYGQtYp3uYHGae/cA==",
+      "path": "moment.js/2.3.1",
+      "hashPath": "moment.js.2.3.1.nupkg.sha512"
+    },
     "Polly/7.2.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-E6CeKyS513j7taKAq4q2MESDBvzuzWnR1rQ2Y2zqJvpiVtKMm699Aubb20MUPBDmb0Ov8PmcLHTCVFdCjoy2kA==",
       "path": "polly/7.2.2",
       "hashPath": "polly.7.2.2.nupkg.sha512"
+    },
+    "popper.js/1.16.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6GiVZho0vwBnId7pK7NLTjMGq4F0/VE65I08CCeKlarVoUt1w8SGTtJmhNo/0pK38EGUP/xbT4+OkWB8UTMPBw==",
+      "path": "popper.js/1.16.1",
+      "hashPath": "popper.js.1.16.1.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",

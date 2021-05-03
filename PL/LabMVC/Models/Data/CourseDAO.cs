@@ -86,7 +86,7 @@ namespace LabMVC.Models.Data
         }
 
 
-        public Course Get(int id)
+        public Course Get(string id)
         {
             Course course = null;
             //usaremos using para englobar todo lo que tiene que ver con una misma cosa u objeto. En este caso, todo lo envuelto acá tiene que ver con connection, la cual sacamos con la clase SqlConnection y con el string de conexión que tenemos en nuestro appsetting.json
