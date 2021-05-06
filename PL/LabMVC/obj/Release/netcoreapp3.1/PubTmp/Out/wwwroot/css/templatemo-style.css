@@ -184,10 +184,21 @@ section {
 
 
 
+    #tableCourses_next:hover {
+        background: #1878B6;
+    }
+
+
+
+    #tableCourses_previous:hover {
+        background: #1878B6;
+    }
+
+
+    
 /*---------------------------------------
      BUTTONS               
   -----------------------------------------*/
-
 .section-btn {
     background: transparent;
     border-radius: 50px;

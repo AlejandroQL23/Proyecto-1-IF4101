@@ -20,12 +20,16 @@ C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\www
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\SINAES.png
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\two.jpg
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\w.jpg
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\administrator.js
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\bootstrap.min.js
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\course.js
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\custom.js
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\datatables.js
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\jquery.js
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\owl.carousel.min.js
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\site.js
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\smoothscroll.js
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\student.js
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
