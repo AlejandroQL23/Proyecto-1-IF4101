@@ -52,30 +52,6 @@ function Add() {
     }
 }
 
-function LoadDataAcceptDeny() {
-    $.ajax({
-        url: "/Home/GetStudents",
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            var html = '';
-            $.each(result, function (key, item) {
-                html += '<tr>';
-                html += '<td>' + item.idCard + '</td>';
-                html += '<td>' + item.name + '</td>';
-                html += '<td>' + item.lastName + '</td>';
-                html += '<td>' + item.email + '</td>';
-                html += '<td><a onclick= GetStudentByIdCard(' + JSON.stringify(item.idCard) + ')>Estado</a></td>';
-            });
-            $('.tbodyAcceptDeny').html(html);
-        },
-        error: function (errorMessage) {
-            alert(errorMessage.responseText);
-        }
-    })
-
-}
 
 
 function LoadDataAcceptDeny() {
