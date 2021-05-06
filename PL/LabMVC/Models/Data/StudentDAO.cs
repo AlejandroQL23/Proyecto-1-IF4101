@@ -6,6 +6,7 @@ using System.Net.Mail;
 using LabMVC15_04_2021.Models.DomainD;
 using System.Data;
 using System.Collections.Generic;
+using LabMVC.Models.Domain;
 
 namespace LabMVC.Models.Data
 {
@@ -25,7 +26,7 @@ namespace LabMVC.Models.Data
 
         }
 
-        public int Insert(Student student)
+        public int Insert(User user)
         {
 
             int resultToReturn;
@@ -36,13 +37,13 @@ namespace LabMVC.Models.Data
                 connection.Open();
                 SqlCommand command = new SqlCommand("CreateStudent", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Id_Card", student.IdCard);
-                command.Parameters.AddWithValue("@Name", student.Name);
-                command.Parameters.AddWithValue("@Last_Name", student.LastName);
-                command.Parameters.AddWithValue("@Email", student.Email);
-                command.Parameters.AddWithValue("@Password", student.Password);
-                command.Parameters.AddWithValue("@Phone", student.Phone);
-                command.Parameters.AddWithValue("@Address", student.Address);
+                command.Parameters.AddWithValue("@IdCard", user.IdCard);
+                command.Parameters.AddWithValue("@Name", user.Name);
+                command.Parameters.AddWithValue("@LastName", user.LastName);
+                command.Parameters.AddWithValue("@Email", user.Email);
+                command.Parameters.AddWithValue("@Password", user.Password);
+                command.Parameters.AddWithValue("@Phone", user.Phone);
+                command.Parameters.AddWithValue("@Address", user.Address);
 
                 resultToReturn = command.ExecuteNonQuery();
                 connection.Close();
@@ -53,7 +54,7 @@ namespace LabMVC.Models.Data
 
         }
 
-        public int UpdateApproval(Student student)
+        public int UpdateApproval(User user)
         {
 
             int resultToReturn;
@@ -64,8 +65,8 @@ namespace LabMVC.Models.Data
                 connection.Open();
                 SqlCommand command = new SqlCommand("UpdateStudentApproval", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Id_Card", student.IdCard);
-                command.Parameters.AddWithValue("@Approval", student.Approval);
+                command.Parameters.AddWithValue("@IdCard", user.IdCard);
+                command.Parameters.AddWithValue("@Approval", user.Approval);
 
                 resultToReturn = command.ExecuteNonQuery();
                 connection.Close();
@@ -77,9 +78,9 @@ namespace LabMVC.Models.Data
         }
 
 
-        public List<Student> Get()
+        public List<User> Get()
         {
-            List<Student> students = new List<Student>();
+            List<User> users = new List<User>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -90,11 +91,11 @@ namespace LabMVC.Models.Data
                 SqlDataReader sqlDataReader = command.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    students.Add(new Student
+                    users.Add(new User
                     {
-                        IdCard = sqlDataReader["Id_Card"].ToString(),
+                        IdCard = sqlDataReader["IdCard"].ToString(),
                         Name = sqlDataReader["Name"].ToString(),
-                        LastName = sqlDataReader["Last_Name"].ToString(),
+                        LastName = sqlDataReader["LastName"].ToString(),
                         Email = sqlDataReader["Email"].ToString(),
                         Phone = sqlDataReader["Phone"].ToString()
                     });
@@ -102,15 +103,15 @@ namespace LabMVC.Models.Data
 
                 connection.Close();
             }
-            return students;
+            return users;
 
 
         }
 
 
-        public Student Get(string id)
+        public User Get(string id)
         {
-            Student student = null;
+           User user = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -119,18 +120,18 @@ namespace LabMVC.Models.Data
                 command.Parameters.AddWithValue("@StudentId", id);
 
                 SqlDataReader sqlDataReader = command.ExecuteReader();
-                student = new Student();
+                user = new User();
                 if (sqlDataReader.Read())
                 {
-                    student.IdCard = sqlDataReader["Id_Card"].ToString();
-                    student.Name = sqlDataReader["Name"].ToString();
-                    student.LastName = sqlDataReader["Last_Name"].ToString();
-                    student.Email = sqlDataReader["Email"].ToString();
+                    user.IdCard = sqlDataReader["IdCard"].ToString();
+                    user.Name = sqlDataReader["Name"].ToString();
+                    user.LastName = sqlDataReader["LastName"].ToString();
+                    user.Email = sqlDataReader["Email"].ToString();
 
                 }
                 connection.Close();
             }
-            return student;
+            return user;
 
         }
 
@@ -138,19 +139,50 @@ namespace LabMVC.Models.Data
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open(); //abre conexión
-                SqlCommand command = new SqlCommand("VerifyEmail", connection);//conexión con sql
-                command.CommandType = System.Data.CommandType.StoredProcedure;//SP
-                command.Parameters.AddWithValue("Email", studentEmail);//Parametros agregados
+                connection.Open();
+                SqlCommand command = new SqlCommand("VerifyEmail", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("Email", studentEmail);
 
-                var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int); //parametro exist
-                returnParameter.Direction = ParameterDirection.ReturnValue; //return
-                command.ExecuteNonQuery();//ejecuta
+                var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int);
+                returnParameter.Direction = ParameterDirection.ReturnValue;
+                command.ExecuteNonQuery();
 
-                int result = (int)returnParameter.Value; //captura resultado 
-                connection.Close();//cierra conexión 
+                int result = (int)returnParameter.Value; 
+                connection.Close();
 
-                if (result == 1) //valida el resultado para el return 
+                if (result == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+
+  
+
+        public Boolean loginAuthentication(string userIdCard, string userPassword)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("loginAuthentication", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("IdCard", userIdCard);
+                command.Parameters.AddWithValue("Password", userPassword);
+
+                var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int); 
+                returnParameter.Direction = ParameterDirection.ReturnValue;
+                command.ExecuteNonQuery();
+
+                int result = (int)returnParameter.Value; 
+                connection.Close();
+
+                if (result == 1) 
                 {
                     return true;
                 }
