@@ -85,6 +85,40 @@ function LoadDataAcceptDeny() {
 }
 
 
+function LoadDataAcceptDeny() {
+    $.ajax({
+        url: "/Home/GetStudents",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.idCard,
+                    item.name,
+                    item.lastName,
+                    item.email,
+                    '<td><a onclick= GetStudentByIdCard(' + JSON.stringify(item.idCard) + ')>Estado</a></td>'
+                ];
+                dataSet.push(data);
+            });
+            $('#table').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
+
+}
+
+
 function GetStudentByIdCard(ID) {
 
     $.ajax({

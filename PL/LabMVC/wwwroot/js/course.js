@@ -121,7 +121,7 @@ function GetByInitials(ID) {
 
 
 function UpdateCourse() {
-    alert("actualizanding");
+   
     var Course = {
 
         initials: $('#idCourse').val(),
