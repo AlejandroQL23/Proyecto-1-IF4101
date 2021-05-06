@@ -22,11 +22,9 @@
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
-
-
-
-
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/templatemo-style.css">
 </head>
@@ -141,7 +139,7 @@
                     <div class="feature-thumb">
                         <span>02</span>
                         <h3>Un poco de historia </h3>
-                        <p>A lo largo de este <a href="https://www.scielo.sa.cr/scielo.php?script=sci_arttext&pid=S1409-47032018000100033" target="_blank">documento</a> podras leer por parte de dos de nuestros profesores un poco de historia acerca del recinto</p>
+                        <p>A lo largo de este <a href="https://www.scielo.sa.cr/scielo.php?script=sci_arttext&pid=S1409-47032018000100033" target="_blank">documento</a> podras leer por parte de dos de nuestros profesores un poco de información refernte al estudiantado</p>
                     </div>
                 </div>
 
@@ -157,16 +155,14 @@
                     <div class="feature-thumb">
 
                         <h2>Inicia sesión</h2>
-                        <input type="text" name="full name" id="nameI" class="form-control" placeholder="Nombre de usuario" required="">
+                        <input type="text" name="full name" id="IdCardUser" class="form-control" placeholder="Nombre de usuario" required="">
 
-                        <input type="password" name="password" id="passwordI" class="form-control" placeholder="Contraseña" required="">
+                        <input type="password" name="password" id="passwordUser" class="form-control" placeholder="Contraseña" required="">
 
                         <div>
-                            <button class="submit-btn form-control" onclick="return Add()" id="form-submitI">Iniciar sesión</button>
+                            <button class="submit-btn form-control" onclick="return ValidateLogin()" id="form-submitI">Iniciar sesión</button>
                         </div>
 
-                        <!--<div id="incorrectLabel" class="hide" role="alert">Error</div>
-                        <div id="correctLabel" class="hide" role="alert">Saved information</div>-->
 
                     </div>
                 </div>
@@ -213,22 +209,22 @@
 
                 <div class="col-md-offset-1 col-md-4 col-sm-12" ">
                     <div class="entry-form">
-                        <!--<form action="#" method="post">-->
+
 
                         <h2>Registrate</h2>
-                        <input type="text" name="studentCard" id="studentCard" class="form-control" placeholder="Carné estudiantil" required="">
+                        <input type="text" name="studentCard" id="studentCard" class="form-control" placeholder="Carné estudiantil" autocomplete="off" required="">
 
-                        <input type="text" name="full name" id="name" class="form-control" placeholder="Nombre" required="">
+                        <input type="text" name="full name" id="name" class="form-control" placeholder="Nombre" autocomplete="off" required="">
 
-                        <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Apellidos" required="">
+                        <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Apellidos" autocomplete="off" required="">
 
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Correo electrónico" required="">
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Correo electrónico" autocomplete="off" required="">
 
-                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Teléfono" required="">
+                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Teléfono" autocomplete="off" required="">
 
-                        <input type="text" name="address" id="address" class="form-control" placeholder="Dirección" required="">
+                        <input type="text" name="address" id="address" class="form-control" placeholder="Dirección" autocomplete="off" required="">
 
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" required="">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" autocomplete="off" required="">
 
                         <div>
                             <button class="submit-btn form-control" onclick="return Add()" id="form-submit">Registrar</button>
@@ -237,7 +233,7 @@
                         <div id="correctLabel" class="hide" role="alert">Saved information</div>
 
 
-                        <!--</form>-->
+
                     </div>
                 </div>
 
@@ -261,16 +257,16 @@
 
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#adminProfile" onclick="return hydeShowSection('adminProfile')">Perfil</a>
+                                <a class="nav-link active" href="#adminProfile" onclick="return hydeShowSection('adminProfile'), keepSingleTabForProfile()">Perfil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#adminAcceptDeny" onclick="return hydeShowSection('adminAcceptDeny')">Solicitudes</a>
+                                <a class="nav-link" href="#adminAcceptDeny" onclick="return hydeShowSection('adminAcceptDeny'), keepSingleTabForAcceptDeny()">Solicitudes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#adminProfessor" onclick="return hydeShowSection('adminProfessor')">Ingreso de profesores</a>
+                                <a class="nav-link" href="#adminProfessor" onclick="return hydeShowSection('adminProfessor'), keepSingleTabForProfessor()">Ingreso de profesores</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#adminCourses" onclick="return hydeShowSection('adminCourses')">registro de cursos</a>
+                                <a class="nav-link" href="#adminCourses" onclick="return hydeShowSection('adminCourses'), keepSingleTabForCourses()">registro de cursos</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" onclick="return hydeShowSection('')">Agregar nooticias</a>
@@ -285,6 +281,7 @@
     <section id="adminProfile">
         <div class="container">
             <div class="row">
+
 
                 <div class="page-content page-container" id="page-content">
                     <div class="padding">
@@ -341,48 +338,16 @@
         </div>
     </section>
 
-    <!-- <section id="adminAcceptDeny">
-           <div class="container">
-               <div class="row">
-
-
-                   <div class="form-row align-items-center">
-                       <div class="col-auto my-1">
-                           <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                           <select class="form-control without-margin" id="studentAcceptDeny" name=" studentAcceptDeny" onChange="return fillInputs()">
-                               <option value="0" selected>Elija un estudiante</option>
-
-                           </select>
-                           <div class="section-inputs">
-                               <input type="text" id="chargedId" disabled>
-                               <input type="text" id="chargedName" disabled>
-                               <input type="text" id="chargedLastName" disabled>
-                               <input type="text" id="chargedEmail" disabled>
-                               <input type="text" id="chargedPhone" disabled>
-
-                           </div>
-                           <div class="col-auto my-1">
-                               <button type="submit" onclick="return AcceptStudent()" class="btn btn-primary" id="acceptStudent" name="accepStudent">Aceptar</button>
-                               <button type="submit" onclick="return denyStudent()" class="btn btn-primary" id="denyStudent" name="denyStudent">Denegar</button>
-                           </div>
-                       </div>
-
-                   </div>
-               </div>
-       </section>
-        -->
 
     <section id="adminAcceptDeny">
         <div class="container">
-
-
             <div class="row">
                 <div class="section-title">
                     <h2>Solicitudes de ingreso</h2>
                 </div>
                 <div class="col-md-12 col-sm-12">
                     <div class="table-responsive">
-                        <table class="table table-dark table-hover" id="tableAcceptDeny">
+                        <table class="table table-dark table-hover" id="table">
 
                             <thead>
                                 <tr>
@@ -406,17 +371,6 @@
                             <tbody class="tbodyAcceptDeny">
                             </tbody>
                         </table>
-
-
-
-
-
-
-
-
-
-
-
                     </div>
                     <div class="modal fade" id="modalAcceptDeny" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -474,22 +428,22 @@
 
                 <div class="col-md-offset-1 col-md-4 col-sm-12" ">
                     <div class="entry-form">
-                        <!--<form action="#" method="post">-->
+
 
                         <h2>Ingresar nuevo profesor</h2>
-                        <input type="text" name="CardProfessor" id="CardProfessor" class="form-control" placeholder="Carné profesor" required="">
+                        <input type="text" name="CardProfessor" id="CardProfessor" class="form-control" placeholder="Carné profesor" autocomplete="off" required="">
 
-                        <input type="text" name="full nameProfessor" id="nameProfessor" class="form-control" placeholder="Nombre" required="">
+                        <input type="text" name="full nameProfessor" id="nameProfessor" class="form-control" placeholder="Nombre" autocomplete="off" required="">
 
-                        <input type="text" name="lastNameProfessor" id="lastNameProfessor" class="form-control" placeholder="Apellidos" required="">
+                        <input type="text" name="lastNameProfessor" id="lastNameProfessor" class="form-control" placeholder="Apellidos" autocomplete="off" required="">
 
-                        <input type="text" name="emailProfessor" id="emailProfessor" class="form-control" placeholder="Correo electrónico" required="">
+                        <input type="text" name="emailProfessor" id="emailProfessor" class="form-control" placeholder="Correo electrónico" autocomplete="off" required="">
 
-                        <input type="text" name="phoneProfessor" id="phoneProfessor" class="form-control" placeholder="Teléfono" required="">
+                        <input type="text" name="phoneProfessor" id="phoneProfessor" class="form-control" placeholder="Teléfono" autocomplete="off" required="">
 
-                        <input type="text" name="addressProfessor" id="addressProfessor" class="form-control" placeholder="Dirección" required="">
+                        <input type="text" name="addressProfessor" id="addressProfessor" class="form-control" placeholder="Dirección" autocomplete="off" required="">
 
-                        <input type="password" name="passwordProfessor" id="passwordProfessor" class="form-control" placeholder="Contraseña" required="">
+                        <input type="password" name="passwordProfessor" id="passwordProfessor" class="form-control" placeholder="Contraseña" autocomplete="off" required="">
 
                         <div>
                             <button class="submit-btn form-control" onclick="return AddProfessor()" id="form-submitProfessor">Registrar Profesor</button>
@@ -497,7 +451,7 @@
 
 
 
-                        <!--</form>-->
+
                     </div>
                 </div>
 
@@ -509,53 +463,7 @@
 
     <section id="adminCourses">
         <div class="container">
-
-
-
             <div class="row">
-
-                <!--- <div class="col-md-6 col-sm-12">
-                    <div class="entry-form">
-
-
-                        <h2>Modificar curso</h2>
-
-                        <select class="form-control without-margin" name="EditDelete" id="EditDelete">
-                            <option value="0" selected>Seleccione el curso</option>
-                        </select>
-
-                        <input type="text" name="nameCourseEditDelete" id="nameCourseEditDelete" class="form-control" placeholder="Nombre" required="">
-
-                        <input type="text" name="creditsCourseEditDelete" id="creditsCourseEditDelete" class="form-control" placeholder="Creditos" required="">
-
-                        <select class="form-control without-margin" name="semesterEditDelete" id="semesterEditDelete">
-                            <option value="0" selected>Seleccione el semestre</option>
-                            <option >i</option>
-                            <option >ii</option>
-                            <option >iii</option>
-                        </select>
-
-                        <select class="form-control without-margin" name="scheduleCourseEditDelete" id="scheduleCourseEditDelete">
-                            <option value="0" selected>Seleccione el horario</option>
-                        </select>
-
-                        <select class="form-control without-margin" name="conditionCourseEditDelete" id="conditionCourseEditDelete">
-                            <option value="0" selected>Seleccione el estado</option>
-                            <option>Activo</option>
-                            <option>Inactivo</option>
-                        </select>
-
-                        <div>
-                            <button class="submit-btn form-control" onclick="" id="form-submitCourseEdit">Modificar</button>
-                            <button class="submit-btn form-control" onclick="" id="form-submitCourseDelete">Eliminar</button>
-                        </div>
-
-
-
-
-                    </div>
-                </div> -->
-
 
                 <div class="section-title">
                     <h2>Cursos</h2>
@@ -570,7 +478,7 @@
                                         Sigla
                                     </th>
                                     <th>
-                                        Name
+                                        Nombre
                                     </th>
                                     <th>
                                         Creditos
@@ -578,9 +486,6 @@
                                     <th>
                                         Semestre
                                     </th>
-                                    <!-- <th>
-                                    Horario
-                                       </th>-->
                                     <th>
                                         Estado
                                     </th>
@@ -593,13 +498,6 @@
                             <tbody class="tbodyCourse">
                             </tbody>
                         </table>
-
-
-
-
-
-
-
 
                     </div>
 
@@ -632,11 +530,6 @@
                                                 <option>iii</option>
                                             </select>
                                         </div>
-                                        <!--<div class="form-group">
-                                            <select class="form-control without-margin" name="scheduleCourse" id="scheduleCourse">
-                                                <option value="0" selected>Seleccione el horario</option>
-                                            </select>
-                                        </div> -->
                                         <div class="form-group">
                                             <select class="form-control without-margin" name="activityCourse" id="activityCourse">
                                                 <option value="0" selected>Seleccione el estado</option>
@@ -662,13 +555,12 @@
                 <div class="col-md-offset-1 col-md-4 col-sm-12">
                     <div class="entry-form">
 
-
                         <h2>Registrar curso</h2>
-                        <input type="text" name="acronymCourse" id="acronymCourse" class="form-control" placeholder="Sigla curso" required="">
+                        <input type="text" name="acronymCourse" id="acronymCourse" class="form-control" placeholder="Sigla curso" autocomplete="off" required="">
 
-                        <input type="text" name="nameCourse" id="nameCourse" class="form-control" placeholder="Nombre" required="">
+                        <input type="text" name="nameCourse" id="nameCourses" class="form-control" placeholder="Nombre" autocomplete="off" required="">
 
-                        <input type="text" name="creditsCourse" id="creditsCourse" class="form-control" placeholder="Creditos" required="">
+                        <input type="text" name="creditsCourse" id="creditsCourse" class="form-control" placeholder="Creditos" autocomplete="off" required="">
 
                         <select class="form-control without-margin" name="semester" id="semester">
                             <option value="0" selected>Seleccione el semestre</option>
@@ -691,7 +583,8 @@
                             <button class="submit-btn form-control" onclick="return AddCourse()" id="form-submitCourse">Agregar curso</button>
                         </div>
 
-
+                        <div id="incorrectLabelCourse" class="hide" role="alert">Error</div>
+                        <div id="correctLabelCourse" class="hide" role="alert">Saved information</div>
 
 
                     </div>
@@ -716,16 +609,16 @@
                     <div class="card card-body">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#studentProfile" onclick="return hydeShowSection('studentProfile')">Perfil</a>
+                                <a class="nav-link active" href="#studentProfile" onclick="return hydeShowSection('studentProfile'), keepSingleTabForstudentProfile()">Perfil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#studentCourses" onclick="return hydeShowSection('studentCourses')">Cursos</a>
+                                <a class="nav-link" href="#studentCourses" onclick="return hydeShowSection('studentCourses'), keepSingleTabForstudentCourses()">Cursos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#studentHoursOfAttention" onclick="return hydeShowSection('studentHoursOfAttention')">Consultas</a>
+                                <a class="nav-link" href="#studentHoursOfAttention" onclick="return hydeShowSection('studentHoursOfAttention'),keepSingleTabForstudentHoursOfAttention()">Consultas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#studentNews" onclick="return hydeShowSection('studentNews')">Noticias</a>
+                                <a class="nav-link" href="#studentNews" onclick="return hydeShowSection('studentNews'), keepSingleTabForstudentNews()">Noticias</a>
                             </li>
                         </ul>
                     </div>
@@ -1207,15 +1100,19 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/smoothscroll.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/student.js"></script>
+    <script src="js/course.js"></script>
+    <script src="js/administrator.js"></script>
     <script src="js/site.js"></script>
     <script src="~/Scripts/jquery-1.9.1.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="~/Content/datatables.css" rel="stylesheet" />
+    <script src="js/datatables.js"></script>
+   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css%22%3E">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E</script>"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js%22%3E</script>"></script>
-
-
 
 
 </body>

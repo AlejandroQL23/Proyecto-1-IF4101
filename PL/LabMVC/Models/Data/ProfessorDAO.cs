@@ -1,4 +1,5 @@
-﻿using LabMVC15_04_2021.Models.DomainD;
+﻿using LabMVC.Models.Domain;
+using LabMVC15_04_2021.Models.DomainD;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace LabMVC.Models.Data
 
         }
 
-        public int Insert(Professor professor)
+        public int Insert(User user)
         {
 
             int resultToReturn;
@@ -38,13 +39,13 @@ namespace LabMVC.Models.Data
                 connection.Open();
                 SqlCommand command = new SqlCommand("CreateProfessor", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Id_Card", professor.IdCard);
-                command.Parameters.AddWithValue("@Name", professor.Name);
-                command.Parameters.AddWithValue("@Last_Name", professor.LastName);
-                command.Parameters.AddWithValue("@Email", professor.Email);
-                command.Parameters.AddWithValue("@Password", professor.Password);
-                command.Parameters.AddWithValue("@Phone", professor.Phone);
-                command.Parameters.AddWithValue("@Address", professor.Address);
+                command.Parameters.AddWithValue("@IdCard", user.IdCard);
+                command.Parameters.AddWithValue("@Name", user.Name);
+                command.Parameters.AddWithValue("@LastName", user.LastName);
+                command.Parameters.AddWithValue("@Email", user.Email);
+                command.Parameters.AddWithValue("@Password", user.Password);
+                command.Parameters.AddWithValue("@Phone", user.Phone);
+                command.Parameters.AddWithValue("@Address", user.Address);
 
                 resultToReturn = command.ExecuteNonQuery();
                 connection.Close();

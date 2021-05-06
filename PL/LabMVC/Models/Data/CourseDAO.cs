@@ -77,11 +77,11 @@ namespace LabMVC.Models.Data
 
                 }
 
-                connection.Close(); //cerramos conexión. 
+                connection.Close(); 
             }
 
 
-            return courses; //retornamos resultado al Controller.  
+            return courses;
 
         }
 
@@ -89,18 +89,18 @@ namespace LabMVC.Models.Data
         public Course Get(string id)
         {
             Course course = null;
-            //usaremos using para englobar todo lo que tiene que ver con una misma cosa u objeto. En este caso, todo lo envuelto acá tiene que ver con connection, la cual sacamos con la clase SqlConnection y con el string de conexión que tenemos en nuestro appsetting.json
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open(); //abrimos conexión
-                SqlCommand command = new SqlCommand("ReadCourse", connection);//llamamos a un procedimiento almacenado (SP) que crearemos en el punto siguiente. La idea es no tener acá en el código una sentencia INSERT INTO directa, pues es una mala práctica y además insostenible e inmantenible en el tiempo. 
-                command.CommandType = System.Data.CommandType.StoredProcedure; //acá decimos que lo que se ejecutará es un SP
+                connection.Open(); 
+                SqlCommand command = new SqlCommand("ReadCourse", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Initials", id);
 
-                //logica del get/select
+              
                 SqlDataReader sqlDataReader = command.ExecuteReader();
                 course = new Course();
-                //leemos la fila proveniente de BD, si es que viene alguna
+                
                 if (sqlDataReader.Read())
                 {
                     course.Initials = sqlDataReader["Initials"].ToString();
@@ -111,11 +111,11 @@ namespace LabMVC.Models.Data
 
                 }
 
-                connection.Close(); //cerramos conexión. 
+                connection.Close(); 
             }
 
 
-            return course; //retornamos resultado al Controller.  
+            return course; 
 
         }
 
@@ -138,10 +138,6 @@ namespace LabMVC.Models.Data
 
 
         }
-
-
-        //------------------------------------------------------------------------------------
-
 
 
         public int UpdateCourse(Course course)
