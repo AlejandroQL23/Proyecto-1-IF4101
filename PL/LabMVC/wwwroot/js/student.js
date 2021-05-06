@@ -12,13 +12,10 @@ function Add() {
         password: $('#password').val(),
         phone: $('#phone').val(),
         address: $('#address').val()
-
     };
 
     var messageValidate = validateStudent(user);
     if (messageValidate == "") {
-
-
         $.ajax({
             url: "/Home/Insert",
             data: JSON.stringify(user),
@@ -29,7 +26,6 @@ function Add() {
 
                 clean();
                 LoadDataAcceptDeny();
-
                 var done = $('#correctLabel');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")
@@ -44,7 +40,6 @@ function Add() {
                 response.html("El usuario ya está registrado");
                 response.fadeIn(1500);
                 response.fadeOut(4000);
-
             }
         });
     } else {
@@ -55,7 +50,6 @@ function Add() {
         response.fadeIn(1800);
         response.fadeOut(4000);
     }
-
 }
 
 function LoadDataAcceptDeny() {
@@ -75,7 +69,6 @@ function LoadDataAcceptDeny() {
                 html += '<td><a onclick= GetStudentByIdCard(' + JSON.stringify(item.idCard) + ')>Estado</a></td>';
             });
             $('.tbodyAcceptDeny').html(html);
-
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
@@ -109,13 +102,11 @@ function LoadDataAcceptDeny() {
                 data: dataSet,
                 "bDestroy": true
             });
-
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
         }
     })
-
 }
 
 
@@ -131,10 +122,8 @@ function GetStudentByIdCard(ID) {
             $('#nameStudent').val(result.name);
             $('#lastNameStudent').val(result.lastName);
             $('#emailStudent').val(result.email);
-
             $('#modalAcceptDeny').modal('show');
             $('#btnAcceptDeny').show();
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -142,6 +131,7 @@ function GetStudentByIdCard(ID) {
     });
     return false;
 }
+
 
 function clean() {
     document.getElementById('studentCard').value = '';
@@ -152,7 +142,6 @@ function clean() {
     document.getElementById('phone').value = '';
     document.getElementById('address').value = '';
 }
-
 
 
 function validateStudent(user) {
@@ -173,7 +162,6 @@ function validateStudent(user) {
         return "Se requiere una dirección";
     } else if (user.password == "") {
         return "Se requiere una contraseña";
-
     } else {
         return "";
     }

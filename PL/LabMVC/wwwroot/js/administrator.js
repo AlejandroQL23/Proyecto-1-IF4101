@@ -1,9 +1,8 @@
 ﻿$(document).ready(function () {
-   
+
 });
 
 function AddProfessor() {
-
     var user = {
         idCard: $('#CardProfessor').val(),
         name: $('#nameProfessor').val(),
@@ -12,7 +11,6 @@ function AddProfessor() {
         password: $('#passwordProfessor').val(),
         phone: $('#phoneProfessor').val(),
         address: $('#addressProfessor').val()
-
     };
 
     $.ajax({
@@ -22,27 +20,16 @@ function AddProfessor() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            
-
 
         },
         error: function (errorMessage) {
 
-            
         }
     });
-
-
 }
 
-
-
-
-
 function AcceptDenyStudent() {
-
     var user = {
-
         idCard: $("#idStudent").val(),
         name: $("#nameStudent").val(),
         lastName: $("#lastNameStudent").val(),
@@ -57,16 +44,12 @@ function AcceptDenyStudent() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
             LoadDataAcceptDeny();
             $('#modalAcceptDeny').modal('hide');
-
         },
         error: function (errorMessage) {
 
-
         }
     });
-
 
 }

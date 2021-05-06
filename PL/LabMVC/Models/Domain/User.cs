@@ -22,11 +22,9 @@ namespace LabMVC.Models.Domain
         private string personalFormation;
         private string dateTime;
         private string instagram;
-        private string facebook;      
+        private string facebook;
         private string picture;
 
-
-        
         public User(int id, string idCard, string name, string lastName, string email, string password, string rol, string phone, string address, int activity, string approval, int presidency, string personalFormation, string dateTime, string instagram, string facebook, string picture)
         {
             this.Id = id;
@@ -48,11 +46,8 @@ namespace LabMVC.Models.Domain
             this.Picture = picture;
         }
 
-
         public User()
         {
-
-
         }
         public int Id { get => id; set => id = value; }
         public string IdCard { get => idCard; set => idCard = value; }

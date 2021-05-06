@@ -12,13 +12,12 @@ using System.Diagnostics;
 
 namespace LabMVC.Controllers
 {
-
     public class HomeController : Controller
     {
         StudentDAO studentDAO;
         ProfessorDAO professorDAO;
         CourseDAO courseDAO;
-        
+
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
 
@@ -26,7 +25,6 @@ namespace LabMVC.Controllers
         {
             _logger = logger;
             _configuration = configuration;
-
         }
 
         public IActionResult Index()
@@ -41,20 +39,14 @@ namespace LabMVC.Controllers
 
         public IActionResult InsertCourses([FromBody] Course course)
         {
-            
             courseDAO = new CourseDAO(_configuration);
-            int resultToReturn = courseDAO.Insert(course);
-           
-            return Ok(resultToReturn);
-
+            return Ok(courseDAO.Insert(course));
         }
 
 
         public IActionResult Insert([FromBody] User user)
         {
-
             studentDAO = new StudentDAO(_configuration);
-
             if (studentDAO.VerifyEmail(user.Email))
             {
                 return Error();
@@ -74,10 +66,8 @@ namespace LabMVC.Controllers
 
         public IActionResult InsertProfessor([FromBody] User user)
         {
-
             professorDAO = new ProfessorDAO(_configuration);
-
-                int resultToReturn = professorDAO.Insert(user);
+            int resultToReturn = professorDAO.Insert(user);
             professorDAO.SendEmail(user.Email, "❁→❝Trámites de Inscripción Listo❞❁",
                            "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
                            "<br/><h3>Sede: Atlántico<br/>" +
@@ -85,12 +75,10 @@ namespace LabMVC.Controllers
                            "<br/>Le solicitamos atentamente que revise esta y más de su infomación oficial en el entorno de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/), así mismo, revisar en días posteriores al proceso de matrícula estudiantil si su respectivo entorno está habilitado en Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
                            "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
             return Ok(resultToReturn);
-           
         }
 
         public IActionResult UpdateApprovalAcceptDeny([FromBody] User user)
         {
-
             studentDAO = new StudentDAO(_configuration);
             if (user.Approval == "Aceptado")
             {
@@ -117,11 +105,8 @@ namespace LabMVC.Controllers
             }
         }
 
-        
-
         public IActionResult GetStudents()
-        { 
-           
+        {
             studentDAO = new StudentDAO(_configuration);
             return Ok(studentDAO.Get());
         }
@@ -131,35 +116,25 @@ namespace LabMVC.Controllers
         {
             courseDAO = new CourseDAO(_configuration);
             return Ok(courseDAO.Get());
-
         }
 
         public IActionResult GetById(string id)
         {
             courseDAO = new CourseDAO(_configuration);
             return Ok(courseDAO.Get(id));
-
         }
-       
+
         public IActionResult DeleteCourse(string id)
         {
-
-           
             courseDAO = new CourseDAO(_configuration);
             return Ok(courseDAO.DeleteCourse(id));
-
         }
-
-
-        //---------------------------------------------------------------------
 
         public IActionResult LoginAuthentication(User user)
         {
-
-            if(studentDAO.loginAuthentication(user.IdCard, user.Password))
+            if (studentDAO.loginAuthentication(user.IdCard, user.Password))
             {
                 return Ok();
-
             }
             else
             {
@@ -167,24 +142,17 @@ namespace LabMVC.Controllers
             }
         }
 
-        //---------------------------------------------------------------------
         public IActionResult UpdateCourse([FromBody] Course course)
         {
-
-           
             courseDAO = new CourseDAO(_configuration);
             return Ok(courseDAO.UpdateCourse(course));
-
         }
 
         public IActionResult GetStudentById(string id)
         {
             studentDAO = new StudentDAO(_configuration);
             return Ok(studentDAO.Get(id));
-
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
