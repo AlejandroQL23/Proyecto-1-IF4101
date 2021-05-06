@@ -5,12 +5,12 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\diego\.nuget\packages\</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Ale\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
     <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.9.1</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\diego\.nuget\packages\" />
+    <SourceRoot Include="C:\Users\Ale\.nuget\packages\" />
   </ItemGroup>
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -178,7 +178,7 @@
     </Content>
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgjQuery1 Condition=" '$(PkgjQuery1)' == '' ">C:\Users\diego\.nuget\packages\jquery1\1.12.4</PkgjQuery1>
-    <PkgjQuery Condition=" '$(PkgjQuery)' == '' ">C:\Users\diego\.nuget\packages\jquery\3.0.0</PkgjQuery>
+    <PkgjQuery1 Condition=" '$(PkgjQuery1)' == '' ">C:\Users\Ale\.nuget\packages\jquery1\1.12.4</PkgjQuery1>
+    <PkgjQuery Condition=" '$(PkgjQuery)' == '' ">C:\Users\Ale\.nuget\packages\jquery\3.0.0</PkgjQuery>
   </PropertyGroup>
 </Project>
