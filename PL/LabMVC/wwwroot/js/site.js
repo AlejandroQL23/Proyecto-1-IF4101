@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    
     hydeShowSection('about');
     hydeShowSection('adminProfile');
     hydeShowSection('adminAcceptDeny');
@@ -25,7 +24,7 @@ function hydeShowSection(a) {
 }
 
 
-function keepSingleTabForProfile (){
+function keepSingleTabForProfile() {
     document.getElementById('adminAcceptDeny').style.display = 'none';
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
@@ -36,7 +35,6 @@ function keepSingleTabForAcceptDeny() {
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
 }
-
 
 function keepSingleTabForProfessor() {
     document.getElementById('adminAcceptDeny').style.display = 'none';
@@ -77,9 +75,8 @@ function keepSingleTabForstudentNews() {
 function ValidateLogin() {
 
     var user = {
-       idCard: $('#IdCardUser').val(),
-       password: $('#passwordUser').val()
-
+        idCard: $('#IdCardUser').val(),
+        password: $('#passwordUser').val()
     };
 
     $.ajax({
@@ -92,12 +89,7 @@ function ValidateLogin() {
 
         },
         error: function (errorMessage) {
-
-            alert("errorsirijillo");
-
+            alert("fallo al iniciar sesión");
         }
     });
-
-
-
 }

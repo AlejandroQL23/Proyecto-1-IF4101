@@ -19,21 +19,16 @@ namespace LabMVC.Models.Data
         {
             _configuration = configuration;
             connectionString = _configuration.GetConnectionString("DefaultConnection");
-
         }
         public StudentDAO()
         {
-
         }
 
         public int Insert(User user)
         {
-
             int resultToReturn;
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
                 connection.Open();
                 SqlCommand command = new SqlCommand("CreateStudent", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -44,47 +39,33 @@ namespace LabMVC.Models.Data
                 command.Parameters.AddWithValue("@Password", user.Password);
                 command.Parameters.AddWithValue("@Phone", user.Phone);
                 command.Parameters.AddWithValue("@Address", user.Address);
-
                 resultToReturn = command.ExecuteNonQuery();
                 connection.Close();
-
             }
-
             return resultToReturn;
-
         }
 
         public int UpdateApproval(User user)
         {
-
             int resultToReturn;
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
                 connection.Open();
                 SqlCommand command = new SqlCommand("UpdateStudentApproval", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@IdCard", user.IdCard);
                 command.Parameters.AddWithValue("@Approval", user.Approval);
-
                 resultToReturn = command.ExecuteNonQuery();
                 connection.Close();
-
             }
-
             return resultToReturn;
-
         }
-
 
         public List<User> Get()
         {
             List<User> users = new List<User>();
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
                 connection.Open();
                 SqlCommand command = new SqlCommand("ReadStudents", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -100,25 +81,20 @@ namespace LabMVC.Models.Data
                         Phone = sqlDataReader["Phone"].ToString()
                     });
                 }
-
                 connection.Close();
             }
             return users;
-
-
         }
-
 
         public User Get(string id)
         {
-           User user = null;
+            User user = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("SelectStudentByID", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@StudentId", id);
-
                 SqlDataReader sqlDataReader = command.ExecuteReader();
                 user = new User();
                 if (sqlDataReader.Read())
@@ -127,12 +103,10 @@ namespace LabMVC.Models.Data
                     user.Name = sqlDataReader["Name"].ToString();
                     user.LastName = sqlDataReader["LastName"].ToString();
                     user.Email = sqlDataReader["Email"].ToString();
-
                 }
                 connection.Close();
             }
             return user;
-
         }
 
         public Boolean VerifyEmail(string studentEmail)
@@ -143,14 +117,11 @@ namespace LabMVC.Models.Data
                 SqlCommand command = new SqlCommand("VerifyEmail", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("Email", studentEmail);
-
                 var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int);
                 returnParameter.Direction = ParameterDirection.ReturnValue;
                 command.ExecuteNonQuery();
-
-                int result = (int)returnParameter.Value; 
+                int result = (int)returnParameter.Value;
                 connection.Close();
-
                 if (result == 1)
                 {
                     return true;
@@ -159,11 +130,8 @@ namespace LabMVC.Models.Data
                 {
                     return false;
                 }
-
             }
         }
-
-  
 
         public Boolean loginAuthentication(string userIdCard, string userPassword)
         {
@@ -174,15 +142,12 @@ namespace LabMVC.Models.Data
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("IdCard", userIdCard);
                 command.Parameters.AddWithValue("Password", userPassword);
-
-                var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int); 
+                var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int);
                 returnParameter.Direction = ParameterDirection.ReturnValue;
                 command.ExecuteNonQuery();
-
-                int result = (int)returnParameter.Value; 
+                int result = (int)returnParameter.Value;
                 connection.Close();
-
-                if (result == 1) 
+                if (result == 1)
                 {
                     return true;
                 }
@@ -190,14 +155,12 @@ namespace LabMVC.Models.Data
                 {
                     return false;
                 }
-
             }
         }
 
 
         public void SendEmail(String addressee, String title, String message)
         {
-
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
@@ -207,9 +170,6 @@ namespace LabMVC.Models.Data
             MailMessage mailMessage = new MailMessage("aldifasoft0@gmail.com", addressee, title, message);
             mailMessage.IsBodyHtml = true;
             smtpClient.Send(mailMessage);
-
         }
     }
-
 }
-
