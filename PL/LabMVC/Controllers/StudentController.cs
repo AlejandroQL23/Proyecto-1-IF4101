@@ -1,0 +1,168 @@
+﻿using LabMVC.Models.Data;
+using LabMVC.Models.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace LabMVC.Controllers
+{
+    public class StudentController : Controller
+    {
+        private readonly ALDIFA_SOFT_MVC_IF4101Context _context;
+        StudentDAO studentDAO;
+
+
+        public StudentController(ALDIFA_SOFT_MVC_IF4101Context context)
+        {
+            _context = context;
+        }
+
+
+        // GET: StudentController
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// //////////////////////////////
+        /// </summary>
+        /// <returns></returns>
+
+        public ActionResult GetEFExplicit()
+        {
+            studentDAO = new StudentDAO(_context);
+            return Ok(studentDAO.GetEFExplicit());
+        }
+
+        public ActionResult GetEF()
+        {
+            studentDAO = new StudentDAO(_context);
+            return Ok(studentDAO.GetEF());
+        }
+
+        public ActionResult AddEF([FromBody] User user)
+        {
+            studentDAO = new StudentDAO(_context);
+
+                studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción En Espera❞❁",
+                              "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
+                              "<br/><h3>Sede: Atlántico<br/>" +
+                              "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática Empresarial se encuentra en estado de espera hasta que uno de nuestros administradores revise su solicitud...<br/>" +
+                              "<br/>En caso de que su solicitud sea rechazada y tenga alguna consulta con el resultado del registro, puede contactarse con el servicio de atención en la página oficial de Orientación y Registro(https://ori.ucr.ac.cr/), o bien, con el coordinador de la carrera mediante correo institucional(alvaro.mena@ucr.ac.cr)<br/>" +
+                              "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+                return Ok(studentDAO.Add(user));
+            
+        }
+
+        //DELETE STUDENT
+
+        public ActionResult UpdateApprovalAcceptDenyEF([FromBody] User user)
+        {
+            studentDAO = new StudentDAO(_context);
+            if (user.Approval == "Aceptado")
+            {
+                int resultToReturn = studentDAO.Edit(user);
+                studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción Aceptada❞❁",
+               "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
+               "<br/><h3>Sede: Atlántico<br/>" +
+               "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido aceptada con éxito, por este medio le recordamos de igual manera que su carné estudiantil es " + user.IdCard + ", el cuál será de suma importancia para los trámites oficiales dentro de la Universidad <br/>" +
+               "<br/>Le pedimos porfavor que verifique la carrera en el sitio oficial de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/) con motivo del cercano proceos de matrícula. Así mismo registrarse en el sitio oficial de la universidad para el manejo de cada curso, Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
+               "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+                return Ok(resultToReturn);
+            }
+            else
+            {
+                int resultToReturn = studentDAO.Edit(user);
+                studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción Rechazada❞❁",
+                               "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
+                               "<br/><h3>Sede: Atlántico<br/>" +
+                               "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido rechazada, por lo tanto su actividad dentro de la carrera estará automaticamente inactivo dentro de los registros de la carrera <br/>" +
+                               "<br/>En caso de tener una consulta con respecto al resultado de su solicitud, porfavor consultar con la Oficina de Orientación y Registros(https://ori.ucr.ac.cr/) o bien al coordinador de la carrera(alvaro.mena@ucr.ac.cr)<br/>" +
+                               "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+                return Ok(resultToReturn);
+
+            }
+        }
+
+
+
+        /// <summary>
+        /// //////////////////////////////
+        /// </summary>
+
+
+        // GET: StudentController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: StudentController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: StudentController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: StudentController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: StudentController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: StudentController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: StudentController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
