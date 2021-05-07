@@ -7,12 +7,17 @@ using LabMVC15_04_2021.Models.DomainD;
 using System.Data;
 using System.Collections.Generic;
 using LabMVC.Models.Domain;
+using LabMVC.Models.Entities;
+using User = LabMVC.Models.Domain.User;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace LabMVC.Models.Data
 {
     public class StudentDAO
     {
         private readonly IConfiguration _configuration;
+        private readonly ALDIFA_SOFT_MVC_IF4101Context _context;
         string connectionString;
 
         public StudentDAO(IConfiguration configuration)
@@ -22,6 +27,12 @@ namespace LabMVC.Models.Data
         }
         public StudentDAO()
         {
+        }
+
+        /// <param name="context"></param>
+        public StudentDAO(ALDIFA_SOFT_MVC_IF4101Context context)
+        {
+            _context = context;
         }
 
         public int Insert(User user)
@@ -171,5 +182,100 @@ namespace LabMVC.Models.Data
             mailMessage.IsBodyHtml = true;
             smtpClient.Send(mailMessage);
         }
+
+
+        public List<Entities.User> GetEFExplicit()
+        {
+            List<Entities.User> students = null;
+
+            using (var context = new ALDIFA_SOFT_MVC_IF4101Context())
+            {
+                students = context.Users.Select(studentItem => new Entities.User()
+                  {
+                      Id = studentItem.Id,
+                      Name = studentItem.Name,
+                      Email = studentItem.Email,
+                      Password = studentItem.Password
+
+                  }).ToList<Entities.User>();
+            }
+
+            return students;
+
+        }
+
+        public IEnumerable<Entities.User> GetEF()
+        {
+            var users = _context.Users;
+            return users.ToList();
+        }
+
+        public int Add(Entities.User student)
+        {
+            int resultToReturn;
+            try
+            {
+                _context.Add(student);
+                resultToReturn = _context.SaveChangesAsync().Result;
+            }
+
+            catch (DbUpdateException)
+            {
+
+                throw;
+
+            }
+            return resultToReturn;
+
+        }
+
+        public int Remove(Entities.User student)
+        {
+            int resultToReturn;
+            var studentToRemove = _context.Users.Find(student.Id);
+            _context.Users.Remove(studentToRemove);
+            resultToReturn = _context.SaveChangesAsync().Result;
+
+            return resultToReturn;
+
+        }
+
+        public int Edit(Entities.User student)
+        {
+            int resultToReturn = 0;
+
+            try
+            {
+                if (!StudentExists(student.Id))
+                {
+                    _context.Update(student);
+                    resultToReturn = _context.SaveChangesAsync().Result;
+                }
+
+            }
+            catch (DbUpdateException)
+            {
+
+                throw;
+
+            }
+
+            return resultToReturn;
+
+        }
+        private bool StudentExists(int id)
+        {
+            return _context.Users.Any(e => e.Id == id);
+        }
+
+        private bool EmailExists(string email)
+        {
+            return _context.Users.Any(e => e.Email.Equals(email));
+        }
+        private bool PasswordExists(string pass)
+        {
+            return _context.Users.Any(e => e.Password.Equals(pass));
+        }
+
     }
 }

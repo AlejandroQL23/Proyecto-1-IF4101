@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    LoadDataAcceptDeny();
+    LoadDataAcceptDenyEF();
 });
 
 function Add() {
@@ -52,6 +52,57 @@ function Add() {
     }
 }
 
+function AddEF() {
+
+    var user = {
+        idCard: $('#studentCard').val(),
+        name: $('#name').val(),
+        lastName: $('#lastName').val(),
+        email: $('#email').val(),
+        password: $('#password').val(),
+        phone: $('#phone').val(),
+        address: $('#address').val()
+    };
+
+    var messageValidate = validateStudent(user);
+    if (messageValidate == "") {
+        $.ajax({
+            url: "/Student/AddEF",
+            data: JSON.stringify(user),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                clean();
+                LoadDataAcceptDenyEF();
+                var done = $('#correctLabel');
+                done.removeClass();
+                done.addClass("alert alert-success register-alert")
+                done.fadeIn(1500);
+                done.fadeOut(4000);
+
+            },
+            error: function (errorMessage) {
+                var response = $('#incorrectLabel');
+                response.removeClass();
+                response.addClass("alert alert-warning register-alert");
+                response.html("El usuario ya está registrado");
+                response.fadeIn(1500);
+                response.fadeOut(4000);
+            }
+        });
+    } else {
+        var response = $('#incorrectLabel');
+        response.removeClass();
+        response.addClass("alert alert-danger register-alert");
+        response.html(messageValidate);
+        response.fadeIn(1800);
+        response.fadeOut(4000);
+    }
+}
+
+
 
 
 function LoadDataAcceptDeny() {
@@ -84,6 +135,38 @@ function LoadDataAcceptDeny() {
         }
     })
 }
+
+function LoadDataAcceptDenyEF() {
+    $.ajax({
+        url: "/Student/GetEF",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.idCard,
+                    item.name,
+                    item.lastName,
+                    item.email,
+                    '<td><a onclick= GetStudentByIdCard(' + JSON.stringify(item.idCard) + ')>Estado</a></td>'
+                ];
+                dataSet.push(data);
+            });
+            $('#table').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
+}
+
 
 
 function GetStudentByIdCard(ID) {
