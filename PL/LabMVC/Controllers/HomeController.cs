@@ -37,99 +37,6 @@ namespace LabMVC.Controllers
             return View();
         }
 
-        public IActionResult InsertCourses([FromBody] Course course)
-        {
-            courseDAO = new CourseDAO(_configuration);
-            return Ok(courseDAO.Insert(course));
-        }
-
-
-        public IActionResult Insert([FromBody] User user)
-        {
-            studentDAO = new StudentDAO(_configuration);
-            if (studentDAO.VerifyEmail(user.Email))
-            {
-                return Error();
-            }
-            else
-            {
-                int resultToReturn = studentDAO.Insert(user);
-                studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción En Espera❞❁",
-                              "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
-                              "<br/><h3>Sede: Atlántico<br/>" +
-                              "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática Empresarial se encuentra en estado de espera hasta que uno de nuestros administradores revise su solicitud...<br/>" +
-                              "<br/>En caso de que su solicitud sea rechazada y tenga alguna consulta con el resultado del registro, puede contactarse con el servicio de atención en la página oficial de Orientación y Registro(https://ori.ucr.ac.cr/), o bien, con el coordinador de la carrera mediante correo institucional(alvaro.mena@ucr.ac.cr)<br/>" +
-                              "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
-                return Ok(resultToReturn);
-            }
-        }
-
-        public IActionResult InsertProfessor([FromBody] User user)
-        {
-            professorDAO = new ProfessorDAO(_configuration);
-            int resultToReturn = professorDAO.Insert(user);
-            professorDAO.SendEmail(user.Email, "❁→❝Trámites de Inscripción Listo❞❁",
-                           "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
-                           "<br/><h3>Sede: Atlántico<br/>" +
-                           "<br/>Queremos informarle que el proceso de su inscripción al entorno oficial de Informática Empresarial para la Sede del Atlántico ha sido procesada y terminada con éxito, le hemos asignado una identificación oficial la cual es: " + user.IdCard + ", el cual necesitará para autenticarse en nuestros sitios oficiales con sesión de Profesor.  <br/>" +
-                           "<br/>Le solicitamos atentamente que revise esta y más de su infomación oficial en el entorno de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/), así mismo, revisar en días posteriores al proceso de matrícula estudiantil si su respectivo entorno está habilitado en Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
-                           "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
-            return Ok(resultToReturn);
-        }
-
-        public IActionResult UpdateApprovalAcceptDeny([FromBody] User user)
-        {
-            studentDAO = new StudentDAO(_configuration);
-            if (user.Approval == "Aceptado")
-            {
-                int resultToReturn = studentDAO.UpdateApproval(user);
-                studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción Aceptada❞❁",
-               "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
-               "<br/><h3>Sede: Atlántico<br/>" +
-               "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido aceptada con éxito, por este medio le recordamos de igual manera que su carné estudiantil es " + user.IdCard + ", el cuál será de suma importancia para los trámites oficiales dentro de la Universidad <br/>" +
-               "<br/>Le pedimos porfavor que verifique la carrera en el sitio oficial de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/) con motivo del cercano proceos de matrícula. Así mismo registrarse en el sitio oficial de la universidad para el manejo de cada curso, Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
-               "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
-                return Ok(resultToReturn);
-            }
-            else
-            {
-                int resultToReturn = studentDAO.UpdateApproval(user);
-                studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción Rechazada❞❁",
-                               "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
-                               "<br/><h3>Sede: Atlántico<br/>" +
-                               "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática ha sido rechazada, por lo tanto su actividad dentro de la carrera estará automaticamente inactivo dentro de los registros de la carrera <br/>" +
-                               "<br/>En caso de tener una consulta con respecto al resultado de su solicitud, porfavor consultar con la Oficina de Orientación y Registros(https://ori.ucr.ac.cr/) o bien al coordinador de la carrera(alvaro.mena@ucr.ac.cr)<br/>" +
-                               "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
-                return Ok(resultToReturn);
-
-            }
-        }
-
-        public IActionResult GetStudents()
-        {
-            studentDAO = new StudentDAO(_configuration);
-            return Ok(studentDAO.Get());
-        }
-
-
-        public IActionResult GetCourses()
-        {
-            courseDAO = new CourseDAO(_configuration);
-            return Ok(courseDAO.Get());
-        }
-
-        public IActionResult GetById(string id)
-        {
-            courseDAO = new CourseDAO(_configuration);
-            return Ok(courseDAO.Get(id));
-        }
-
-        public IActionResult DeleteCourse(string id)
-        {
-            courseDAO = new CourseDAO(_configuration);
-            return Ok(courseDAO.DeleteCourse(id));
-        }
-
         public IActionResult LoginAuthentication(User user)
         {
             if (studentDAO.loginAuthentication(user.IdCard, user.Password))
@@ -140,18 +47,6 @@ namespace LabMVC.Controllers
             {
                 return Error();
             }
-        }
-
-        public IActionResult UpdateCourse([FromBody] Course course)
-        {
-            courseDAO = new CourseDAO(_configuration);
-            return Ok(courseDAO.UpdateCourse(course));
-        }
-
-        public IActionResult GetStudentById(string id)
-        {
-            studentDAO = new StudentDAO(_configuration);
-            return Ok(studentDAO.Get(id));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

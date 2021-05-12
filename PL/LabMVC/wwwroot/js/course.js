@@ -9,12 +9,11 @@ function AddCourse() {
         credits: parseInt($('#creditsCourse').val()),
         semester: $('#semester').val(),
         scheduleId: parseInt($('#scheduleCourse').val()),
-        activity: parseInt($('#conditionCourse').val())
+        activity: true //ARREGLAR
     };
 
-
     $.ajax({
-        url: "/Home/InsertCourses",
+        url: "/Course/AddCourse",
         data: JSON.stringify(course),
         type: "POST",
         contentType: "application/json;charset=utf-8",
@@ -32,20 +31,21 @@ function AddCourse() {
 
 function LoadDataCourses() {
     $.ajax({
-        url: "/Home/GetCourses",
+        url: "/Course/GetCourses",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             dataSet = new Array();
-            var html = '';
+            var activity = '';
             $.each(result, function (key, item) {
+                activity = item.activity == 0 ? '<td>' + "Inactivo" + '</td>' : '<td>' + "Activo" + '</td>';
                 data = [
                     item.initials,
                     item.name,
                     item.credits,
                     item.semester,
-                    item.activity,
+                    activity,
                     '<td><a onclick= GetByInitials(' + JSON.stringify(item.initials) + ')>Actualizar</a> | <a onclick= DeleteCourse(' + JSON.stringify(item.initials) + ')>Eliminar</a></td>'
                 ];
                 dataSet.push(data);
@@ -64,7 +64,7 @@ function LoadDataCourses() {
 
 function DeleteCourse(ID) {
     $.ajax({
-        url: "/Home/DeleteCourse/" + ID,
+        url: "/Course/RemoveCourse/" + ID,
         type: "POST",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -80,7 +80,7 @@ function DeleteCourse(ID) {
 function GetByInitials(ID) {
 
     $.ajax({
-        url: "/Home/GetById/" + ID,
+        url: "/Course/GetCourseById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -107,10 +107,10 @@ function UpdateCourse() {
         name: $('#nameCourse').val(),
         credits: parseInt($('#creditCourse').val()),
         semester: $('#semesterCourse').val(),
-        activity: parseInt($('#activityCourse').val())
+        activity: false
     };
     $.ajax({
-        url: "/Home/UpdateCourse",
+        url: "/Course/EditCourse",
         data: JSON.stringify(Course),
         type: "POST",
         contentType: "application/json;charset=utf-8",

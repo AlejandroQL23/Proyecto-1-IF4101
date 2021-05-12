@@ -7,12 +7,17 @@ using LabMVC15_04_2021.Models.DomainD;
 using System.Data;
 using System.Collections.Generic;
 using LabMVC.Models.Domain;
+using LabMVC.Models.Entities;
+using User = LabMVC.Models.Domain.User;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace LabMVC.Models.Data
 {
     public class StudentDAO
     {
         private readonly IConfiguration _configuration;
+        private readonly ALDIFA_SOFT_MVC_IF4101Context _context;
         string connectionString;
 
         public StudentDAO(IConfiguration configuration)
@@ -24,89 +29,10 @@ namespace LabMVC.Models.Data
         {
         }
 
-        public int Insert(User user)
+        /// <param name="context"></param>
+        public StudentDAO(ALDIFA_SOFT_MVC_IF4101Context context)
         {
-            int resultToReturn;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("CreateStudent", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@IdCard", user.IdCard);
-                command.Parameters.AddWithValue("@Name", user.Name);
-                command.Parameters.AddWithValue("@LastName", user.LastName);
-                command.Parameters.AddWithValue("@Email", user.Email);
-                command.Parameters.AddWithValue("@Password", user.Password);
-                command.Parameters.AddWithValue("@Phone", user.Phone);
-                command.Parameters.AddWithValue("@Address", user.Address);
-                resultToReturn = command.ExecuteNonQuery();
-                connection.Close();
-            }
-            return resultToReturn;
-        }
-
-        public int UpdateApproval(User user)
-        {
-            int resultToReturn;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("UpdateStudentApproval", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@IdCard", user.IdCard);
-                command.Parameters.AddWithValue("@Approval", user.Approval);
-                resultToReturn = command.ExecuteNonQuery();
-                connection.Close();
-            }
-            return resultToReturn;
-        }
-
-        public List<User> Get()
-        {
-            List<User> users = new List<User>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("ReadStudents", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlDataReader sqlDataReader = command.ExecuteReader();
-                while (sqlDataReader.Read())
-                {
-                    users.Add(new User
-                    {
-                        IdCard = sqlDataReader["IdCard"].ToString(),
-                        Name = sqlDataReader["Name"].ToString(),
-                        LastName = sqlDataReader["LastName"].ToString(),
-                        Email = sqlDataReader["Email"].ToString(),
-                        Phone = sqlDataReader["Phone"].ToString()
-                    });
-                }
-                connection.Close();
-            }
-            return users;
-        }
-
-        public User Get(string id)
-        {
-            User user = null;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SelectStudentByID", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@StudentId", id);
-                SqlDataReader sqlDataReader = command.ExecuteReader();
-                user = new User();
-                if (sqlDataReader.Read())
-                {
-                    user.IdCard = sqlDataReader["IdCard"].ToString();
-                    user.Name = sqlDataReader["Name"].ToString();
-                    user.LastName = sqlDataReader["LastName"].ToString();
-                    user.Email = sqlDataReader["Email"].ToString();
-                }
-                connection.Close();
-            }
-            return user;
+            _context = context;
         }
 
         public Boolean VerifyEmail(string studentEmail)
@@ -158,7 +84,6 @@ namespace LabMVC.Models.Data
             }
         }
 
-
         public void SendEmail(String addressee, String title, String message)
         {
             var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -171,5 +96,88 @@ namespace LabMVC.Models.Data
             mailMessage.IsBodyHtml = true;
             smtpClient.Send(mailMessage);
         }
+
+        public IEnumerable<Entities.User> GetWaitingStudents()
+        {
+            var users = (from user in _context.Users where user.Approval == "En Espera" select user);
+            return users.ToList();
+        }
+
+        public Entities.User GetStudentById(String identification)
+        {
+            var users = (from user in _context.Users where user.IdCard == identification select user);
+            return users.FirstOrDefault();
+        }
+
+        public int AddStudent(Entities.User student)
+        {
+            int resultToReturn;
+            try
+            {
+                _context.Add(student);
+                resultToReturn = _context.SaveChangesAsync().Result;
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+            return resultToReturn;
+        }
+
+        public int RemoveStudent(Entities.User student)
+        {
+            _context.Users.Remove(_context.Users.Find(student.Id));
+            return _context.SaveChangesAsync().Result;
+        }
+
+        public int EditStudent(Entities.User student)
+        {
+            int resultToReturn = 0;
+            try
+            {
+                if (!StudentExists(student.Id))
+                {
+                    _context.Update(student);
+                    resultToReturn = _context.SaveChangesAsync().Result;
+                }
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+            return resultToReturn;
+        }
+
+        public List<Entities.User> GetExplicitStudent()
+        {
+            List<Entities.User> students = null;
+            using (var context = new ALDIFA_SOFT_MVC_IF4101Context())
+            {
+                students = context.Users.Select(studentItem => new Entities.User()
+                {
+                    Id = studentItem.Id,
+                    Name = studentItem.Name,
+                    Email = studentItem.Email,
+                    Password = studentItem.Password
+
+                }).ToList<Entities.User>();
+            }
+            return students;
+        }
+
+        private bool StudentExists(int id)
+        {
+            return _context.Users.Any(e => e.Id == id);
+        }
+        public bool StudentExistsUserName(string username)
+        {
+            return _context.Users.Any(e => e.IdCard == username);
+        }
+        //----------------------------------------------------
+        public bool StudentExistsPassword(string password)
+        {
+            return _context.Users.Any(e => e.Password == password);
+        }
+
     }
 }

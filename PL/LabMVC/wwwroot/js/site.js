@@ -79,17 +79,18 @@ function ValidateLogin() {
         password: $('#passwordUser').val()
     };
 
+
     $.ajax({
-        url: "/Home/LoginAuthentication",
+        url: "/User/Index",
         data: JSON.stringify(user),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
+            alert("ALEEEEEEEEEEEERTAAAAAAAA");
         },
         error: function (errorMessage) {
-            alert("fallo al iniciar sesión");
+            document.getElementById("demo").innerHTML = errorMessage;
         }
     });
 }
