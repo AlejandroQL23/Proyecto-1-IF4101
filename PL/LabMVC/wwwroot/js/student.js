@@ -1,9 +1,8 @@
 ﻿$(document).ready(function () {
-    LoadDataAcceptDeny();
+    LoadDataAcceptDenyEF();
 });
 
-function Add() {
-
+function AddEF() {
     var user = {
         idCard: $('#studentCard').val(),
         name: $('#name').val(),
@@ -11,27 +10,29 @@ function Add() {
         email: $('#email').val(),
         password: $('#password').val(),
         phone: $('#phone').val(),
-        address: $('#address').val()
+        address: $('#address').val(),
+        rol: 'Estudiante',
+        activity: false,
+        approval: 'En Espera',
+        presidency: false
     };
 
     var messageValidate = validateStudent(user);
     if (messageValidate == "") {
         $.ajax({
-            url: "/Home/Insert",
+            url: "/Student/AddStudent",
             data: JSON.stringify(user),
             type: "POST",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-
                 clean();
-                LoadDataAcceptDeny();
+                LoadDataAcceptDenyEF();
                 var done = $('#correctLabel');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")
                 done.fadeIn(1500);
                 done.fadeOut(4000);
-
             },
             error: function (errorMessage) {
                 var response = $('#incorrectLabel');
@@ -52,16 +53,13 @@ function Add() {
     }
 }
 
-
-
-function LoadDataAcceptDeny() {
+function LoadDataAcceptDenyEF() {
     $.ajax({
-        url: "/Home/GetStudents",
+        url: "/Student/GetWaitingStudents",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            var html = '';
             dataSet = new Array();
             $.each(result, function (key, item) {
                 data = [
@@ -69,7 +67,7 @@ function LoadDataAcceptDeny() {
                     item.name,
                     item.lastName,
                     item.email,
-                    '<td><a onclick= GetStudentByIdCard(' + JSON.stringify(item.idCard) + ')>Estado</a></td>'
+                    '<td><a onclick= GetStudentByIdCardEF(' + JSON.stringify(item.idCard) + ')>Estado</a></td>'
                 ];
                 dataSet.push(data);
             });
@@ -86,10 +84,10 @@ function LoadDataAcceptDeny() {
 }
 
 
-function GetStudentByIdCard(ID) {
 
+function GetStudentByIdCardEF(ID) {
     $.ajax({
-        url: "/Home/GetStudentById/" + ID,
+        url: "/Student/GetStudentById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
@@ -109,6 +107,75 @@ function GetStudentByIdCard(ID) {
 }
 
 
+function ObtainStudentProfileInformation() {
+
+    $.ajax({
+        //url: "/Home/GetStudentById/",
+        //type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        //dataType: "json",
+
+        success: function (result) {
+
+            $('#nameProfilePStudentModal').val(document.getElementById('nameProfileStudent').innerHTML);
+            $('#emailProfileStudentModal').val(document.getElementById('emailProfileStudent').innerHTML);
+            $('#phoneProfileStudentModal').val(document.getElementById('phoneProfileStudent').innerHTML);
+            $('#infoProfileStudentModal').val(document.getElementById('infoProfileStudent').innerHTML);
+
+            $('#modalProfileStudent').modal('show');
+            $('#btnUpdateProfileStudent').show();
+            $('#deleteProfileStudent').show();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function UpdateProfileStudent() {
+    var user = {
+        name: $("#nameProfilePStudentModal").val(),
+        email: $("#emailProfileStudentModal").val(),
+        phone: $("#phoneProfileStudentModal").val(),
+        personalFormation: $("#infoProfileStudentModal").val()
+    };
+
+    $.ajax({
+        // url: "/Home/UpdateApprovalAcceptDeny",
+        //  data: JSON.stringify(user),
+        // type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            $('#modalProfileStudent').modal('hide');
+
+
+        },
+        error: function (errorMessage) {
+
+        }
+    });
+
+}
+
+
+function DeleteProfileStudent(EMAIL) {
+    $.ajax({
+        // url: "/Home/DeleteCourse/" + EMAIL,
+        // type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        // dataType: "json",
+        success: function (result) {
+            //cargar la dat en el perfil de neuvo
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+}
+
 function clean() {
     document.getElementById('studentCard').value = '';
     document.getElementById('name').value = '';
@@ -118,7 +185,6 @@ function clean() {
     document.getElementById('phone').value = '';
     document.getElementById('address').value = '';
 }
-
 
 function validateStudent(user) {
     var e = user.email + '';

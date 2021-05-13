@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {}
+    "C:\\Users\\diego\\Desktop\\PL\\LabMVC\\LabMVC.csproj": {}
   },
   "projects": {
-    "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {
+    "C:\\Users\\diego\\Desktop\\PL\\LabMVC\\LabMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
+        "projectUniqueName": "C:\\Users\\diego\\Desktop\\PL\\LabMVC\\LabMVC.csproj",
         "projectName": "LabMVC",
-        "projectPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
-        "packagesPath": "C:\\Users\\Ale\\.nuget\\packages\\",
-        "outputPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\obj\\",
+        "projectPath": "C:\\Users\\diego\\Desktop\\PL\\LabMVC\\LabMVC.csproj",
+        "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\diego\\Desktop\\PL\\LabMVC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ale\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,13 +40,39 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
             "Bootstrap.Less": {
               "target": "Package",
               "version": "[3.4.1, )"
             },
+            "FluentNHibernate": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "Microsoft.AspNet.Mvc": {
               "target": "Package",
               "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNetCore.Http.Extensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Session": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.5, )"
             },
             "Polly": {
               "target": "Package",
@@ -87,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
