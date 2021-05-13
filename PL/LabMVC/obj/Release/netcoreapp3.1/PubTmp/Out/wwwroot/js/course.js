@@ -110,6 +110,15 @@ function DeleteCourse(ID) {
 
 function GetByInitials(ID) {
 
+    var upd;
+    if ($('#activityCourse').val() == "true") {
+        upd = "Activo";
+    } else if ($('#activityCourse').val() == -1) {
+        upd = -1;
+    } else {
+        upd = "Inactivo";
+    }
+
     $.ajax({
         url: "/Course/GetCourseById/" + ID,
         type: "GET",
@@ -120,7 +129,7 @@ function GetByInitials(ID) {
             $('#nameCourse').val(result.name);
             $('#creditCourse').val(result.credits);
             $('#semesterCourse').val(result.semester);
-            $('#activityCourse').val(result.activity);
+            $('#activityCourse').val(upd);
             $('#modalCourse').modal('show');
             $('#btnUpdateCourse').show();
         },
@@ -133,16 +142,26 @@ function GetByInitials(ID) {
 
 
 function UpdateCourse() {
-    var Course = {
+
+    var upd;
+    if ($('#activityCourse').val() == 1) {
+        upd = true;
+    } else if ($('#activityCourse').val() == -1) {
+        upd = -1;
+    } else {
+        upd = false;
+    }
+
+    var course = {
         initials: $('#idCourse').val(),
         name: $('#nameCourse').val(),
         credits: parseInt($('#creditCourse').val()),
         semester: $('#semesterCourse').val(),
-        activity: false
+        activity: upd
     };
     $.ajax({
         url: "/Course/EditCourse",
-        data: JSON.stringify(Course),
+        data: JSON.stringify(course),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -153,7 +172,7 @@ function UpdateCourse() {
             $('#nameCourse').val("");
             $('#creditCourse').val("");
             $('#semesterCourse').val("");
-            $('#activityCourse').val("");
+            upd;
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
