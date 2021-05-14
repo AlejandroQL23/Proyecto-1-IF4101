@@ -53,13 +53,24 @@ function AddProfessor() {
 }
 
 function AcceptDenyStudent() {
+
+    var presi = null;
+    if ($('#presidency').val() == 1) {
+        presi = true;
+    } else if ($('#presidency').val() == -1) {
+        presi = -1;
+    } else {
+        presi = false;
+    }
+
     var user = {
         idCard: $("#idStudent").val(),
         name: $("#nameStudent").val(),
         lastName: $("#lastNameStudent").val(),
         email: $("#emailStudent").val(),
         approval: $("#condition").val(),
-        rol: "Estudiante"
+        rol: "Estudiante",
+        presidency: presi
     };
 
     $.ajax({
@@ -76,6 +87,15 @@ function AcceptDenyStudent() {
             alert(errorMessage.responseText);
         }
     });
+    $('#presidency').val('-1');
+}
+
+
+function onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
 }
 
 function ObtainAdminProfileInformation() {

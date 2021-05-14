@@ -142,7 +142,7 @@ function GetByInitials(ID) {
 
 
 function UpdateCourse() {
-
+    
     var upd;
     if ($('#activityCourse').val() == 1) {
         upd = true;
@@ -173,12 +173,16 @@ function UpdateCourse() {
             $('#creditCourse').val("");
             $('#semesterCourse').val("");
             upd;
+            
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
+    $('#activityCourse').val('-1');
 }
+
+
 
 function cleanCourseSpace() {
     document.getElementById('acronymCourse').value = '';
