@@ -67,7 +67,7 @@ function LoadDataAcceptDenyEF() {
                     item.name,
                     item.lastName,
                     item.email,
-                    '<td><a onclick= GetStudentByIdCardEF(' + JSON.stringify(item.idCard) + ')>Estado</a></td>'
+                    '<td><a onclick= GetStudentByIdCardEF(' + JSON.stringify(item.idCard) + ')>Gestionar</a></td>'
                 ];
                 dataSet.push(data);
             });
@@ -196,8 +196,8 @@ function validateStudent(user) {
         return "Se requieren apellidos";
     } else if (user.email == "") {
         return "Se requiere un correo electrónico";
-    } else if ((user.email + '').includes("@gmail.com") == false) {
-        return "El correo debe contener @gmail.com";
+    } else if ((user.email + '').includes("@") == false) {
+        return "El correo debe contener @";
     } else if (user.phone == "") {
         return "Se requiere un número de teléfono";
     } else if (user.address == "") {

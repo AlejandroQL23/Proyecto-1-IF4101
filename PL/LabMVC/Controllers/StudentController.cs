@@ -61,7 +61,7 @@ namespace LabMVC.Controllers
             user.Password = oldUser.Password;
             user.Phone = oldUser.Phone;
             user.Address = oldUser.Address;
-            user.Presidency = oldUser.Presidency;
+           // user.Presidency = oldUser.Presidency;
             studentDAO.RemoveStudent(oldUser);
             if (user.Approval == "Aceptado")
             {

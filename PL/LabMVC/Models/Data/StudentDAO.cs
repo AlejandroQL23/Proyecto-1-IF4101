@@ -92,6 +92,7 @@ namespace LabMVC.Models.Data
                 Credentials = new NetworkCredential("aldifasoft0@gmail.com", "LPAC2021"),
                 EnableSsl = true,
             };
+            MailAddress mailaddress = new MailAddress(addressee);
             MailMessage mailMessage = new MailMessage("aldifasoft0@gmail.com", addressee, title, message);
             mailMessage.IsBodyHtml = true;
             smtpClient.Send(mailMessage);

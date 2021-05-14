@@ -224,7 +224,7 @@
 
                         <input type="text" name="email" id="email" class="form-control" placeholder="Correo electrónico" autocomplete="off" required="">
 
-                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Teléfono" autocomplete="off" required="">
+                        <input type="number" maxlength="15" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="phone" id="phone" class="form-control" placeholder="Teléfono" autocomplete="off" required="">
 
                         <input type="text" name="address" id="address" class="form-control" placeholder="Dirección" autocomplete="off" required="">
 
@@ -443,6 +443,13 @@
                                                 <option>Rechazado</option>
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <select class="form-control without-margin" name="presidency" id="presidency">
+                                                <option value=-1 selected>Es presidente de ASIP</option>
+                                                <option value=1>Si</option>
+                                                <option value=0>No</option>
+                                            </select>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -478,7 +485,7 @@
 
                         <input type="text" name="emailProfessor" id="emailProfessor" class="form-control" placeholder="Correo electrónico" autocomplete="off" required="">
 
-                        <input type="text" name="phoneProfessor" id="phoneProfessor" class="form-control" placeholder="Teléfono" autocomplete="off" required="">
+                        <input type="number" maxlength="15" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="phoneProfessor" id="phoneProfessor" class="form-control" placeholder="Teléfono" autocomplete="off" required="">
 
                         <input type="text" name="addressProfessor" id="addressProfessor" class="form-control" placeholder="Dirección" autocomplete="off" required="">
 
@@ -557,7 +564,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="Creditos">Creditos</label>
-                                            <input type="text" class="form-control" id="creditCourse" placeholder="Creditos" />
+                                            <input type="number" maxlength="1" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" id="creditCourse" placeholder="Creditos" />
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control without-margin" name="semesterCourse" id="semesterCourse">
@@ -569,7 +576,7 @@
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control without-margin" name="activityCourse" id="activityCourse">
-                                                <option selected value=-1>Seleccione el estado</option>
+                                                <option value=-1 selected="selected" >Seleccione el estado</option>
                                                 <option value=1>Activo</option>
                                                 <option value=0>Inactivo</option>
                                             </select>
@@ -597,7 +604,7 @@
 
                         <input type="text" name="nameCourse" id="nameCourses" class="form-control" placeholder="Nombre" autocomplete="off" required="">
 
-                        <input type="text" name="creditsCourse" id="creditsCourse" class="form-control" placeholder="Créditos" autocomplete="off" required="">
+                        <input type="number" maxlength="1" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="creditsCourse" id="creditsCourse" class="form-control" placeholder="Créditos" autocomplete="off" required="">
 
                         <select class="form-control without-margin" name="semester" id="semester">
                             <option value="0" selected>Seleccione el semestre</option>
