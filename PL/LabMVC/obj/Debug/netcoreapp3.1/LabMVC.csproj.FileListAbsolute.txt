@@ -381,4 +381,3 @@ C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\win-x86
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.csprojAssemblyReference.cache
