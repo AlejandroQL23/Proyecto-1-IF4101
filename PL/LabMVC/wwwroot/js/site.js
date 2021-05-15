@@ -72,6 +72,7 @@ function keepSingleTabForstudentNews() {
     document.getElementById('studentProfile').style.display = 'none';
 }
 
+
 function ValidateLogin() {
 
     var user = {
@@ -79,44 +80,25 @@ function ValidateLogin() {
         password: $('#passwordUser').val()
     };
 
-    var messageValidateLogin = validateUserLogin(user);
-    if (messageValidateLogin == "") {
-        $.ajax({
-            url: "/User/Index",
-            data: JSON.stringify(user),
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                cleanLogin();
-                LoadDataAcceptDenyEF();
-                var done = $('#correctLabelLogin');
-                done.removeClass();
-                done.addClass("alert alert-success register-alert")
-                done.fadeIn(1500);
-                done.fadeOut(4000);
-            },
-            error: function (errorMessage) {
-                var response = $('#incorrectLabelLogin');
-                response.removeClass();
-                response.addClass("alert alert-warning register-alert");
-                response.html("No existe un usuario con esas credenciales");
-                response.fadeIn(1500);
-                response.fadeOut(4000);
-            }
-        });
-    } else {
-        var response = $('#incorrectLabelLogin');
-        response.removeClass();
-        response.addClass("alert alert-danger register-alert");
-        response.html(messageValidateLogin);
-        response.fadeIn(1800);
-        response.fadeOut(4000);
-    }
-  }
+    $.ajax({
+        url: "/Login/Validate",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+          
+        },
+        error: function (errorMessage) {
+
+           
+             window.location.href = "";
+           
+        }
+    });
+}
 
 
-//--------------------------------------------------------
 function validateUserLogin(user) {
     
     if (user.idCard == "") {
@@ -128,10 +110,9 @@ function validateUserLogin(user) {
     }
 }
 
-//--------------------------------------------------------
+
 function cleanLogin() {
     document.getElementById('IdCardUser').value = '';
     document.getElementById('passwordUser').value = '';
 }
 
-//--------------------------------------------------------
