@@ -4,6 +4,7 @@
     hydeShowSection('adminAcceptDeny');
     hydeShowSection('adminProfessor');
     hydeShowSection('adminCourses');
+    hydeShowSection('adminNews');
     hydeShowSection('studentProfile');
     hydeShowSection('studentCourses');
     hydeShowSection('studentHoursOfAttention');
@@ -28,24 +29,35 @@ function keepSingleTabForProfile() {
     document.getElementById('adminAcceptDeny').style.display = 'none';
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
+    document.getElementById('adminNews').style.display = 'none';
 }
 
 function keepSingleTabForAcceptDeny() {
     document.getElementById('adminProfile').style.display = 'none';
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
+    document.getElementById('adminNews').style.display = 'none';
 }
 
 function keepSingleTabForProfessor() {
     document.getElementById('adminAcceptDeny').style.display = 'none';
     document.getElementById('adminProfile').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
+    document.getElementById('adminNews').style.display = 'none';
 }
 
 function keepSingleTabForCourses() {
     document.getElementById('adminAcceptDeny').style.display = 'none';
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminProfile').style.display = 'none';
+    document.getElementById('adminNews').style.display = 'none';
+}
+
+function keepSingleTabForNews() {
+    document.getElementById('adminAcceptDeny').style.display = 'none';
+    document.getElementById('adminProfessor').style.display = 'none';
+    document.getElementById('adminProfile').style.display = 'none';
+    document.getElementById('adminCourses').style.display = 'none';
 }
 
 function keepSingleTabForstudentProfile() {
@@ -90,12 +102,39 @@ function ValidateLogin() {
           
         },
         error: function (errorMessage) {
-
-           
-             window.location.href = "";
+            alert("Erroi");
+            
+            GetProfessorByIdForProfileCardEF(user.idCard);
+           // GetStudentByIdCardForProfileEF(user.idCard);
+            GetStudentByIdCardForProfileEF(user.idCard);
+           // window.location.href = "";
            
         }
     });
+}
+
+
+function GetStudentByIdCardForProfileEF(ID) {
+    $.ajax({
+        url: "/Student/GetStudentById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var getFullName = result.name + " " + result.lastName;
+
+            $('#nameProfileStudent').val(getFullName);
+            $('#idCardProfileStudent').val(result.idCard);
+
+            $('#emailProfileStudent').val(result.email);
+            $('#phoneProfileStudent').val(result.phone);
+            $('#infoProfileStudent').val(result.personalFormation);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }
 
 

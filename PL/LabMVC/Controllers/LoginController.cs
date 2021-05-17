@@ -36,6 +36,7 @@ namespace LabMVC.Controllers
             if (studentDAO.StudentExistsUserName(user.IdCard) == true && studentDAO.StudentExistsPassword(user.Password) == true)
             {
                 HttpContext.Session.SetString("rol", localUser.Rol);
+
                 //aqui poner lo demas datos
                 //   return RedirectToAction("Index", "Student");
                 return Ok();

@@ -62,6 +62,14 @@ namespace LabMVC.Controllers
         {
             professorDAO = new ProfessorDAO(_context);
             var oldUser = professorDAO.GetProfessorById(user.IdCard);
+            user.LastName = oldUser.LastName;
+            user.Password = oldUser.Password;
+            user.Rol = oldUser.Rol;
+            user.Address = oldUser.Address;
+            user.Activity = oldUser.Activity;
+            user.DateTime = oldUser.DateTime;
+            user.Approval = oldUser.Approval;
+            //tofo
             professorDAO.RemoveProfessor(oldUser);
             int resultToReturn = professorDAO.EditProfessor(user);
             return Ok(resultToReturn);
