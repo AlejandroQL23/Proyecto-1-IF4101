@@ -89,5 +89,22 @@ namespace LabMVC.Controllers
             }
         }
 
+        public ActionResult UpdateStudent([FromBody] User user)
+        {
+            studentDAO = new StudentDAO(_context);
+            var oldUser = studentDAO.GetStudentById(user.IdCard);
+            user.LastName = oldUser.LastName;
+            user.Password = oldUser.Password;
+            user.Rol = oldUser.Rol;
+            user.Address = oldUser.Address;
+            user.Activity = oldUser.Activity;
+            user.DateTime = oldUser.DateTime;
+            user.Approval = oldUser.Approval;
+            //tofo
+            studentDAO.RemoveStudent(oldUser);
+            int resultToReturn = studentDAO.EditStudent(user);
+            return Ok(resultToReturn);
+        }
+
     }
 }

@@ -107,20 +107,27 @@ function GetStudentByIdCardEF(ID) {
 }
 
 
+
+
 function ObtainStudentProfileInformation() {
-
+    var ID = $('#idCardProfileStudent').val();
+    alert(ID);
     $.ajax({
-        //url: "/Home/GetStudentById/",
-        //type: "GET",
+         url: "/Student/GetStudentById/" + ID,
+        type: "GET",
         contentType: "application/json;charset=UTF-8",
-        //dataType: "json",
-
+        dataType: "json",
+       
         success: function (result) {
+            alert(ID);
+            $('#idCardProfilePStudentModal').val(result.idCard);
+            $('#nameProfilePStudentModal').val(result.name);
+            $('#emailProfileStudentModal').val(result.email);
+            $('#phoneProfileStudentModal').val(result.phone);
+            $('#infoProfileStudentModal').val(result.personalFormation);
 
-            $('#nameProfilePStudentModal').val(document.getElementById('nameProfileStudent').innerHTML);
-            $('#emailProfileStudentModal').val(document.getElementById('emailProfileStudent').innerHTML);
-            $('#phoneProfileStudentModal').val(document.getElementById('phoneProfileStudent').innerHTML);
-            $('#infoProfileStudentModal').val(document.getElementById('infoProfileStudent').innerHTML);
+            $('#FacebookfileProfessorModal').val(result.facebook);
+            $('#InstagramProfileProfessorModal').val(result.instagram);
 
             $('#modalProfileStudent').modal('show');
             $('#btnUpdateProfileStudent').show();
@@ -135,22 +142,25 @@ function ObtainStudentProfileInformation() {
 
 function UpdateProfileStudent() {
     var user = {
+        idCard: $('#idCardProfilePStudentModal').val(),
         name: $("#nameProfilePStudentModal").val(),
         email: $("#emailProfileStudentModal").val(),
         phone: $("#phoneProfileStudentModal").val(),
-        personalFormation: $("#infoProfileStudentModal").val()
+        personalFormation: $("#infoProfileStudentModal").val(),
+        instagram: $("#instagramProfilePStudentModal").val(),
+        facebook: $("#facebookProfilePStudentModal").val()
     };
 
     $.ajax({
-        // url: "/Home/UpdateApprovalAcceptDeny",
-        //  data: JSON.stringify(user),
-        // type: "POST",
+        url: "/Student/UpdateStudent",
+          data: JSON.stringify(user),
+         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
 
             $('#modalProfileStudent').modal('hide');
-
+            GetStudentByIdCardForProfileEF(user.idCard);
 
         },
         error: function (errorMessage) {
