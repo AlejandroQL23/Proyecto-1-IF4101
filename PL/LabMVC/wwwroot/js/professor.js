@@ -24,6 +24,8 @@ function GetProfessorByIdForProfileCardEF(ID) {
             $('#phoneProfileProfessor').val(result.phone);
             $('#infoProfileProfessor').val(result.personalFormation);
 
+           
+
 
         },
         error: function (errormessage) {
@@ -60,6 +62,7 @@ function ObtainProfessorProfileInformation() {
 
             $('#modalProfileProfessor').modal('show');
             $('#btnUpdateProfileProfessor').show();
+            $('#disableAccountProfessor').show();
             $('#deleteProfileProfessor').show();
             
         },
@@ -78,9 +81,11 @@ function UpdateProfileProfessor() {
         email: $("#emailProfileProfessorModal").val(),
         phone: $("#phoneProfileProfessorModal").val(),
         personalFormation: $("#infoProfileProfessorModal").val(),
-        instagram: $("#instagramProfileProfessor").val(),
-        facebook: $("#facebookProfileProfessor").val()
+        instagram: $("#InstagramProfileProfessorModal").val(),
+        facebook: $("#FacebookfileProfessorModal").val()
     };
+
+    alert(user.facebook);
 
     $.ajax({
         url: "/Professor/UpdateProfessor",
@@ -92,7 +97,7 @@ function UpdateProfileProfessor() {
 
           
             $('#modalProfileProfessor').modal('hide');
-            GetStudentByIdForProfileCardEF(user.idCard);
+            GetProfessorByIdForProfileCardEF(user.idCard);
 
 
         },
@@ -117,4 +122,53 @@ function DeleteProfileProfesor(EMAIL) {
             alert(errormessage.responseText);
         }
     });
+}
+
+
+function linkToFacebookProfessor(ID) {
+   
+    $.ajax({
+        url: "/Professor/GetProfessorById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var link = result.facebook;
+            $('#facebookProfileProfessor').attr('href', link);
+
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+
+
+}
+
+function linkToInstagramProfessor(ID) {
+
+    $.ajax({
+        url: "/Professor/GetProfessorById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var link = result.instagram;
+            $('#instagramProfileProfessor').attr('href', link);
+
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+
+
 }
