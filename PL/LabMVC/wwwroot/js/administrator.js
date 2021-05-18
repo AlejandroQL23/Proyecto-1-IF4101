@@ -91,27 +91,50 @@ function AcceptDenyStudent() {
 }
 
 
-function onlyOne(checkbox) {
-    var checkboxes = document.getElementsByName('check')
-    checkboxes.forEach((item) => {
-        if (item !== checkbox) item.checked = false
-    })
+function GetAdminByIdForProfileCardEF(ID) {
+    $.ajax({
+        url: "/Professor/GetProfessorById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var getFullName = result.name + " " + result.lastName;
+
+            $('#nameProfileAdmin').val(getFullName);
+            $('#idCardProfileAdmin').val(result.idCard);
+
+            $('#emailProfileAdmin').val(result.email);
+            $('#phoneProfileAdmin').val(result.phone);
+            $('#infoProfileAdmin').val(result.personalFormation);
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
 }
 
 function ObtainAdminProfileInformation() {
-
+    var ID = $('#idCardProfileProfessor').val();
     $.ajax({
-        //url: "/Home/GetStudentById/",
-        //type: "GET",
+        url: "/Professor/GetProfessorById/" + ID,
+        type: "GET",
         contentType: "application/json;charset=UTF-8",
-        //dataType: "json",
+        dataType: "json",
 
         success: function (result) {
 
-            $('#nameProfileAdminModal').val(document.getElementById('nameProfileAdmin').innerHTML);
-            $('#emailProfileAdminModal').val(document.getElementById('emailProfileAdmin').innerHTML);
-            $('#phoneProfileAdminModal').val(document.getElementById('phoneProfileAdmin').innerHTML);
-            $('#infoProfileAdminModal').val(document.getElementById('infoProfileAdmin').innerHTML);
+            $('#idCardProfileAdminModal').val(result.idCard);
+            $('#nameProfileAdminModal').val(result.name);
+            $('#emailProfileAdminModal').val(result.email);
+            $('#phoneProfileAdminModal').val(result.phone);
+            $('#infoProfileAdminModal').val(result.personalFormation);
+
+            $('#FacebookfileAdminModal').val(result.facebook);
+            $('#InstagramProfileAdminModal').val(result.instagram);
 
             $('#modalProfileAdmin').modal('show');
             $('#btnUpdateProfileAdmin').show();
@@ -124,27 +147,37 @@ function ObtainAdminProfileInformation() {
     return false;
 }
 
+
 function UpdateProfileAdmin() {
     var user = {
+        idCard: $('#idCardProfileAdminModal').val(),
         name: $("#nameProfileAdminModal").val(),
         email: $("#emailProfileAdminModal").val(),
-        phone: $("#infoProfileAdminModal").val(),
-        personalFormation: $("#infoProfileAdminModal").val()
+        phone: $("#phoneProfileAdminModal").val(),
+        personalFormation: $("#infoProfileAdminModal").val(),
+        instagram: $("#instagramProfileAdmin").val(),
+        facebook: $("#facebookProfileAdmin").val()
     };
 
     $.ajax({
-        // url: "/Home/UpdateApprovalAcceptDeny",
-        //  data: JSON.stringify(user),
-        // type: "POST",
+        url: "/Professor/UpdateProfessor",
+        data: JSON.stringify(user),
+        type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+
+
             $('#modalProfileAdmin').modal('hide');
+            GetAdminByIdForProfileCardEF(user.idCard);
+
+
         },
         error: function (errorMessage) {
 
         }
     });
+
 }
 
 function validateProfessor(user) {

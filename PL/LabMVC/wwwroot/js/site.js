@@ -103,10 +103,15 @@ function ValidateLogin() {
         },
         error: function (errorMessage) {
             alert("Erroi");
-            
+
+            GetAdminByIdForProfileCardEF(user.idCard);
             GetProfessorByIdForProfileCardEF(user.idCard);
+            linkToFacebookProfessor(user.idCard);
+            linkToInstagramProfessor(user.idCard);
            // GetStudentByIdCardForProfileEF(user.idCard);
             GetStudentByIdCardForProfileEF(user.idCard);
+            linkToFacebookStudent(user.idCard);
+            linkToInstagramStudent(user.idCard);
            // window.location.href = "";
            
         }
@@ -114,28 +119,10 @@ function ValidateLogin() {
 }
 
 
-function GetStudentByIdCardForProfileEF(ID) {
-    $.ajax({
-        url: "/Student/GetStudentById/" + ID,
-        type: "GET",
-        contentType: "application/json;charset=UTF-8",
-        dataType: "json",
-        success: function (result) {
-            var getFullName = result.name + " " + result.lastName;
 
-            $('#nameProfileStudent').val(getFullName);
-            $('#idCardProfileStudent').val(result.idCard);
 
-            $('#emailProfileStudent').val(result.email);
-            $('#phoneProfileStudent').val(result.phone);
-            $('#infoProfileStudent').val(result.personalFormation);
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-    });
-    return false;
-}
+
+
 
 
 function validateUserLogin(user) {

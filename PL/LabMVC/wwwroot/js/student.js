@@ -107,11 +107,32 @@ function GetStudentByIdCardEF(ID) {
 }
 
 
+function GetStudentByIdCardForProfileEF(ID) {
+    $.ajax({
+        url: "/Student/GetStudentById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            var getFullName = result.name + " " + result.lastName;
+
+            $('#nameProfileStudent').val(getFullName);
+            $('#idCardProfileStudent').val(result.idCard);
+
+            $('#emailProfileStudent').val(result.email);
+            $('#phoneProfileStudent').val(result.phone);
+            $('#infoProfileStudent').val(result.personalFormation);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
 
 
 function ObtainStudentProfileInformation() {
     var ID = $('#idCardProfileStudent').val();
-    alert(ID);
     $.ajax({
          url: "/Student/GetStudentById/" + ID,
         type: "GET",
@@ -119,7 +140,6 @@ function ObtainStudentProfileInformation() {
         dataType: "json",
        
         success: function (result) {
-            alert(ID);
             $('#idCardProfilePStudentModal').val(result.idCard);
             $('#nameProfilePStudentModal').val(result.name);
             $('#emailProfileStudentModal').val(result.email);
@@ -131,6 +151,7 @@ function ObtainStudentProfileInformation() {
 
             $('#modalProfileStudent').modal('show');
             $('#btnUpdateProfileStudent').show();
+            $('#disableAccountStudent').show();
             $('#deleteProfileStudent').show();
         },
         error: function (errormessage) {
@@ -185,6 +206,56 @@ function DeleteProfileStudent(EMAIL) {
         }
     });
 }
+
+
+function linkToFacebookStudent(ID) {
+
+    $.ajax({
+        url: "/Student/GetStudentById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var link = result.facebook;
+            $('#facebookProfileStudent').attr('href', link);
+
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+
+
+}
+
+function linkToInstagramStudent(ID) {
+
+    $.ajax({
+        url: "/Student/GetStudentById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var link = result.instagram;
+            $('#instagramProfileStudent').attr('href', link);
+
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+
+
+}
+
 
 function clean() {
     document.getElementById('studentCard').value = '';
