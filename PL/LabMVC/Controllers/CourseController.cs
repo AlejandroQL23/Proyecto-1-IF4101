@@ -64,5 +64,11 @@ namespace LabMVC.Controllers
             var courseSearch = courseDAO.GetCourseById(id);
             return Ok(courseDAO.RemoveCourse(courseSearch));
         }
+
+        public ActionResult GetCoursesBySemester()
+        {
+            courseDAO = new CourseDAO(_context);
+            return Ok(courseDAO.GetCoursesBySemester());
     }
+}
 }

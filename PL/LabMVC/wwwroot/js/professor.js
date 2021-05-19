@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    LoadDataProfessorForStudentHoursOfAttentiontEF();
 });
 
 
@@ -23,6 +23,8 @@ function GetProfessorByIdForProfileCardEF(ID) {
             $('#emailProfileProfessor').val(result.email);
             $('#phoneProfileProfessor').val(result.phone);
             $('#infoProfileProfessor').val(result.personalFormation);
+            linkToFacebookProfessor(ID);
+            linkToInstagramProfessor(ID);
 
            
 
@@ -84,8 +86,6 @@ function UpdateProfileProfessor() {
         instagram: $("#InstagramProfileProfessorModal").val(),
         facebook: $("#FacebookfileProfessorModal").val()
     };
-
-    alert(user.facebook);
 
     $.ajax({
         url: "/Professor/UpdateProfessor",
@@ -170,5 +170,100 @@ function linkToInstagramProfessor(ID) {
     });
     return false;
 
+
+}
+
+
+function saveConsultationHours() {
+    var user = {
+        idCard: $('#idCardProfileProfessor').val(),
+        dateTime: $('#Consultation').val()
+    };
+    $.ajax({
+        url: "/Professor/AddDateTimeProfessor",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            cleanProfessorConsultationHours();
+            var done = $('#correctLabelAddConsultationHours');
+            done.removeClass();
+            done.addClass("alert alert-success register-alert")
+            done.fadeIn(1500);
+            done.fadeOut(4000);
+        },
+        error: function (errorMessage) {
+            var response = $('#incorrectLabelAddConsultationHours');
+            response.removeClass();
+            response.addClass("alert alert-warning register-alert");
+            response.html("El usuario ya está registrado");
+            response.fadeIn(1500);
+            response.fadeOut(4000);
+        }
+    });
+}
+
+
+//---------MODAL DE ESTUDIANTE PARA CONSULTA DE PROFESOR
+function LoadDataProfessorForStudentHoursOfAttentiontEF() {
+    $.ajax({
+        url: "/Professor/GetProfessor",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.idCard,
+                    item.name,
+                    item.lastName,
+                    item.email,
+                    item.dateTime,
+                    '<td><a onclick= GetByIdCardProfessor(' + JSON.stringify(item.idCard) + ')>Consultar</a></td>' //cambiar
+                ];
+                dataSet.push(data);
+            });
+            $('#tableProfessorInformationForStudent').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
+}
+
+function GetByIdCardProfessor(ID) {
+
+
+
+    $.ajax({
+        url: "/Professor/GetProfessorById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#idCardForProfessorModal').val(result.idCard);
+            $('#nameProfessorForStudentModal').val(result.name);
+            $('#emailProfessorForStudentModal').val(result.email);
+            $('#modalStudentProfessor').modal('show');
+            $('#btnSendConsult').show();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+
+//---------MODAL DE ESTUDIANTE PARA CONSULTA DE PROFESOR
+
+function cleanProfessorConsultationHours() {
+    document.getElementById('Consultation').value = '';
 
 }

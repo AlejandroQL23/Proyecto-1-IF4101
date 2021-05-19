@@ -10,6 +10,8 @@
     hydeShowSection('studentHoursOfAttention');
     hydeShowSection('studentNews');
     hydeShowSection('professorProfile');
+    hydeShowSection('ConsultationHours');
+
 });
 
 function hydeShowSection(a) {
@@ -59,7 +61,7 @@ function keepSingleTabForNews() {
     document.getElementById('adminProfile').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
 }
-
+//---
 function keepSingleTabForstudentProfile() {
     document.getElementById('studentCourses').style.display = 'none';
     document.getElementById('studentHoursOfAttention').style.display = 'none';
@@ -83,6 +85,14 @@ function keepSingleTabForstudentNews() {
     document.getElementById('studentHoursOfAttention').style.display = 'none';
     document.getElementById('studentProfile').style.display = 'none';
 }
+//---
+function keepSingleTabForProfessorProfile() {
+    document.getElementById('ConsultationHours').style.display = 'none';  
+}
+
+function keepSingleTabForProfessorConsultation() {
+    document.getElementById('professorProfile').style.display = 'none';
+}
 
 
 function ValidateLogin() {
@@ -102,8 +112,9 @@ function ValidateLogin() {
           
         },
         error: function (errorMessage) {
-            alert("Erroi");
+            alert("Error");
 
+            //window.location.href = "";
             GetAdminByIdForProfileCardEF(user.idCard);
             GetProfessorByIdForProfileCardEF(user.idCard);
             linkToFacebookProfessor(user.idCard);
@@ -112,7 +123,7 @@ function ValidateLogin() {
             GetStudentByIdCardForProfileEF(user.idCard);
             linkToFacebookStudent(user.idCard);
             linkToInstagramStudent(user.idCard);
-           // window.location.href = "";
+           
            
         }
     });

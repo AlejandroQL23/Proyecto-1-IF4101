@@ -27,7 +27,7 @@ namespace LabMVC.Controllers
             return View();
         }
 
-        [HttpPost]
+       // [HttpPost]
         public IActionResult Validate([FromBody] Models.Domain.User user)
         {
 
@@ -58,6 +58,8 @@ namespace LabMVC.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
 
 
     }

@@ -122,6 +122,8 @@ function GetStudentByIdCardForProfileEF(ID) {
             $('#emailProfileStudent').val(result.email);
             $('#phoneProfileStudent').val(result.phone);
             $('#infoProfileStudent').val(result.personalFormation);
+            linkToFacebookStudent(ID);
+            linkToInstagramStudent(ID);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -253,6 +255,56 @@ function linkToInstagramStudent(ID) {
     });
     return false;
 
+
+}
+
+function addCommentToForum() {
+
+    var commentforum = {
+        idCard: $('#idCardProfileStudent').val(),
+        name: $('#nameProfileStudent').val(),
+        forumContent: $('#consultationAreaForCourse').val()
+    };
+
+    $.ajax({
+        //   url: "/Course/AddCourse",
+        data: JSON.stringify(commentforum),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+        },
+        error: function (errorMessage) {
+
+        }
+    });
+
+}
+
+
+
+function AddQuestionProfessor() {
+
+    var commentforum = {
+        idCard: $('#idCardProfileStudent').val(),
+        name: $('#nameProfileStudent').val(),
+        forumContent: $('#consultationAreaForProfessor').val()
+    };
+
+    $.ajax({
+        //   url: "/Course/AddCourse",
+        data: JSON.stringify(commentforum),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+        },
+        error: function (errorMessage) {
+
+        }
+    });
 
 }
 
