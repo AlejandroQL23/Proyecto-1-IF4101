@@ -180,6 +180,8 @@ function UpdateProfileAdmin() {
 
 }
 
+
+
 function validateProfessor(user) {
     var e = user.email + '';
     if (user.idCard == "") {

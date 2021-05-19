@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     LoadDataCourses();
+    LoadDataToCourseStudentEF();
 });
 
 function AddCourse() {
@@ -182,8 +183,94 @@ function UpdateCourse() {
     $('#activityCourse').val('-1');
 }
 
+//--------------FORTABLEANDMODALCOURSESTUDENT-----------------
+function LoadDataToCourseStudentEF() {
+    $.ajax({
+        url: "/Course/GetCoursesBySemester",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.initials,
+                    item.name,
+                    item.credits,
+                    item.semester,
+                    item.scheduleId,
+                    '<td><a onclick= GetByInitialsForModalStudent(' + JSON.stringify(item.initials) + ')>Consultar</a></td>'
+                ];
+                dataSet.push(data);
+            });
+            $('#tableStudentCourses').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
+}
 
 
+function GetByInitialsForModalStudent(ID) {
+
+    $.ajax({
+        url: "/Course/GetCourseById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            $('#initialsForCourseModal').val(result.initials);
+            $('#nameCourseStudentModal').val(result.name);
+            $('#modalStudentCourse').modal('show');
+            $('#btnpostInForum').show();
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+
+
+//--------------FORTABLEANDMODALCOURSESTUDENT-----------------
+//--------------FORUM.TABLE/MODAL-----------------
+
+function LoadDataToForumCourse() {
+    $.ajax({
+       // url: "/Course/GetCourses", //cambiar por uno que descrimine por semestre
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.authorIdCard,
+                    item.author,
+                    item.textContent,
+                    item.creationDate,
+                    '<td><a onclick= (' + JSON.stringify() + ')>Comentar</a> | <a onclick= (' + JSON.stringify() + ')>Ver comentarios</a></td>'
+                ];
+                dataSet.push(data);
+            });
+            $('#tableStudentCourses').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
+}
+//--------------FORUM.TABLE/MODAL-----------------
 function cleanCourseSpace() {
     document.getElementById('acronymCourse').value = '';
     document.getElementById('nameCourses').value = '';

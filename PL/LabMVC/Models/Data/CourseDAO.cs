@@ -102,6 +102,29 @@ namespace LabMVC.Models.Data
         {
             return _context.Courses.Any(e => e.Id == id);
         }
+
+        public IEnumerable<Entities.Course> GetCoursesBySemester() 
+        {
+            DateTime dt = DateTime.Now;
+        var month = dt.Month;
+        string currentSemester;
+            if (month >= 3 && month <= 7)
+            {
+                currentSemester = "i";
+            }
+            else if (month >= 8 && month <= 12)
+            {
+                currentSemester = "ii";
+            }
+            else
+            {
+                currentSemester = "iii";
+            }
+
+            var courses = (from course in _context.Courses where course.Semester == currentSemester select course);
+            return courses.ToList();
+        }
+
     }
 
 }

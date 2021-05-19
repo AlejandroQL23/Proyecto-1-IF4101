@@ -37,7 +37,6 @@
 </div>
 
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
-
     <!-- PRE LOADER -->
     <section class="preloader">
         <div class="spinner">
@@ -157,9 +156,9 @@
                     <div class="feature-thumb">
 
                         <h2>Inicia sesión</h2>
-                        <input type="text" name="IdCardUser" id="IdCardUser" class="form-control" placeholder="Carné" required="">
+                        <input type="text" name="IdCardUser" id="IdCardUser" class="form-control" placeholder="Carné" autocomplete="off" required="">
 
-                        <input type="password" name="password" id="passwordUser" class="form-control" placeholder="Contraseña" required="">
+                        <input type="password" name="password" id="passwordUser" class="form-control" placeholder="Contraseña" autocomplete="off" required="">
 
                         <div>
                             <button class="submit-btn form-control" onclick="return ValidateLogin()" id="form-submitI">Iniciar sesión</button>
@@ -216,7 +215,7 @@
 
 
                         <h2>Registrate</h2>
-                        <input type="text"  maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="studentCard" id="studentCard" class="form-control" placeholder="Carné estudiantil" autocomplete="off" required="">
+                        <input type="text" maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="studentCard" id="studentCard" class="form-control" placeholder="Carné estudiantil" autocomplete="off" required="">
 
                         <input type="text" name="full name" id="name" class="form-control" placeholder="Nombre" autocomplete="off" required="">
 
@@ -273,7 +272,7 @@
                                 <a class="nav-link" href="#adminCourses" onclick="return hydeShowSection('adminCourses'), keepSingleTabForCourses()">Registro de cursos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#adminNews" onclick="return hydeShowSection('adminNews')">Agregar noticias</a>
+                                <a class="nav-link" href="#adminNews" onclick="return hydeShowSection('adminNews'), keepSingleTabForNews()">Agregar noticias</a>
                             </li>
                         </ul>
                     </div>
@@ -358,7 +357,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="infoProfileAdminModal">Información personal</label>
-                                                                <input type="text" class="form-control" id="infoProfileAdminModal" placeholder="Información personal" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="infoProfileAdminModal" placeholder="Información personal" autocomplete="off" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="facebookProfileAdminModal">Facebook</label>
@@ -490,7 +489,7 @@
 
 
                         <h2>Ingresar nuevo profesor</h2>
-                        <input type="text"  maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="CardProfessor" id="CardProfessor" class="form-control" placeholder="Carné profesor" autocomplete="off" required="">
+                        <input type="text" maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="CardProfessor" id="CardProfessor" class="form-control" placeholder="Carné profesor" autocomplete="off" required="">
 
                         <input type="text" name="full nameProfessor" id="nameProfessor" class="form-control" placeholder="Nombre" autocomplete="off" required="">
 
@@ -713,6 +712,8 @@
         </div>
     </section>
 
+    @if (@HttpContextAccessor.HttpContext.Session.GetString("rol") == "Estudiante")
+    { }
     <!--Student-->
     <section id="student">
         <div class="container">
@@ -727,10 +728,10 @@
                                 <a class="nav-link active" href="#studentProfile" onclick="return hydeShowSection('studentProfile'), keepSingleTabForstudentProfile()">Perfil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#studentCourses" onclick="return hydeShowSection('studentCourses'), keepSingleTabForstudentCourses()">Cursos</a>
+                                <a class="nav-link" href="#studentCourses" onclick="return hydeShowSection('studentCourses'), keepSingleTabForstudentCourses()">Ver y consultar cursos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#studentHoursOfAttention" onclick="return hydeShowSection('studentHoursOfAttention'),keepSingleTabForstudentHoursOfAttention()">Consultas</a>
+                                <a class="nav-link" href="#studentHoursOfAttention" onclick="return hydeShowSection('studentHoursOfAttention'),keepSingleTabForstudentHoursOfAttention()">Ver y consultar profesores</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#studentNews" onclick="return hydeShowSection('studentNews'), keepSingleTabForstudentNews()">Noticias</a>
@@ -808,11 +809,11 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="emailProfileStudentModal">Correo</label>
-                                                                <input type="text" class="form-control" id="emailProfileStudentModal" placeholder="Corrreo" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="emailProfileStudentModal" placeholder="Corrreo" autocomplete="off" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="phoneProfileStudentModal">Teléfono</label>
-                                                                <input type="text" class="form-control" id="phoneProfileStudentModal" placeholder="Teléfono" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="phoneProfileStudentModal" placeholder="Teléfono" autocomplete="off" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="infoProfileStudentModal">Información personal</label>
@@ -820,11 +821,11 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="facebookProfilePStudentModal">Facebook</label>
-                                                                <input type="text" class="form-control" id="facebookProfilePStudentModal" placeholder="Facebook" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="facebookProfilePStudentModal" placeholder="Facebook" autocomplete="off" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="instagramProfilePStudentModal">Instagram</label>
-                                                                <input type="text" class="form-control" id="instagramProfilePStudentModal" placeholder="Instagram" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="instagramProfilePStudentModal" placeholder="Instagram" autocomplete="off" />
                                                             </div>
                                                         </form>
                                                     </div>
@@ -855,168 +856,105 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-12 col-sm-12">
+                <div class="section-title">
+                    <h2>Cursos disponibles</h2>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover" id="tableStudentCourses">
 
-                    <h2>Cursos <small>En esta sección puede ver los cursos de este semestre</small></h2>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Siglas
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Créditos
+                                    </th>
+                                    <th>
+                                        Semester
+                                    </th>
+                                    <th>
+                                        Horario
+                                    </th>
+                                    <th>
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodyStudentCourses">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal fade" id="modalStudentCourse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Preguntas sobre cursos de la carrera</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="initialsForCourseModal">Siglas</label>
+                                            <input type="text" class="form-control" id="initialsForCourseModal" placeholder="Siglas" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nameCourseStudentModal">Nombre</label>
+                                            <input type="text" class="form-control" id="nameCourseStudentModal" placeholder="Nombre" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="consultationForCourseModal">Consulta</label>
+                                            <textarea id="consultationAreaForCourse" name="consultationAreaForCourse" rows="4" cols="50"></textarea>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-primary" id="btnpostInForum" style="display:none;" onclick="">Publicar consulta</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="owl-carousel owl-theme owl-courses">
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img src="images/courses-image1.jpg" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 12 / 7 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 7 Hours</span>
-                                    </div>
-                                </div>
 
-                                <div class="courses-detail">
-                                    <h3><a href="#">Social Media Management</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
+                <div class="col-md-offset-1 col-md-5 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover" id="tableForum">
 
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img src="images/author-image1.jpg" class="img-responsive" alt="">
-                                        <span>Mark Wilson</span>
-                                    </div>
-                                    <div class="courses-price">
-                                        <a href="#"><span>USD 25</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Carné
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Consulta
+                                    </th>
+                                    <th>
+                                        Fecha de publicación
+                                    </th>
+                                    <th>
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodytableForum">
+                            </tbody>
+                        </table>
                     </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img src="images/courses-image2.jpg" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 20 / 7 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 4.5 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Graphic & Web Design</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img src="images/author-image2.jpg" class="img-responsive" alt="">
-                                        <span>Jessica</span>
-                                    </div>
-                                    <div class="courses-price">
-                                        <a href="#"><span>USD 80</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img src="images/courses-image3.jpg" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 15 / 8 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 6 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Marketing Communication</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img src="images/author-image3.jpg" class="img-responsive" alt="">
-                                        <span>Catherine</span>
-                                    </div>
-                                    <div class="courses-price free">
-                                        <a href="#"><span>Free</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img src="images/courses-image4.jpg" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 10 / 8 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 8 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Summer Kids</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img src="images/author-image1.jpg" class="img-responsive" alt="">
-                                        <span>Mark Wilson</span>
-                                    </div>
-                                    <div class="courses-price">
-                                        <a href="#"><span>USD 45</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="item">
-                            <div class="courses-thumb">
-                                <div class="courses-top">
-                                    <div class="courses-image">
-                                        <img src="images/courses-image5.jpg" class="img-responsive" alt="">
-                                    </div>
-                                    <div class="courses-date">
-                                        <span><i class="fa fa-calendar"></i> 5 / 10 / 2018</span>
-                                        <span><i class="fa fa-clock-o"></i> 10 Hours</span>
-                                    </div>
-                                </div>
-
-                                <div class="courses-detail">
-                                    <h3><a href="#">Business &amp; Management</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-
-                                <div class="courses-info">
-                                    <div class="courses-author">
-                                        <img src="images/author-image2.jpg" class="img-responsive" alt="">
-                                        <span>Jessica</span>
-                                    </div>
-                                    <div class="courses-price free">
-                                        <a href="#"><span>Free</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <!--MODAL-->
                 </div>
+
 
             </div>
 
@@ -1027,90 +965,75 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-12 col-sm-12">
-                    <div class="section-title">
-                        <h2>Profesores <small>Esta es la lista de los profesores de nuestra universidad</small></h2>
+                <div class="section-title">
+                    <h2>Profesores de la carrera</h2>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover" id="tableProfessorInformationForStudent">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Carné
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Apellido
+                                    </th>
+                                    <th>
+                                        Correo
+                                    </th>
+                                    <th>
+                                        Hora de atención
+                                    </th>
+                                    <th>
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodyStudentCourses">
+                            </tbody>
+                        </table>
                     </div>
+                    <div class="modal fade" id="modalStudentProfessor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Enviar consulta a profesor</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="idCardForProfessorModal">Carné</label>
+                                            <input type="text" class="form-control" id="idCardForProfessorModal" placeholder="Siglas" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nameProfessorForStudentModal">Nombre</label>
+                                            <input type="text" class="form-control" id="nameProfessorForStudentModal" placeholder="Nombre" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="emailProfessorForStudentModal">Correo</label>
+                                            <input type="text" class="form-control" id="emailProfessorForStudentModal" placeholder="Correo" disabled="disabled" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="consultationAreaForProfessor">Consulta</label>
+                                            <textarea id="consultationAreaForProfessor" name="consultationAreaForProfessor" rows="4" cols="50"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
 
-                    <div class="owl-carousel owl-theme owl-client">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="item">
-                                <div class="tst-image">
-                                    <img src="images/tst-image1.jpg" class="img-responsive" alt="">
+                                    <button type="button" class="btn btn-primary" id="btnSendConsult" style="display:none;" onclick="">Enviar consulta</button>
                                 </div>
-                                <div class="tst-author">
-                                    <h4>Jackson</h4>
-                                    <span>Shopify Developer</span>
-                                </div>
-                                <p>You really do help young creative minds to get quality education and professional job search assistance. I’d recommend it to everyone!</p>
-                                <div class="tst-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
+
+
                             </div>
                         </div>
-
-                        <div class="col-md-4 col-sm-4">
-                            <div class="item">
-                                <div class="tst-image">
-                                    <img src="images/tst-image2.jpg" class="img-responsive" alt="">
-                                </div>
-                                <div class="tst-author">
-                                    <h4>Camila</h4>
-                                    <span>Marketing Manager</span>
-                                </div>
-                                <p>Trying something new is exciting! Thanks for the amazing law course and the great teacher who was able to make it interesting.</p>
-                                <div class="tst-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-4">
-                            <div class="item">
-                                <div class="tst-image">
-                                    <img src="images/tst-image3.jpg" class="img-responsive" alt="">
-                                </div>
-                                <div class="tst-author">
-                                    <h4>Barbie</h4>
-                                    <span>Art Director</span>
-                                </div>
-                                <p>Donec erat libero, blandit vitae arcu eu, lacinia placerat justo. Sed sollicitudin quis felis vitae hendrerit.</p>
-                                <div class="tst-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-4">
-                            <div class="item">
-                                <div class="tst-image">
-                                    <img src="images/tst-image4.jpg" class="img-responsive" alt="">
-                                </div>
-                                <div class="tst-author">
-                                    <h4>Andrio</h4>
-                                    <span>Web Developer</span>
-                                </div>
-                                <p>Nam eget mi eu ante faucibus viverra nec sed magna. Vivamus viverra sapien ex, elementum varius ex sagittis vel.</p>
-                                <div class="tst-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
                 </div>
 
             </div>
@@ -1212,21 +1135,23 @@
     </section>
 
 
-
     <!--Professor-->
     <section id="professor">
         <div class="container">
             <div class="row">
 
                 <a class="btn btn-primary" data-toggle="collapse" href="#collapseProfessor" role="button" aria-expanded="false" aria-controls="collapseProfessor">
-                    Bienvenido profesor
+                    Bienvenido Profesor
                 </a>
                 <div class="collapse" id="collapseProfessor">
                     <div class="card card-body">
 
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#professorProfile" onclick="return hydeShowSection('professorProfile'), keepSingleTabForProfile()">Perfil</a>
+                                <a class="nav-link active" href="#professorProfile" onclick="return hydeShowSection('professorProfile'), keepSingleTabForProfessorProfile()">Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#ConsultationHours" onclick="return hydeShowSection('ConsultationHours'), keepSingleTabForProfessorConsultation()">Horas de consulta</a>
                             </li>
                         </ul>
                     </div>
@@ -1274,8 +1199,8 @@
                                                     </div>
                                                 </div>
                                                 <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                                    <li><a  id="facebookProfileProfessor" class="fa fa-facebook" target="_blank"></a></li>
-                                                    <li><a  id="instagramProfileProfessor" class="fa fa-instagram" target="_blank"></a></li>
+                                                    <li><a id="facebookProfileProfessor" class="fa fa-facebook" target="_blank"></a></li>
+                                                    <li><a id="instagramProfileProfessor" class="fa fa-instagram" target="_blank"></a></li>
                                                 </ul>
                                                 <div class="col-sm-6">
 
@@ -1307,11 +1232,11 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="phoneProfileProfessorModal">Teléfono</label>
-                                                                <input type="text" class="form-control" id="phoneProfileProfessorModal" placeholder="Teléfono" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="phoneProfileProfessorModal" placeholder="Teléfono" autocomplete="off" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="infoProfileProfessorModal">Información personal</label>
-                                                                <input type="text" class="form-control" id="infoProfileProfessorModal" placeholder="Información personal" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="infoProfileProfessorModal" placeholder="Información personal" autocomplete="off" />
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="FacebookfileProfessorModal">Agrega link Facebook</label>
@@ -1319,7 +1244,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="InstagramProfileProfessorModal">Agrega link Instagram</label>
-                                                                <input type="text" class="form-control" id="InstagramProfileProfessorModal" placeholder="link Instagram" autocomplete="off"/>
+                                                                <input type="text" class="form-control" id="InstagramProfileProfessorModal" placeholder="link Instagram" autocomplete="off" />
                                                             </div>
                                                         </form>
                                                     </div>
@@ -1341,6 +1266,35 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <section id="ConsultationHours">
+        <div class="container">
+            <div class="row">
+
+                <div class="section-title">
+                    <h2>Horario de consulta</h2>
+                </div>
+                <div class="col-md-4 col-sm-6">
+
+                    <h3>Ingrese su horario de atención para estudiantes</h3>
+                    <div>
+                        <input type="text" name="Consultation" id="Consultation" class="form-control" placeholder="Día(s)/Rango de horas" autocomplete="off" required="">
+                        <br> <br>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+
+                    <h3>Acciones</h3>
+                    <div>
+                        <button class="btn btn-primary" onclick="return saveConsultationHours();" id="SavetHours">Guardar</button>
+                    </div>
+                    <div id="incorrectLabelAddConsultationHours" class="hide" role="alert">Error al registar horario de consulta</div>
+                    <div id="correctLabelAddConsultationHours" class="hide" role="alert">Horario de consulta registrado correctamente </div>
+                </div>
             </div>
         </div>
     </section>
