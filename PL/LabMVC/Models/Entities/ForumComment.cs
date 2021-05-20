@@ -12,7 +12,5 @@ namespace LabMVC.Models.Entities
         public string Author { get; set; }
         public string TextContent { get; set; }
         public DateTime? CreationDate { get; set; }
-
-        public virtual User AuthorIdCardNavigation { get; set; }
     }
 }

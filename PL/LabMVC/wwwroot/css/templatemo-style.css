@@ -694,10 +694,12 @@ h6 {
         font-size: 14px;
     }
 
+#tableForum {
+    color: #1878B6;
+}
 /*---------------------------------------
      NEWS              
   -----------------------------------------*/
-
 .news-thumb {
     clear: both;
     position: relative;

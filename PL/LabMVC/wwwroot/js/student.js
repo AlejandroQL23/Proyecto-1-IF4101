@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     LoadDataAcceptDenyEF();
+    LoadDataToForumCourse();
 });
 
 function AddEF() {
@@ -260,26 +261,58 @@ function linkToInstagramStudent(ID) {
 
 function addCommentToForum() {
 
-    var commentforum = {
-        idCard: $('#idCardProfileStudent').val(),
-        name: $('#nameProfileStudent').val(),
-        forumContent: $('#consultationAreaForCourse').val()
+    var forumComment = {
+        AuthorIdCard: $('#initialsForCourseModal').val(),
+        Author: $('#nameProfileStudent').val(),
+        TextContent: $('#consultationAreaForCourse').val()
     };
 
     $.ajax({
-        //   url: "/Course/AddCourse",
-        data: JSON.stringify(commentforum),
+        url: "/ForumComment/AddForumComment",
+        data: JSON.stringify(forumComment),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
+            $('#modalStudentCourse').modal('hide');
+           LoadDataToForumCourse();
         },
         error: function (errorMessage) {
 
         }
     });
 
+}
+
+
+function LoadDataToForumCourse() {
+    $.ajax({
+        url: "/ForumComment/GetForum",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.authorIdCard,
+                    item.author,
+                    item.textContent,
+                    item.creationDate,
+                    '<td><a onclick= (' + JSON.stringify() + ')>Comentar</a></td>'
+                ];
+                dataSet.push(data);
+            });
+            $('#tableForum').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
 }
 
 
