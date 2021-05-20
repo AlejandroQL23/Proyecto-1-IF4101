@@ -149,8 +149,8 @@ function ObtainStudentProfileInformation() {
             $('#phoneProfileStudentModal').val(result.phone);
             $('#infoProfileStudentModal').val(result.personalFormation);
 
-            $('#FacebookfileProfessorModal').val(result.facebook);
-            $('#InstagramProfileProfessorModal').val(result.instagram);
+            $('#facebookProfilePStudentModal').val(result.facebook);
+            $('#instagramProfilePStudentModal').val(result.instagram);
 
             $('#modalProfileStudent').modal('show');
             $('#btnUpdateProfileStudent').show();
