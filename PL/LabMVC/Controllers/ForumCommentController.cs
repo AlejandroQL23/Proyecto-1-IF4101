@@ -24,13 +24,13 @@ namespace LabMVC.Controllers
             return View();
         }
 
-        public ActionResult GetCourses()
+        public ActionResult GetForum()
         {
             forumCommentDAO = new ForumDAO(_context);
             return Ok(forumCommentDAO.GetForumComments());
         }
 
-        public ActionResult GetCourseById(int id)
+        public ActionResult GetForumById(int id)
         {
             forumCommentDAO = new ForumDAO(_context);
             return Ok(forumCommentDAO.GetForumCommentById(id));

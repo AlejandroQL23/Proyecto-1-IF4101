@@ -77,12 +77,6 @@ namespace LabMVC.Models.Entities
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.TextContent).HasMaxLength(300);
-
-                entity.HasOne(d => d.AuthorIdCardNavigation)
-                    .WithMany(p => p.ForumComments)
-                    .HasPrincipalKey(p => p.IdCard)
-                    .HasForeignKey(d => d.AuthorIdCard)
-                    .HasConstraintName("FK_ForumComment_User");
             });
 
             modelBuilder.Entity<Group>(entity =>

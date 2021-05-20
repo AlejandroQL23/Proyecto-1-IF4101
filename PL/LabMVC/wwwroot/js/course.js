@@ -241,35 +241,7 @@ function GetByInitialsForModalStudent(ID) {
 //--------------FORTABLEANDMODALCOURSESTUDENT-----------------
 //--------------FORUM.TABLE/MODAL-----------------
 
-function LoadDataToForumCourse() {
-    $.ajax({
-       // url: "/Course/GetCourses", //cambiar por uno que descrimine por semestre
-        type: "GET",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            dataSet = new Array();
-            $.each(result, function (key, item) {
-                data = [
-                    item.authorIdCard,
-                    item.author,
-                    item.textContent,
-                    item.creationDate,
-                    '<td><a onclick= (' + JSON.stringify() + ')>Comentar</a> | <a onclick= (' + JSON.stringify() + ')>Ver comentarios</a></td>'
-                ];
-                dataSet.push(data);
-            });
-            $('#tableStudentCourses').DataTable({
-                "searching": true,
-                data: dataSet,
-                "bDestroy": true
-            });
-        },
-        error: function (errorMessage) {
-            alert(errorMessage.responseText);
-        }
-    })
-}
+
 //--------------FORUM.TABLE/MODAL-----------------
 function cleanCourseSpace() {
     document.getElementById('acronymCourse').value = '';
