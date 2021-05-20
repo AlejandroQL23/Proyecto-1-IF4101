@@ -7,10 +7,8 @@ namespace LabMVC.Models.Entities
 {
     public partial class Group
     {
-        public int Id { get; set; }
+        public int GroupId { get; set; }
         public string Name { get; set; }
-        public int? CourseId { get; set; }
-        public int? MainProfessorId { get; set; }
         public int? ScheduleId { get; set; }
         public DateTime CreationDate { get; set; }
     }

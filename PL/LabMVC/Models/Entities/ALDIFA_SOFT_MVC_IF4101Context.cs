@@ -18,6 +18,7 @@ namespace LabMVC.Models.Entities
         }
 
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<ForumComment> ForumComments { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -63,18 +64,37 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.UpdateUser).HasMaxLength(15);
             });
 
+            modelBuilder.Entity<ForumComment>(entity =>
+            {
+                entity.ToTable("ForumComment");
+
+                entity.Property(e => e.Author).HasMaxLength(20);
+
+                entity.Property(e => e.AuthorIdCard).HasMaxLength(6);
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.TextContent).HasMaxLength(300);
+
+                entity.HasOne(d => d.AuthorIdCardNavigation)
+                    .WithMany(p => p.ForumComments)
+                    .HasPrincipalKey(p => p.IdCard)
+                    .HasForeignKey(d => d.AuthorIdCard)
+                    .HasConstraintName("FK_ForumComment_User");
+            });
+
             modelBuilder.Entity<Group>(entity =>
             {
                 entity.ToTable("Group");
 
-                entity.Property(e => e.CourseId).HasColumnName("Course_Id");
+                entity.Property(e => e.GroupId).HasColumnName("Group_Id");
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("date")
                     .HasColumnName("Creation_Date")
                     .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.MainProfessorId).HasColumnName("Main_Professor_Id");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -101,19 +121,25 @@ namespace LabMVC.Models.Entities
 
                 entity.Property(e => e.CreationUser).HasMaxLength(20);
 
-                entity.Property(e => e.DateTime).HasMaxLength(100);
+                entity.Property(e => e.DateTime)
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("('N/A')");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Facebook).HasMaxLength(70);
+                entity.Property(e => e.Facebook)
+                    .HasMaxLength(70)
+                    .HasDefaultValueSql("('https://www.facebook.com/')");
 
                 entity.Property(e => e.IdCard)
                     .IsRequired()
-                    .HasMaxLength(8);
+                    .HasMaxLength(6);
 
-                entity.Property(e => e.Instagram).HasMaxLength(70);
+                entity.Property(e => e.Instagram)
+                    .HasMaxLength(70)
+                    .HasDefaultValueSql("('https://www.instagram.com/')");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
@@ -132,6 +158,8 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.Phone).HasMaxLength(15);
 
                 entity.Property(e => e.Picture).HasColumnType("text");
+
+                entity.Property(e => e.Presidency).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Rol).HasMaxLength(20);
 
