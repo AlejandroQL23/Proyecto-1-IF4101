@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {}
+    "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj": {}
   },
   "projects": {
-    "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj": {
+    "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
-        "projectName": "LabMVC",
-        "projectPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\LabMVC.csproj",
+        "projectUniqueName": "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj",
+        "projectName": "WebAPIProject",
+        "projectPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj",
         "packagesPath": "C:\\Users\\Ale\\.nuget\\packages\\",
-        "outputPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\PL\\LabMVC\\obj\\",
+        "outputPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ale\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,67 +40,23 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "AutoMapper": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[10.1.1, )"
-            },
-            "Bootstrap.Less": {
-              "target": "Package",
-              "version": "[3.4.1, )"
-            },
-            "FluentNHibernate": {
-              "target": "Package",
-              "version": "[3.1.0, )"
-            },
-            "Microsoft.AspNet.Mvc": {
-              "target": "Package",
-              "version": "[5.2.7, )"
-            },
-            "Microsoft.AspNet.WebApi.Client": {
-              "target": "Package",
-              "version": "[5.2.7, )"
-            },
-            "Microsoft.AspNetCore.Http.Extensions": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Session": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Analyzers": {
-              "target": "Package",
-              "version": "[5.0.6, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.6, )"
+              "version": "[3.1.15, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.6, )"
+              "version": "[3.1.15, )"
             },
-            "Polly": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[7.2.2, )"
-            },
-            "System.Data.SqlClient": {
-              "target": "Package",
-              "version": "[4.8.2, )"
-            },
-            "bootstrap": {
-              "target": "Package",
-              "version": "[5.0.1, )"
-            },
-            "bootstrap-sortable": {
-              "target": "Package",
-              "version": "[2.0.0, )"
-            },
-            "jQuery1": {
-              "target": "Package",
-              "version": "[1.12.4, )"
+              "version": "[3.1.5, )"
             }
           },
           "imports": [

@@ -680,7 +680,7 @@
                     </div>
 
                     <div>
-                        <button class="btn btn-primary" onclick="" id="submitNews">Publicar</button>
+                        <button class="btn btn-primary" onclick="return AddNews()" id="submitNews">Publicar</button>
                     </div>
 
                 </div>
@@ -718,7 +718,7 @@
     </section>
 
     @if (@HttpContextAccessor.HttpContext.Session.GetString("rol") == "Estudiante")
-    { 
+    { }
     <!--Student-->
     <section id="student">
         <div class="container">
@@ -1073,13 +1073,15 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button type="button" class="btn btn-primary" id="btnSendConsult" style="display:none;" onclick="">Enviar consulta</button>
+                                    <button type="button" class="btn btn-primary" id="btnSendConsult" style="display:none;" onclick="AddQuestionProfessor();">Enviar consulta</button><button type="button" class="btn btn-primary" id="btnSendConsult" style="display:none;" onclick="">Enviar consulta</button>
                                 </div>
 
 
                             </div>
                         </div>
                     </div>
+                    <div id="incorrectLabelSendConsult" class="hide" role="alert">Error al enviar consulta</div>
+                    <div id="correctLabelSendConsult" class="hide" role="alert">Consulta enviada correctamente </div>
                 </div>
 
             </div>
@@ -1162,7 +1164,7 @@
             </div>
         </div>
     </section>
-}
+
 
     <!--Professor-->
     <section id="professor">
@@ -1423,6 +1425,7 @@
     <script src="js/administrator.js"></script>
     <script src="js/professor.js"></script>
     <script src="js/site.js"></script>
+    <script src="js/News.js"></script>
 
     <script src="js/datatables.js"></script>
 
