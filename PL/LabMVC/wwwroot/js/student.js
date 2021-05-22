@@ -319,24 +319,35 @@ function LoadDataToForumCourse() {
 
 
 function AddQuestionProfessor() {
-
-    var commentforum = {
+    var user = {
         idCard: $('#idCardProfileStudent').val(),
         name: $('#nameProfileStudent').val(),
-        forumContent: $('#consultationAreaForProfessor').val()
+        lastName: $('#nameProfessorForStudentModal').val(),
+        email: $('#emailProfessorForStudentModal').val(),
+        address: $('#consultationAreaForProfessor').val()
     };
 
     $.ajax({
-        //   url: "/Course/AddCourse",
-        data: JSON.stringify(commentforum),
+        url: "/Student/SendConsult",
+        data: JSON.stringify(user),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
+            $('#modalStudentProfessor').modal('hide');
+            var done = $('#correctLabelSendConsult');
+            done.removeClass();
+            done.addClass("alert alert-success register-alert")
+            done.fadeIn(1500);
+            done.fadeOut(4000);
         },
         error: function (errorMessage) {
-
+            $('#modalStudentProfessor').modal('hide');
+            var response = $('#incorrectLabelSendConsult');
+            response.removeClass();
+            response.addClass("alert alert-warning register-alert");
+            response.fadeIn(1500);
+            response.fadeOut(4000);
         }
     });
 

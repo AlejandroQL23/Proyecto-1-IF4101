@@ -548,6 +548,7 @@ C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Iesi.Collections.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
@@ -575,6 +576,7 @@ C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Microsoft.Identi
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\NHibernate.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Polly.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\bin\Debug\netcoreapp3.1\Remotion.Linq.dll

@@ -1,22 +1,23 @@
 ﻿$(document).ready(function () {
-   // LoadDataNewsStudent();
+    LoadDataNewsStudent();
 });
 
-function AddEF() {
+function AddNews() {
     var news = {
      
-        title: $('#nameOfNews').val(),
-        category: $('#typeOfNews').val(),
-        content: $('#newsContent').val(),
-        file: $('#fileOfNews').val()
+        Title: $('#nameOfNews').val(),
+        Author:"Administrador",
+        Category: $('#typeOfNews').val(),
+        TextContent: $('#newsContent').val(),
+        ExtraFile: $('#fileOfNews').val()
     };
 
         $.ajax({
-         //   url: "/Student/AddStudent",
-         //   data: JSON.stringify(user),
-         //   type: "POST",
-         //   contentType: "application/json;charset=utf-8",
-         //   dataType: "json",
+            url: "/News/",
+            data: JSON.stringify(news),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
             success: function (result) {
                
             },
@@ -30,17 +31,20 @@ function AddEF() {
 
 function LoadDataNewsStudent() {
     $.ajax({
-        //url: "/Professor/GetProfessor",
+        url: "/News/GetNewsForTable",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            alert("Nice");
             dataSet = new Array();
             $.each(result, function (key, item) {
                 data = [
-                    item.idCard, //cambiar cuendo este
-                    item.name,
-                    '<td><a onclick= (' + JSON.stringify() + ')>Comentar</a> </td>'
+                    item.title,
+                    item.category,
+                    item.textContent,
+                    item.extraFile,
+                    '<td><a onclick= (' + JSON.stringify(item.id) + ')>Comentar</a> </td>'
 
                 ];
                 dataSet.push(data);
@@ -52,6 +56,7 @@ function LoadDataNewsStudent() {
             });
         },
         error: function (errorMessage) {
+            alert("Error");
             alert(errorMessage.responseText);
         }
     })
