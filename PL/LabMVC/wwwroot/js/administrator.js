@@ -107,6 +107,9 @@ function GetAdminByIdForProfileCardEF(ID) {
             $('#emailProfileAdmin').val(result.email);
             $('#phoneProfileAdmin').val(result.phone);
             $('#infoProfileAdmin').val(result.personalFormation);
+            linkToFacebookAdmin(ID);
+            linkToInstagramAdmin(ID);
+            ReadImageAdmin(ID);
 
 
         },
@@ -181,6 +184,54 @@ function UpdateProfileAdmin() {
 }
 
 
+function linkToFacebookAdmin(ID) {
+
+    $.ajax({
+        url: "/Professor/GetProfessorById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            
+            var link = result.facebook;
+            $('#facebookProfileAdmin').attr('href', link);
+
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+
+
+}
+
+function linkToInstagramAdmin(ID) {
+
+    $.ajax({
+        url: "/Professor/GetProfessorById/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            var link = result.instagram;
+            $('#instagramProfileAdmin').attr('href', link);
+
+
+
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+
+
+}
+
 
 function validateProfessor(user) {
     var e = user.email + '';
@@ -214,4 +265,69 @@ function cleanProfessor() {
     document.getElementById('phoneProfessor').value = '';
     document.getElementById('addressProfessor').value = '';
 
+}
+
+
+
+$("#txtFileAdmin").change(function (event) {
+
+    var files = event.target.files;
+
+    $("#imgViewerAdminProfile").attr("src", window.URL.createObjectURL(files[0]));
+
+});
+$("#btnSaveAdmin").click(function () {
+
+    var files = $("#txtFileAdmin").prop("files");
+    var formData = new FormData();
+
+    for (var i = 0; i < files.length; i++) {
+        formData.append("file", files[i]);
+    }
+    var user = {
+
+        IdCard: $("#idCardProfileAdmin").val(),
+        Name: $("#nameProfileAdmin").val()
+
+    };
+
+    formData.append("IdentityUser", JSON.stringify(user));
+
+    $.ajax({
+        type: "POST",
+        url: "/Professor/SaveFile",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            ResetFields();
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    });
+
+});
+
+
+
+function ReadImageAdmin(ID) {
+
+    $.ajax({
+        type: "GET",
+        url: "/Professor/GetSavedUser/" + ID,
+        success: function (result) {
+
+            $("#imgViewerAdminProfile").attr("src", "data:image/jpg;base64," + result.photo + "");
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    });
+}
+
+function ResetFields() {
+    $("imgViewerAdminProfile").attr("src", "");
 }

@@ -179,5 +179,19 @@ namespace LabMVC.Models.Data
             return _context.Users.Any(e => e.Password == password);
         }
 
+        public Entities.User Save(Entities.User user)
+        {
+
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return user;
+        }
+
+        public Entities.User GetSavedUser(string ID)
+        {
+            var users = (from user in _context.Users where user.IdCard == ID select user);
+            return users.FirstOrDefault();
+        }
+
     }
 }

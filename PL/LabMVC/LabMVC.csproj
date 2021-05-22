@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\Ale\.nuget\packages\bootstrap\5.0.1\contentFiles\any\any\wwwroot\css\bootstrap.css.map" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="bootstrap" Version="5.0.1" />
     <PackageReference Include="bootstrap-sortable" Version="2.0.0" />

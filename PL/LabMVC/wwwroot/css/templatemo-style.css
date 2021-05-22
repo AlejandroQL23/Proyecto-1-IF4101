@@ -697,31 +697,7 @@ h6 {
 #tableForum {
     color: #1878B6;
 }
-/*---------------------------------------
-     NEWS              
-  -----------------------------------------*/
-.news-thumb {
-    clear: both;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 30px;
-}
 
-    .news-thumb .news-image {
-        float: left;
-        width: 40%;
-        margin-right: 30px;
-    }
-
-.news-info h3 {
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-
-.news-date span {
-    color: #909090;
-    font-weight: bold;
-}
 /*---------------------------------------
      FOOTER              
   -----------------------------------------*/

@@ -125,6 +125,7 @@ function GetStudentByIdCardForProfileEF(ID) {
             $('#infoProfileStudent').val(result.personalFormation);
             linkToFacebookStudent(ID);
             linkToInstagramStudent(ID);
+            ReadImageStudent(ID);
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -373,4 +374,106 @@ function validateStudent(user) {
     } else {
         return "";
     }
+}
+
+$("#txtFileStudent").change(function (event) {
+
+    var files = event.target.files;
+
+    $("#imgViewerStudentProfile").attr("src", window.URL.createObjectURL(files[0]));
+
+});
+$("#btnSaveStudent").click(function () {
+
+    var files = $("#txtFileStudent").prop("files");
+    var formData = new FormData();
+
+    for (var i = 0; i < files.length; i++) {
+        formData.append("file", files[i]);
+    }
+    var user = {
+
+        IdCard: $("#idCardProfileStudent").val(),
+        Name: $("#nameProfileStudent").val()
+
+    };
+
+    formData.append("IdentityUser", JSON.stringify(user));
+
+    $.ajax({
+        type: "POST",
+        url: "/Student/SaveFile",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            ResetFields();
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    });
+
+});
+
+
+
+function ReadImageStudent(ID) {
+
+    $.ajax({
+        type: "GET",
+        url: "/Student/GetSavedUser/" + ID,
+        success: function (result) {
+
+            $("#imgViewerStudentProfile").attr("src", "data:image/jpg;base64," + result.photo + "");
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    });
+}
+
+function ResetFields() {
+    $("imgViewerStudentProfile").attr("src", "");
+}
+
+function ValidateLogin() {
+
+    var user = {
+        idCard: $('#IdCardUser').val(),
+        password: $('#passwordUser').val()
+    };
+
+    $.ajax({
+        url: "/Login/Validate",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            alert("OK");
+
+
+        },
+        error: function (errorMessage) {
+            alert("OK'n");
+            // window.location.href = "";
+            GetAdminByIdForProfileCardEF(user.idCard);
+            linkToFacebookAdmin(user.idCard);
+            linkToInstagramAdmin(user.idCard);
+            //
+            GetProfessorByIdForProfileCardEF(user.idCard);
+            linkToFacebookProfessor(user.idCard);
+            linkToInstagramProfessor(user.idCard);
+            //
+            GetStudentByIdCardForProfileEF(user.idCard);
+            linkToFacebookStudent(user.idCard);
+            linkToInstagramStudent(user.idCard);
+
+            //window.location.href = "";
+
+        }
+    });
 }

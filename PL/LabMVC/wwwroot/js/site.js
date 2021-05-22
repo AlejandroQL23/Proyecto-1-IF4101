@@ -95,38 +95,6 @@ function keepSingleTabForProfessorConsultation() {
 }
 
 
-function ValidateLogin() {
-
-    var user = {
-        idCard: $('#IdCardUser').val(),
-        password: $('#passwordUser').val()
-    };
-
-    $.ajax({
-        url: "/Login/Validate",
-        data: JSON.stringify(user),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-          
-        },
-        error: function (errorMessage) {
-
-            //window.location.href = "";
-            GetAdminByIdForProfileCardEF(user.idCard);
-            GetProfessorByIdForProfileCardEF(user.idCard);
-            linkToFacebookProfessor(user.idCard);
-            linkToInstagramProfessor(user.idCard);
-           // GetStudentByIdCardForProfileEF(user.idCard);
-            GetStudentByIdCardForProfileEF(user.idCard);
-            linkToFacebookStudent(user.idCard);
-            linkToInstagramStudent(user.idCard);
-           
-           
-        }
-    });
-}
 
 
 
