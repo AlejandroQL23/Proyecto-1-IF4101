@@ -2,8 +2,10 @@
 using LabMVC.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -100,11 +102,64 @@ namespace LabMVC.Controllers
             user.Activity = oldUser.Activity;
             user.DateTime = oldUser.DateTime;
             user.Approval = oldUser.Approval;
-            //tofo
+            user.Photo = oldUser.Photo;
             studentDAO.RemoveStudent(oldUser);
             int resultToReturn = studentDAO.EditStudent(user);
             return Ok(resultToReturn);
         }
+        //----
 
+        [HttpPost]
+        public string SaveFile(FileUpload fileObj)
+        {
+            Models.Entities.User identityUserObject = JsonConvert.DeserializeObject<Models.Entities.User>(fileObj.identityUser);
+            if (fileObj.file.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+
+                    fileObj.file.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    identityUserObject.Photo = fileBytes;
+                    studentDAO = new StudentDAO(_context);
+                    var newUser = studentDAO.GetStudentById(identityUserObject.IdCard);
+                    newUser.Photo = identityUserObject.Photo;
+                    newUser = studentDAO.Save(newUser);
+                    if (newUser.Id > 0)
+                    {
+                        return "Saved";
+
+                    }
+
+                }
+
+            }
+            return "Failed";
+
+        }
+
+
+
+        [HttpGet]
+        public JsonResult GetSavedUser(string ID)
+        {
+            studentDAO = new StudentDAO(_context);
+            var user = studentDAO.GetSavedUser(ID);
+            user.Photo = this.GetImage(Convert.ToBase64String(user.Photo));
+            return Json(user);
+        }
+
+        public byte[] GetImage(string sBase64String)
+        {
+            byte[] bytes = null;
+            if (!string.IsNullOrEmpty(sBase64String))
+            {
+                bytes = Convert.FromBase64String(sBase64String);
+            }
+            return bytes;
+
+        }
+
+        //----
     }
 }

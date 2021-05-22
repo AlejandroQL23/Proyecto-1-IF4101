@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     LoadDataProfessorForStudentHoursOfAttentiontEF();
+    //LoadDataProfessorStudentConsultationRequests();
 });
 
 
@@ -308,4 +309,33 @@ function ReadImageProfessor(ID) {
 
 function ResetFields() {
     $("imgViewer").attr("src", "");
+}
+
+function LoadDataProfessorStudentConsultationRequests() {
+    $.ajax({
+        //url: "/Professor/GetProfessor",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.idCard,
+                    item.name,
+                    '<td><a onclick= (' + JSON.stringify() + ')>Aceptar</a> | <a onclick= (' + JSON.stringify() + ')>Rechazar</a></td>'
+
+                ];
+                dataSet.push(data);
+            });
+            $('#tableProfessorStudentConsultationRequests').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
 }

@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+   // LoadDataNewsStudent();
 });
 
 function AddEF() {
@@ -24,4 +25,34 @@ function AddEF() {
             }
         });
 
+}
+
+
+function LoadDataNewsStudent() {
+    $.ajax({
+        //url: "/Professor/GetProfessor",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.idCard, //cambiar cuendo este
+                    item.name,
+                    '<td><a onclick= (' + JSON.stringify() + ')>Comentar</a> </td>'
+
+                ];
+                dataSet.push(data);
+            });
+            $('#tableNewsStudent').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    })
 }
