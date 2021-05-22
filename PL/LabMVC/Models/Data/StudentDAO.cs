@@ -193,5 +193,20 @@ namespace LabMVC.Models.Data
             return users.FirstOrDefault();
         }
 
+        public int AddProfessorConsultation(ProfessorConsultation professorConsultation)
+        {
+            int resultToReturn;
+            try
+            {
+                _context.Add(professorConsultation);
+                resultToReturn = _context.SaveChangesAsync().Result;
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+            return resultToReturn;
+        }
+
     }
 }

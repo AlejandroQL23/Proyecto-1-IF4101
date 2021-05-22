@@ -20,6 +20,7 @@ namespace LabMVC.Models.Entities
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<ForumComment> ForumComments { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<ProfessorConsultation> ProfessorConsultations { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -96,6 +97,23 @@ namespace LabMVC.Models.Entities
                     .IsUnicode(false);
 
                 entity.Property(e => e.ScheduleId).HasColumnName("Schedule_Id");
+            });
+
+            modelBuilder.Entity<ProfessorConsultation>(entity =>
+            {
+                entity.ToTable("ProfessorConsultation");
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IdCardProffesor).HasMaxLength(6);
+
+                entity.Property(e => e.IdCardStudent).HasMaxLength(6);
+
+                entity.Property(e => e.StudentEmail).HasMaxLength(70);
+
+                entity.Property(e => e.StudentName).HasMaxLength(20);
             });
 
             modelBuilder.Entity<User>(entity =>

@@ -62,7 +62,8 @@ namespace LabMVC.Controllers
         //----------------------------------------------------------------------------------
 
         // GET: api/News/5
-        //[HttpGet("{id}", Name = "GetById")]
+        [Route("[action]")]
+        [HttpGet("{id}", Name = "GetById")]
         public News GetById(int id)
         {
             News news = null;

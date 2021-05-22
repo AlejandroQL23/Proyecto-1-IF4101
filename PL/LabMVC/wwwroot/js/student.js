@@ -319,17 +319,17 @@ function LoadDataToForumCourse() {
 
 
 function AddQuestionProfessor() {
-    var user = {
-        idCard: $('#idCardProfileStudent').val(),
-        name: $('#nameProfileStudent').val(),
-        lastName: $('#nameProfessorForStudentModal').val(),
-        email: $('#emailProfessorForStudentModal').val(),
-        address: $('#consultationAreaForProfessor').val()
+    var ProfessorConsultation = {
+        IdCardProffesor: $('#idCardForProfessorModal').val(),
+        IdCardStudent: $('#idCardProfileStudent').val(),
+        StudentName: $('#nameProfileStudent').val(),
+        StudentEmail: $('#emailProfileStudent').val(),
+        ConsultationText: $('#consultationAreaForProfessor').val()
     };
 
     $.ajax({
         url: "/Student/SendConsult",
-        data: JSON.stringify(user),
+        data: JSON.stringify(ProfessorConsultation),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -352,6 +352,7 @@ function AddQuestionProfessor() {
     });
 
 }
+
 
 
 function clean() {

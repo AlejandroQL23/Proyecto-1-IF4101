@@ -146,6 +146,27 @@ namespace LabMVC.Models.Data
             return users.FirstOrDefault();
         }
 
+        public IEnumerable<Entities.ProfessorConsultation> GetProfessorConsultations(String IdCardProffesor)
+        {
+            var consultations = (from consultation in _context.ProfessorConsultations where consultation.IdCardProffesor == IdCardProffesor select consultation);
+            return consultations.ToList();
+        }
+
+        public ProfessorConsultation GetProfessorConsult(int identification)
+        {
+            var users = (from user in _context.ProfessorConsultations where user.Id == identification select user);
+            return users.FirstOrDefault();
+        }
+
+        public int RemoveConsult(ProfessorConsultation professorConsultation)
+        {
+            int resultToReturn;
+            var consultToRemove = _context.ProfessorConsultations.Find(professorConsultation.Id);
+            _context.ProfessorConsultations.Remove(consultToRemove);
+            resultToReturn = _context.SaveChangesAsync().Result;
+            return resultToReturn;
+        }
+
 
     }
 }
