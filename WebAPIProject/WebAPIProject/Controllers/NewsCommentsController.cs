@@ -9,7 +9,7 @@ using WebAPIProject.Models.Entities;
 
 namespace WebAPIProject.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class NewsCommentsController : ControllerBase
     {
@@ -21,6 +21,7 @@ namespace WebAPIProject.Controllers
         }
 
         // GET: api/NewsComments
+        [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NewsComment>>> GetNewsComments()
         {

@@ -172,6 +172,19 @@ namespace LabMVC.Controllers
             return Ok(1);
         }
 
+
+        public ActionResult SendConsult([FromBody] ProfessorConsultation professorConsultation)
+        {
+            studentDAO = new StudentDAO(_context);
+            var professor = studentDAO.GetStudentById(professorConsultation.IdCardProffesor);
+            studentDAO.SendEmail(professor.Email, "❁→❝Solicitud de consulta❞❁",
+                          "<html><body ><h1>Estimado/a " + professor.Name + " " + professor.LastName + "</h1><br/>" +
+                          "<br/><h3>El estudiante " + professorConsultation.IdCardStudent + " - " + professorConsultation.StudentName + " le solicita lo siguiente:<br/>" +
+                          "<br/>" + professorConsultation.ConsultationText + "<br/>" +
+                          "<br/>Usted debe aceptar o rechazar esta consulta desde la página.</h3></body></html>");
+            return Ok(studentDAO.AddProfessorConsultation(professorConsultation));
+        }
+
         //----
     }
 }

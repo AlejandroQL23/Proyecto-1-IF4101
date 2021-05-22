@@ -26,8 +26,8 @@ namespace LabMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomment/");
-                    var responseTask = client.GetAsync("GetStudents");
+                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomments/");
+                    var responseTask = client.GetAsync("GetNewsComments");
                     responseTask.Wait();
 
                     var result = responseTask.Result;
@@ -98,8 +98,8 @@ namespace LabMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomment");
-                    var postTask = client.PostAsJsonAsync("newscomment", newscomment);
+                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomments");
+                    var postTask = client.PostAsJsonAsync("PostNewsComment", newscomment);
                     postTask.Wait();
 
                     var result = postTask.Result;

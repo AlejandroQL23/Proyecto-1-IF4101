@@ -16,7 +16,7 @@ namespace LabMVC.Controllers
 
         private readonly ALDIFA_SOFT_MVC_IF4101Context _context;
         ProfessorDAO professorDAO;
-
+        StudentDAO studentDAO;
 
         public ProfessorController(ALDIFA_SOFT_MVC_IF4101Context context)
         {
@@ -150,6 +150,39 @@ namespace LabMVC.Controllers
             }
             return bytes;
 
+        }
+
+
+        public ActionResult GetProfessorConsultations(string id)
+        {
+            professorDAO = new ProfessorDAO(_context);
+            return Ok(professorDAO.GetProfessorConsultations(id));
+        }
+        public ActionResult AcceptConsult(int id)
+        {
+
+            professorDAO = new ProfessorDAO(_context);
+            studentDAO = new StudentDAO(_context);
+            var professorConsultation = professorDAO.GetProfessorConsult(id);
+            var professor = professorDAO.GetProfessorById(professorConsultation.IdCardProffesor);
+            var student = studentDAO.GetStudentById(professorConsultation.IdCardStudent);
+            professorDAO.SendEmail(student.Email, "❁→❝Respuesta a su solicitud de consulta❞❁",
+                          "<html><body ><h1>Estimado/a " + student.Name + " " + student.LastName + "</h1><br/>" +
+                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha ACEPTADO su solicitud de consulta<br/></h3></body></html>");
+            return Ok(professorDAO.RemoveConsult(professorConsultation));
+        }
+
+        public ActionResult DenyConsult(int id)
+        {
+            professorDAO = new ProfessorDAO(_context);
+            studentDAO = new StudentDAO(_context);
+            var professorConsultation = professorDAO.GetProfessorConsult(id);
+            var professor = professorDAO.GetProfessorById(professorConsultation.IdCardProffesor);
+            var student = studentDAO.GetStudentById(professorConsultation.IdCardStudent);
+            professorDAO.SendEmail(student.Email, "❁→❝Respuesta a su solicitud de consulta❞❁",
+                          "<html><body ><h1>Estimado/a " + student.Name + " " + student.LastName + "</h1><br/>" +
+                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha RECHAZADO su solicitud de consulta<br/></h3></body></html>");
+            return Ok(professorDAO.RemoveConsult(professorConsultation));
         }
 
 

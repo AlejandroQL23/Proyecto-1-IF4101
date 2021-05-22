@@ -983,14 +983,14 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="tbodyNewsComments">
+                                            <tbody class="modalCoursesComments">
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="text" class="form-control" id="addCommentsToNews" placeholder="Comentario" disabled="disabled" />
-                                    <button type="button" class="btn btn-primary" id="btnSendCommentToNews" style="display:none;" onclick="">Publicar</button>
+                                    <input type="text" class="form-control" id="addCommentsInForum" placeholder="Comentario" disabled="disabled" />
+                                    <button type="button" class="btn btn-primary" id="btnSendCommentToForum" style="display:none;" onclick="">Publicar</button>
                                 </div>
 
 
@@ -1102,6 +1102,9 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        Id
+                                    </th>
+                                    <th>
                                         Título
                                     </th>
                                     <th>
@@ -1132,8 +1135,13 @@
                                     <h4 class="modal-title" id="myModalLabel">Comentarios sobre las noticias</h4>
                                 </div>
                                 <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="idNewsModal">Id</label>
+                                        <input type="text" class="form-control" id="idNewsModal" placeholder="Id" disabled="disabled" />
+                                    </div>
                                     <div class="table-responsive">
-                                        <table class="table table-dark table-hover" id="tableStudentNewsCommentsModal">
+                                        <table class="table table-dark table-hover" id="xs">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -1150,8 +1158,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="text" class="form-control" id="addCommentsToNews" placeholder="Comentario" disabled="disabled" />
-                                    <button type="button" class="btn btn-primary" id="btnSendCommentToNews" style="display:none;" onclick="">Publicar</button>
+                                    <input type="text" class="form-control" id="addCommentsToNews" placeholder="Comentario" />
+                                    <button type="button" class="btn btn-primary" id="btnSendCommentToNews" style="display:none;" onclick="return AddCommentNews()">Publicar</button>
                                 </div>
 
 
@@ -1350,6 +1358,9 @@
                                     </th>
                                     <th>
                                         Nombre
+                                    </th>
+                                    <th>
+                                        Consulta
                                     </th>
                                     <th>
                                         Acción

@@ -23,6 +23,7 @@ function GetProfessorByIdForProfileCardEF(ID) {
             linkToFacebookProfessor(ID);
             linkToInstagramProfessor(ID);
             ReadImageProfessor(ID);
+            LoadDataProfessorStudentConsultationRequests();
 
         },
         error: function (errormessage) {
@@ -312,18 +313,25 @@ function ResetFields() {
 }
 
 function LoadDataProfessorStudentConsultationRequests() {
+
+    var professorConsultation = {
+        idCardProffesor: $('#idCardProfileProfessor').val()
+    };
+
     $.ajax({
-        //url: "/Professor/GetProfessor",
+        url: "/Professor/GetProfessorConsultations/" + professorConsultation.idCardProffesor,
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             dataSet = new Array();
             $.each(result, function (key, item) {
+                var consultId = item.id;
                 data = [
-                    item.idCard,
-                    item.name,
-                    '<td><a onclick= (' + JSON.stringify() + ')>Aceptar</a> | <a onclick= (' + JSON.stringify() + ')>Rechazar</a></td>'
+                    item.idCardStudent,
+                    item.studentName,
+                    item.consultationText,
+                    '<td><a onclick= AcceptStudentConsult(' + consultId + ')>Aceptar</a> | <a onclick= DenyStudentConsult(' + consultId + ')>Rechazar</a></td>'
 
                 ];
                 dataSet.push(data);
@@ -333,9 +341,30 @@ function LoadDataProfessorStudentConsultationRequests() {
                 data: dataSet,
                 "bDestroy": true
             });
+
+
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
         }
     })
 }
+
+function AcceptStudentConsult(ID) {
+    $.ajax({
+        url: "/Professor/AcceptConsult/" + ID,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            LoadDataProfessorStudentConsultationRequests();
+
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    });
+
+
+}
+
