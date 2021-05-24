@@ -19,6 +19,7 @@ namespace LabMVC.Models.Entities
 
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<ForumComment> ForumComments { get; set; }
+        public virtual DbSet<ForumCommentAnswer> ForumCommentAnswers { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<ProfessorConsultation> ProfessorConsultations { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -78,6 +79,17 @@ namespace LabMVC.Models.Entities
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.TextContent).HasMaxLength(300);
+            });
+
+            modelBuilder.Entity<ForumCommentAnswer>(entity =>
+            {
+                entity.ToTable("ForumCommentAnswer");
+
+                entity.Property(e => e.Author).HasMaxLength(50);
+
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<Group>(entity =>

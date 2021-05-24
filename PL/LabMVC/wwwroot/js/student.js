@@ -282,7 +282,7 @@ function addCommentToForum() {
 
         }
     });
-
+    document.getElementById('consultationAreaForCourse').value = '';
 }
 
 
@@ -296,11 +296,12 @@ function LoadDataToForumCourse() {
             dataSet = new Array();
             $.each(result, function (key, item) {
                 data = [
+                    item.id,
                     item.authorIdCard,
                     item.author,
                     item.textContent,
                     item.creationDate,
-                    '<td><a onclick= (' + JSON.stringify() + ')>Comentar</a></td>'
+                    '<td><a onclick= modalToAnswerComment(' + JSON.stringify(item.id) + ')>Comentar</a></td>'
                 ];
                 dataSet.push(data);
             });
@@ -491,17 +492,18 @@ function ValidateLogin() {
 }
 
 //-----------------------------------------------------------------------------------------------------------
-function modalToCommentNews(ID) {
+function modalToAnswerComment(ID) {
     $.ajax({
-        //url: "/News/" + ID,
+        
+        url: "/ForumComment/GetForumById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
 
-            $('#idNewsModal').val(result.id);
-            $('#modalNewsComments').modal('show');
-            $('#btnSendCommentToNews').show();
+            $('#idForAnswerModal').val(result.id);
+            $('#modalCoursesComments').modal('show');
+            $('#btnSendCommentToForum').show();
         },
         error: function (errormessage) {
             alert("Error");
@@ -512,7 +514,7 @@ function modalToCommentNews(ID) {
 }
 
 
-function LoadDataNewsStudentComments() {
+function LoadDataAnswerComments() { //NO LO HE PUESTO EN EL DOCUment.READY
     $.ajax({
         //url: "/NewsComment/Get",
         type: "GET",
@@ -531,7 +533,7 @@ function LoadDataNewsStudentComments() {
 
             });
 
-            $('#xs').DataTable({
+            $('#tableStudentNewsCommentsAnswerModal').DataTable({
                 "searching": true,
                 data: dataSet,
                 "bDestroy": true
@@ -544,21 +546,23 @@ function LoadDataNewsStudentComments() {
     })
 }
 
-function AddCommentNews() {
-    var newscomment = {
+function AddCommentAnswer() {//LLAMAR EN LAYO
+    var forumCommentAnswer = {
         Author: $('#nameProfileStudent').val(),
-        TextContent: $('#addCommentsToNews').val(),
-        NewsId: $('#idNewsModal').val()
+        TextContent: $('#addCommentsInForum').val(),
+        IdComment: $('#idForAnswerModal').val()
     };
+    alert(forumCommentAnswer.Author);
+    alert(forumCommentAnswer.TextContent);
+    alert(forumCommentAnswer.IdComment);
     $.ajax({
-       // url: "/NewsCommen/",
-        data: JSON.stringify(newscomment),
+        url: "/ForumComment/AddForumCommentAnswer",
+        data: JSON.stringify(forumCommentAnswer),
         type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             alert("pasa success");
-            LoadDataNewsStudentComments();
         },
         error: function (errorMessage) {
             alert("mAA");

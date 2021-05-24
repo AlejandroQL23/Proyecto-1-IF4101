@@ -20,15 +20,28 @@ function AddNews() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-               
+                cleanNews();
+                var done = $('#correctLabelAddNews');
+                done.removeClass();
+                done.addClass("alert alert-success register-alert")
+                done.fadeIn(1500);
+                done.fadeOut(4000);
             },
             error: function (errorMessage) {
-               
+                var response = $('#incorrectLabelAddNews');
+                response.removeClass();
+                response.addClass("alert alert-warning register-alert");
+                response.fadeIn(1500);
+                response.fadeOut(4000);
             }
         });
 
 }
 
+function cleanNews() {
+    document.getElementById('nameOfNews').value = '';
+    document.getElementById('newsContent').value = '';
+}
 
 function LoadDataNewsStudent() {
     $.ajax({
