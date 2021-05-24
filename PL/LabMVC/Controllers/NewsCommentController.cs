@@ -99,8 +99,8 @@ namespace LabMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomment");
-                    var postTask = client.PostAsJsonAsync("newscomment", newscomment);
+                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomments");
+                    var postTask = client.PostAsJsonAsync("newscomments", newscomment);
                     postTask.Wait();
 
                     var result = postTask.Result;
