@@ -134,23 +134,23 @@ function AddCommentNews() {
     var newscomment = {
         Author: $('#nameProfileStudent').val(),
         TextContent: $('#addCommentsToNews').val(),
-        NewsId: $('#idNewsModal').val()
+        NewsId: parseInt($('#idNewsModal').val())
     };
-    alert(newscomment.Author);
-    alert(newscomment.TextContent);
-    alert(newscomment.NewsId);
+
     $.ajax({
-            url: "/NewsCommen/",
-            data: JSON.stringify(newscomment),
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                alert("pasa success");
-                LoadDataNewsStudentComments();
-            },
-            error: function (errorMessage) {
-                alert("mAA");
-            }
-        });
+        url: "/NewsComment/Post",
+        data: JSON.stringify(newscomment),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            LoadDataNewsStudentComments();
+        },
+        error: function (errorMessage) {
+
+            // errorMessage.responseText
+
+            alert(errorMessage.responseText);
+        }
+    });
 }
