@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     LoadDataNewsStudent();
     LoadDataNewsStudentComments();
+    LoadDataNewsDeleteAdmin();
 });
 
 function AddNews() {
@@ -151,6 +152,54 @@ function AddCommentNews() {
             // errorMessage.responseText
 
             alert(errorMessage.responseText);
+        }
+    });
+}
+
+
+//------
+function LoadDataNewsDeleteAdmin() {
+    $.ajax({
+        url: "/News/GetNewsForTable",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.id,
+                    item.title,
+                    item.category,
+                    '<td><a onclick= DeleteOldNews(' + parseInt(item.id) + ')>Borrar</a> </td>'
+
+                ];
+                dataSet.push(data);
+            });
+            $('#tableAdminDeleteNews').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert("Error");
+            alert(errorMessage.responseText);
+        }
+    })
+}
+
+
+function DeleteOldNews(ID) {
+    $.ajax({
+        url: "/News/" + ID,
+         type: "DELETE",
+         contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            //cargar la dat en el perfil de neuvo
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
         }
     });
 }

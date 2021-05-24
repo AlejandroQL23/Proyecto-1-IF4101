@@ -714,9 +714,35 @@
 
                 </div>
 
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover" id="tableAdminDeleteNews">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Titulo
+                                </th>
+                                <th>
+                                    Categoria
+                                </th>
+                                <th>
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbodyAdminDeleteNews">
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </section>
+
+
 
     @if (@HttpContextAccessor.HttpContext.Session.GetString("rol") == "Estudiante")
     { }
