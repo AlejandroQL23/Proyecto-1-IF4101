@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     LoadDataProfessorForStudentHoursOfAttentiontEF();
-    //LoadDataProfessorStudentConsultationRequests();
+    LoadDataProfessorStudentConsultationRequests();
 });
 
 
@@ -241,6 +241,7 @@ function GetByIdCardProfessor(ID) {
         }
     });
     return false;
+    
 }
 
 
@@ -359,6 +360,24 @@ function AcceptStudentConsult(ID) {
         success: function (result) {
             LoadDataProfessorStudentConsultationRequests();
 
+        },
+        error: function (errorMessage) {
+            alert(errorMessage.responseText);
+        }
+    });
+
+
+}
+
+function DenyStudentConsult(ID) {
+    alert(ID);
+    $.ajax({
+        url: "/Professor/DenyConsult/" + ID,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            LoadDataProfessorStudentConsultationRequests();
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);

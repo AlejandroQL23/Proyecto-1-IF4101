@@ -91,15 +91,16 @@ namespace LabMVC.Controllers
 
 
         // POST: api/StudentAPI
+        [Route("[action]")]
         [HttpPost]
-        public JsonResult Post([FromBody] NewsComment newscomment)
+        public JsonResult Post([FromBody]NewsComment newscomment)
         {
             try
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomments");
-                    var postTask = client.PostAsJsonAsync("PostNewsComment", newscomment);
+                    client.BaseAddress = new Uri("https://localhost:44315/api/newscomment");
+                    var postTask = client.PostAsJsonAsync("newscomment", newscomment);
                     postTask.Wait();
 
                     var result = postTask.Result;

@@ -92,15 +92,16 @@ function LoadDataNewsStudentComments() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-           
+          
                 dataSet = new Array();
-                $.each(result, function (key, item) {
+            $.each(result, function (key, item) {
+               
                     data = [
                         item.author,
                         item.textContent
                     ];
                     dataSet.push(data);
-
+                
                 });
             
             $('#xs').DataTable({
@@ -118,21 +119,22 @@ function LoadDataNewsStudentComments() {
 
 function AddCommentNews() {
     var newscomment = {
-        author: $('#nameProfileStudent').val(),
-        textContent: $('#addCommentsToNews').val(),
-        newsId: $('#idNewsModal').val()
+        Author: $('#nameProfileStudent').val(),
+        TextContent: $('#addCommentsToNews').val(),
+        NewsId: $('#idNewsModal').val()
     };
-    alert(newscomment.author);
-    alert(newscomment.textContent);
-    alert(newscomment.newsId);
+    alert(newscomment.Author);
+    alert(newscomment.TextContent);
+    alert(newscomment.NewsId);
     $.ajax({
-            url: "/NewsComment/",
+            url: "/NewsCommen/",
             data: JSON.stringify(newscomment),
             type: "POST",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                alert("vi");
+                alert("pasa success");
+                LoadDataNewsStudentComments();
             },
             error: function (errorMessage) {
                 alert("mAA");

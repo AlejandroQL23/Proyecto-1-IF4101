@@ -161,18 +161,6 @@ namespace LabMVC.Controllers
         }
 
 
-        public ActionResult SendConsult([FromBody] User user)
-        {
-            studentDAO = new StudentDAO(_context);
-            studentDAO.SendEmail(user.Email, "❁→❝Solicitud de consulta❞❁",
-                          "<html><body ><h1>Estimado/a " + user.LastName + "</h1><br/>" +
-                          "<br/><h3>El estudiante " + user.IdCard + " - " + user.Name + " le solicita lo siguiente:<br/>" +
-                          "<br/>" + user.Address + "<br/>" +
-                          "<br/>Usted debe aceptar o rechazar esta consulta desde la página.</h3></body></html>");
-            return Ok(1);
-        }
-
-
         public ActionResult SendConsult([FromBody] ProfessorConsultation professorConsultation)
         {
             studentDAO = new StudentDAO(_context);
