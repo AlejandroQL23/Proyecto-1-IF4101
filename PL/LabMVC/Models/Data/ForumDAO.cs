@@ -55,5 +55,27 @@ namespace LabMVC.Models.Data
             return resultToReturn;
         }
 
+
+        public IEnumerable<Entities.ForumCommentAnswer> GetForumCommentsAnswer(int idComment)
+        {
+            var forum = (from forumCommentAnswer in _context.ForumCommentAnswers where forumCommentAnswer.IdComment == idComment select forumCommentAnswer);
+            return forum.ToList();
+        }
+
+        public int AddForumCommentAnswer(Entities.ForumCommentAnswer forumAnswer)
+        {
+            int resultToReturn;
+            try
+            {
+                _context.Add(forumAnswer);
+                resultToReturn = _context.SaveChangesAsync().Result;
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+            return resultToReturn;
+        }
+
     }
 }

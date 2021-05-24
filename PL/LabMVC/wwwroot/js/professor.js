@@ -370,7 +370,6 @@ function AcceptStudentConsult(ID) {
 }
 
 function DenyStudentConsult(ID) {
-    alert(ID);
     $.ajax({
         url: "/Professor/DenyConsult/" + ID,
         type: "POST",

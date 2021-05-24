@@ -42,5 +42,16 @@ namespace LabMVC.Controllers
             return Ok(forumCommentDAO.AddForumComment(forumComment));
         }
 
+        public ActionResult GetForumAnswer(int Id)
+        {
+            forumCommentDAO = new ForumDAO(_context);
+            return Ok(forumCommentDAO.GetForumCommentsAnswer(Id));
+        }
+        public IActionResult AddForumCommentAnswer([FromBody] ForumCommentAnswer forumCommentAnswer)
+        {
+            forumCommentDAO = new ForumDAO(_context);
+            return Ok(forumCommentDAO.AddForumCommentAnswer(forumCommentAnswer));
+        }
+
     }
 }
