@@ -11,7 +11,7 @@
     hydeShowSection('studentNews');
     hydeShowSection('professorProfile');
     hydeShowSection('ConsultationHours');
-
+    hydeShowSection('professorConsultationRequests');
 });
 
 function hydeShowSection(a) {
@@ -87,18 +87,19 @@ function keepSingleTabForstudentNews() {
 }
 //---
 function keepSingleTabForProfessorProfile() {
-    document.getElementById('ConsultationHours').style.display = 'none';  
+    document.getElementById('ConsultationHours').style.display = 'none';
+    document.getElementById('professorConsultationRequests').style.display = 'none'; 
 }
 
 function keepSingleTabForProfessorConsultation() {
     document.getElementById('professorProfile').style.display = 'none';
+    document.getElementById('professorConsultationRequests').style.display = 'none';  
 }
 
-
-
-
-
-
+function keepSingleTabForProfessorConsultationRequests() {
+    document.getElementById('professorProfile').style.display = 'none';
+    document.getElementById('ConsultationHours').style.display = 'none';  
+}
 
 
 

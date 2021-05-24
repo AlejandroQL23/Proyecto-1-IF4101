@@ -1073,7 +1073,7 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button type="button" class="btn btn-primary" id="btnSendConsult" style="display:none;" onclick="AddQuestionProfessor();">Enviar consulta</button><button type="button" class="btn btn-primary" id="btnSendConsult" style="display:none;" onclick="">Enviar consulta</button>
+                                    <button type="button" class="btn btn-primary" id="btnSendConsult" style="display:none;" onclick=" return AddQuestionProfessor()">Enviar consulta</button>
                                 </div>
 
 
@@ -1158,7 +1158,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="text" class="form-control" id="addCommentsToNews" placeholder="Comentario" />
+                                    <input type="text" class="form-control" id="addCommentsToNews" placeholder="Comentario" autocomplete="off" />
                                     <button type="button" class="btn btn-primary" id="btnSendCommentToNews" style="display:none;" onclick="return AddCommentNews()">Publicar</button>
                                 </div>
 
@@ -1191,6 +1191,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="#ConsultationHours" onclick="return hydeShowSection('ConsultationHours'), keepSingleTabForProfessorConsultation()">Horas de consulta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#professorConsultationRequests" onclick="return hydeShowSection('professorConsultationRequests'), keepSingleTabForProfessorConsultationRequests()">Solicitudes de consulta</a>
                             </li>
                         </ul>
                     </div>
