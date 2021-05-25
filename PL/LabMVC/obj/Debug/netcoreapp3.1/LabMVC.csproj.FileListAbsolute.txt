@@ -632,3 +632,4 @@ C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.csproj.Co
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.dll
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.pdb
 C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.genruntimeconfig.cache
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\LabMVC.csprojAssemblyReference.cache

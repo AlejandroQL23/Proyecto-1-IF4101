@@ -11,7 +11,6 @@ namespace LabMVC.Models.Entities
         public string IdCardProffesor { get; set; }
         public string IdCardStudent { get; set; }
         public string StudentName { get; set; }
-        public string StudentEmail { get; set; }
         public string ConsultationText { get; set; }
         public DateTime? CreationDate { get; set; }
     }
