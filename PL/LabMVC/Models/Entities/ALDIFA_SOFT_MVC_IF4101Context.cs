@@ -72,7 +72,7 @@ namespace LabMVC.Models.Entities
 
                 entity.Property(e => e.Author).HasMaxLength(20);
 
-                entity.Property(e => e.AuthorIdCard).HasMaxLength(6);
+                entity.Property(e => e.CourseInitials).HasMaxLength(6);
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("date")
@@ -122,8 +122,6 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.IdCardProffesor).HasMaxLength(6);
 
                 entity.Property(e => e.IdCardStudent).HasMaxLength(6);
-
-                entity.Property(e => e.StudentEmail).HasMaxLength(70);
 
                 entity.Property(e => e.StudentName).HasMaxLength(20);
             });

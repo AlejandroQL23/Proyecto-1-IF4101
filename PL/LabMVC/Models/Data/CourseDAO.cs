@@ -121,7 +121,8 @@ namespace LabMVC.Models.Data
                 currentSemester = "iii";
             }
 
-            var courses = (from course in _context.Courses where course.Semester == currentSemester select course);
+            var courses = (from course in _context.Courses where course.Semester == currentSemester && 
+                course.Activity == true select course);
             return courses.ToList();
         }
 

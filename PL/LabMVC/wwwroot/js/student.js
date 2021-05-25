@@ -263,7 +263,7 @@ function linkToInstagramStudent(ID) {
 function addCommentToForum() {
 
     var forumComment = {
-        AuthorIdCard: $('#initialsForCourseModal').val(),
+        CourseInitials: $('#initialsForCourseModal').val(),
         Author: $('#nameProfileStudent').val(),
         TextContent: $('#consultationAreaForCourse').val()
     };
@@ -297,7 +297,7 @@ function LoadDataToForumCourse() {
             $.each(result, function (key, item) {
                 data = [
                     item.id,
-                    item.authorIdCard,
+                    item.courseInitials,
                     item.author,
                     item.textContent,
                     item.creationDate,
@@ -324,7 +324,6 @@ function AddQuestionProfessor() {
         IdCardProffesor: $('#idCardForProfessorModal').val(),
         IdCardStudent: $('#idCardProfileStudent').val(),
         StudentName: $('#nameProfileStudent').val(),
-        StudentEmail: $('#emailProfileStudent').val(),
         ConsultationText: $('#consultationAreaForProfessor').val()
     };
 
