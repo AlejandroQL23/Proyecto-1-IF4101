@@ -269,3 +269,4 @@ C:\Proy1Len\Proyecto-1-IF4101\WebAPIProject\WebAPIProject\obj\Debug\netcoreapp3.
 C:\Proy1Len\Proyecto-1-IF4101\WebAPIProject\WebAPIProject\obj\Debug\netcoreapp3.1\WebAPIProject.dll
 C:\Proy1Len\Proyecto-1-IF4101\WebAPIProject\WebAPIProject\obj\Debug\netcoreapp3.1\WebAPIProject.pdb
 C:\Proy1Len\Proyecto-1-IF4101\WebAPIProject\WebAPIProject\obj\Debug\netcoreapp3.1\WebAPIProject.genruntimeconfig.cache
+C:\Proy1Len\Proyecto-1-IF4101\WebAPIProject\WebAPIProject\obj\Debug\netcoreapp3.1\WebAPIProject.csprojAssemblyReference.cache

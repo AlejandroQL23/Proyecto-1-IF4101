@@ -2,6 +2,9 @@
     LoadDataNewsStudent();
     LoadDataNewsStudentComments();
     LoadDataNewsDeleteAdmin();
+    LoadDataNewsProfessor();
+    LoadDataNewsProfessorComments();
+    LoadDataNewsGeneral();
 });
 
 function AddNews() {
@@ -200,6 +203,239 @@ function DeleteOldNews(ID) {
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
+        }
+    });
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------
+function LoadDataNewsProfessor() {
+    $.ajax({
+        url: "/News/GetNewsForTable",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.id,
+                    item.title,
+                    item.category,
+                    item.textContent,
+                    item.extraFile,
+                    '<td><a onclick= modalToCommentNewsProfessor(' + JSON.stringify(item.id) + ')>Comentar</a> </td>'
+
+                ];
+                dataSet.push(data);
+            });
+            $('#tableNewsProfessor').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert("Error");
+            alert(errorMessage.responseText);
+        }
+    })
+}
+
+
+function modalToCommentNewsProfessor(ID) {
+    $.ajax({
+        url: "/News/" + ID,
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            $('#idNewsModalProfessor').val(result.id);
+            $('#modalNewsProfessorComments').modal('show');
+            $('#btnCommentNewsProfessor').show();
+        },
+        error: function (errormessage) {
+            alert("Error");
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+
+function LoadDataNewsProfessorComments() {
+    $.ajax({
+        url: "/NewsComment/Get",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+
+                data = [
+                    item.author,
+                    item.textContent
+                ];
+                dataSet.push(data);
+
+            });
+
+            $('#tableLoadNewsCommentForProfessor').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert("Error");
+            alert(errorMessage.responseText);
+        }
+    })
+}
+
+function AddCommentProfessorNews() {
+    var newscomment = {
+        Author: $('#nameProfileProfessor').val(),
+        TextContent: $('#addCommentsProfessorNews').val(),
+        NewsId: parseInt($('#idNewsModalProfessor').val())
+    };
+
+    $.ajax({
+        url: "/NewsComment/Post",
+        data: JSON.stringify(newscomment),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            LoadDataNewsProfessorComments();
+        },
+        error: function (errorMessage) {
+
+            alert(errorMessage.responseText);
+        }
+    });
+}
+
+//------------------------------------------------
+//-----------
+function LoadDataNewsGeneral() {
+    $.ajax({
+        url: "/News/GetNewsForTable",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.id,
+                    item.title,
+                    item.category,
+                    item.textContent,
+                    item.extraFile
+
+                ];
+                dataSet.push(data);
+            });
+            $('#tableNewsGeneral').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert("Error");
+            alert(errorMessage.responseText);
+        }
+    })
+}
+
+//-----------------------------------------------------------
+
+function LoadDataNewsProfessor() {
+    $.ajax({
+        url: "/News/GetNewsForTable",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            dataSet = new Array();
+            $.each(result, function (key, item) {
+                data = [
+                    item.id,
+                    item.title,
+                    item.category,
+                    item.textContent,
+                    item.extraFile,
+                    '<td><a onclick= modalToUpdateNews(' + JSON.stringify(item.id) + ')>Actualizar</a> </td>'
+
+                ];
+                dataSet.push(data);
+            });
+            $('#tableNewsUpdateAdmin').DataTable({
+                "searching": true,
+                data: dataSet,
+                "bDestroy": true
+            });
+        },
+        error: function (errorMessage) {
+            alert("Error");
+            alert(errorMessage.responseText);
+        }
+    })
+}
+
+
+function modalToUpdateNews(ID) {
+    $.ajax({
+        url: "/News/" + ID, 
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+
+            $('#idNewsModalUpdate').val(result.id);
+            $('#titleNewsModalUpdate').val(result.title);
+            $('#contentNewsModalUpdate').val(result.textContent);
+            $('#modalNewsUpdate').modal('show');
+            $('#btnUpdateNews').show();
+        },
+        error: function (errormessage) {
+            alert("Error");
+            alert(errormessage.responseText);
+        }
+    });
+    return false;
+}
+
+function UpdateNews() {
+
+    ID = $('#idNewsModalUpdate').val();
+    var news = {
+        Title: $('#titleNewsModalUpdate').val(),
+        Author: "Administrador",
+        Category: $('#categNewsModalUpdate').val(),
+        TextContent: $('#contentNewsModalUpdate').val(),
+       // CreationDate: "2021-05-21"
+    };
+    alert(ID);
+    alert(news.Title);
+
+    $.ajax({
+        url: "/News/"+ ID,
+        data: JSON.stringify(news),
+        type: "PUT",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            alert("chuculuko");
+        },
+        error: function (errorMessage) {
+
+            alert(errorMessage.responseText);
         }
     });
 }

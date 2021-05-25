@@ -134,18 +134,20 @@ namespace LabMVC.Controllers
 
 
         // PUT: api/News/5
+       // [Route("[action]")]
         [HttpPut("{id}")]
         public JsonResult Put(int id, [FromBody] News news)
         {
             try
             {
+                news.Id = id;
                 using (var client = new HttpClient())
                 {
 
                     client.BaseAddress = new Uri("https://localhost:44315/api/news/" + id);
 
                     //HTTP POST
-                    var putTask = client.PutAsJsonAsync("news", news);
+                    var putTask = client.PutAsJsonAsync("", news);
                     putTask.Wait();
 
                     var result = putTask.Result;

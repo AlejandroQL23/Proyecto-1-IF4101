@@ -107,6 +107,38 @@ namespace LabMVC.Controllers
             int resultToReturn = studentDAO.EditStudent(user);
             return Ok(resultToReturn);
         }
+
+        public ActionResult UpdateActivityStudent([FromBody] User user)
+        {
+            studentDAO = new StudentDAO(_context);
+            var oldUser = studentDAO.GetStudentById(user.IdCard);
+            user.LastName = oldUser.LastName;
+            user.Password = oldUser.Password;
+            user.Rol = oldUser.Rol;
+            user.Address = oldUser.Address;
+            user.DateTime = oldUser.DateTime;
+            user.Approval = oldUser.Approval;
+            user.Presidency = oldUser.Presidency;
+            user.Photo = oldUser.Photo;
+            if (user.Activity == true)
+            {
+                user.Activity = false;
+            }
+            else
+            {
+                user.Activity = true;
+            }
+            studentDAO.RemoveStudent(oldUser);
+            int resultToReturn = studentDAO.EditStudent(user);
+            return Ok(resultToReturn);
+        }
+
+        public ActionResult DeleteStudent([FromBody] User user)
+        {
+            studentDAO = new StudentDAO(_context);
+            var newUser = studentDAO.GetStudentById(user.IdCard);
+            return Ok(studentDAO.RemoveStudent(newUser));
+        }
         //----
 
         [HttpPost]
