@@ -77,6 +77,39 @@ namespace LabMVC.Controllers
             return Ok(resultToReturn);
         }
 
+        public ActionResult UpdateActivityProfessor([FromBody] User user)
+        {
+            professorDAO = new ProfessorDAO(_context);
+            var oldUser = professorDAO.GetProfessorById(user.IdCard);
+            user.LastName = oldUser.LastName;
+            user.Password = oldUser.Password;
+            user.Rol = oldUser.Rol;
+            user.Address = oldUser.Address;
+            user.DateTime = oldUser.DateTime;
+            user.Approval = oldUser.Approval;
+            user.Presidency = oldUser.Presidency;
+            user.Photo = oldUser.Photo;
+            if (user.Activity == true)
+            {
+                user.Activity = false;
+            }
+            else
+            {
+                user.Activity = true;
+            }
+            professorDAO.RemoveProfessor(oldUser);
+            int resultToReturn = professorDAO.EditProfessor(user);
+            return Ok(resultToReturn);
+        }
+
+        public ActionResult DeleteProfessor([FromBody] User user)
+        {
+            professorDAO = new ProfessorDAO(_context);
+            var newUser = professorDAO.GetProfessorById(user.IdCard);
+            return Ok(professorDAO.RemoveProfessor(newUser));
+        }
+
+
         public ActionResult AddDateTimeProfessor([FromBody] User user)
         {
             professorDAO = new ProfessorDAO(_context);

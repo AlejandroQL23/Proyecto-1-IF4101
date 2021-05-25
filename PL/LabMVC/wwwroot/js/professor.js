@@ -99,15 +99,59 @@ function UpdateProfileProfessor() {
 
 }
 
+function UpdateActivityProfessor() {
 
-function DeleteProfileProfesor(EMAIL) {
+    var act = null;
+    if ($('#activityProfessorModal').val() == "Activo") {
+        act = true;
+    } else {
+        act = false;
+    }
+
+    var user = {
+        idCard: $('#idCardProfileProfessorModal').val(),
+        name: $("#nameProfileProfessorModal").val(),
+        email: $("#emailProfileProfessorModal").val(),
+        phone: $("#phoneProfileProfessorModal").val(),
+        personalFormation: $("#infoProfileProfessorModal").val(),
+        instagram: $("#InstagramProfileProfessorModal").val(),
+        facebook: $("#FacebookfileProfessorModal").val(),
+        activity: act
+    };
+
     $.ajax({
-       // url: "/Home/DeleteCourse/" + EMAIL,
-       // type: "POST",
-        contentType: "application/json;charset=UTF-8",
-       // dataType: "json",
+        url: "/Professor/UpdateActivityProfessor",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
         success: function (result) {
-           //cargar la dat en el perfil de neuvo
+
+            $('#modalProfileProfessor').modal('hide');
+            GetProfessorByIdForProfileCardEF(user.idCard);
+
+        },
+        error: function (errorMessage) {
+
+        }
+    });
+
+
+
+}
+
+function DeleteProfileProfesor() {
+    var user = {
+        idCard: $('#idCardProfileProfessorModal').val()
+    };
+    $.ajax({
+        url: "/Professor/DeleteProfessor",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            alert("Usté se ha eliminado");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

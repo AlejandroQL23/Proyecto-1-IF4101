@@ -12,6 +12,11 @@
     hydeShowSection('professorProfile');
     hydeShowSection('ConsultationHours');
     hydeShowSection('professorConsultationRequests');
+    hydeShowSection('ProfessorNews');
+    hydeShowSection('professor');
+    hydeShowSection('student');
+    hydeShowSection('admin');
+    
 });
 
 function hydeShowSection(a) {
@@ -89,27 +94,101 @@ function keepSingleTabForstudentNews() {
 function keepSingleTabForProfessorProfile() {
     document.getElementById('ConsultationHours').style.display = 'none';
     document.getElementById('professorConsultationRequests').style.display = 'none'; 
+    document.getElementById('ProfessorNews').style.display = 'none'; 
 }
 
 function keepSingleTabForProfessorConsultation() {
     document.getElementById('professorProfile').style.display = 'none';
-    document.getElementById('professorConsultationRequests').style.display = 'none';  
+    document.getElementById('professorConsultationRequests').style.display = 'none'; 
+    document.getElementById('ProfessorNews').style.display = 'none'; 
 }
 
 function keepSingleTabForProfessorConsultationRequests() {
     document.getElementById('professorProfile').style.display = 'none';
     document.getElementById('ConsultationHours').style.display = 'none';  
+    document.getElementById('ProfessorNews').style.display = 'none';  
+    
+}
+
+function keepSingleTabForNews() {
+    document.getElementById('professorProfile').style.display = 'none';
+    document.getElementById('ConsultationHours').style.display = 'none';
+    document.getElementById('professorConsultationRequests').style.display = 'none'; 
 }
 
 
+function ValidateLogin() {
 
+    var user = {
+        idCard: $('#IdCardUser').val(),
+        password: $('#passwordUser').val()
+    };
+    var messageValidateLogin = validateUserLogin(user);
+    if (messageValidateLogin == "") {
+        $.ajax({
+            url: "/Login/Validate",
+            data: JSON.stringify(user),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+
+                //alert("Hola soy: " + result.rol);
+
+                //window.location.href = "";
+
+
+                if (result.rol == "Estudiante") {
+                    document.getElementById("student").style.display = "block";
+                    document.getElementById('GeneralNews').style.display = 'none';
+                    GetStudentByIdCardForProfileEF(user.idCard);
+                    linkToFacebookStudent(user.idCard);
+                    linkToInstagramStudent(user.idCard);
+                } else if (result.rol == "Administrador") {
+                    document.getElementById("admin").style.display = "block";
+                    document.getElementById('GeneralNews').style.display = 'none';
+                    GetAdminByIdForProfileCardEF(user.idCard);
+                    linkToFacebookAdmin(user.idCard);
+                    linkToInstagramAdmin(user.idCard);
+                } else if (result.rol == "Profesor") {
+                    document.getElementById("professor").style.display = "block";
+                    document.getElementById('GeneralNews').style.display = 'none';
+                    GetProfessorByIdForProfileCardEF(user.idCard);
+                    linkToFacebookProfessor(user.idCard);
+                    linkToInstagramProfessor(user.idCard);
+                } else {
+                    alert("Error INESPERADO");
+                }
+                cleanLogin();
+            },
+            error: function (errorMessage) {
+                messageValidateLogin = "";
+                messageValidateLogin = "El usuario no existe o aún no ha sido aceptado";
+                var response = $('#incorrectLabelLogin');
+                response.removeClass();
+                response.addClass("alert alert-danger register-alert");
+                response.fadeIn(1800);
+                response.fadeOut(4000);
+
+            }
+        });
+    } else {
+        var response = $('#incorrectLabelLogin');
+        response.removeClass();
+        response.addClass("alert alert-danger register-alert");
+        response.html(messageValidateLogin);
+        response.fadeIn(1800);
+        response.fadeOut(4000);
+
+    }
+}
 
 function validateUserLogin(user) {
-    
+    alert(user.idCard);
+    alert(user.password);
     if (user.idCard == "") {
-        return "Se requiere Carné Institucional";
+        return "Se requiere carné Institucional";
     } else if (user.password == "") {
-        return "Se requiere coontraseña";
+        return "Se requiere contraseña";
     } else {
         return "";
     }

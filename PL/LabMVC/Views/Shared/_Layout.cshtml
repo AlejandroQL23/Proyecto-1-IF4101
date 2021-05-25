@@ -163,7 +163,7 @@
                         <div>
                             <button class="submit-btn form-control" onclick="return ValidateLogin()" id="form-submitI">Iniciar sesión</button>
                         </div>
-                        <div id="incorrectLabelLogin" class="hide" role="alert">Error al iniciar sesión</div>
+                        <div id="incorrectLabelLogin" class="hide" role="alert">El usuario no existe o aún no ha sido aceptado</div>
                         <div id="correctLabelLogin" class="hide" role="alert">Sesión iniciada correctamente</div>
 
 
@@ -246,7 +246,6 @@
         </div>
     </section>
 
-    <!--  @if (@HttpContextAccessor.HttpContext.Session.GetString("rol") == "Administrador") { } -->
     <!--Admin-->
     <section id="admin">
         <div class="container">
@@ -758,9 +757,92 @@
     </section>
 
 
+    <section id="updateNewsAdmin">
+        <div class="container">
+            <div class="row">
 
-    @if (@HttpContextAccessor.HttpContext.Session.GetString("rol") == "Estudiante")
-    { }
+                <div class="section-title">
+                    <h2>Actualizar noticias</h2>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover" id="tableNewsUpdateAdmin">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Id
+                                    </th>
+                                    <th>
+                                        Título
+                                    </th>
+                                    <th>
+                                        Categoria
+                                    </th>
+                                    <th>
+                                        Contenido
+                                    </th>
+                                    <th>
+                                        Archivos
+                                    </th>
+                                    <th>
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodytableNewsUpdateAdmin">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!---->
+
+                    <div class="modal fade" id="modalNewsUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Actualizar noticias</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="idNewsModalUpdate">Id</label>
+                                        <input type="text" class="form-control" id="idNewsModalUpdate" placeholder="Id" disabled="disabled" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="titleNewsModalUpdate">Título</label>
+                                        <input type="text" class="form-control" id="titleNewsModalUpdate" placeholder="Título" autocomplete="off" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="categNewsModalUpdate">Categoria</label>
+                                        <select class="form-control without-margin" name="categNewsModalUpdate" id="categNewsModalUpdate">
+                                            <option value="0" selected>Seleccione la categoria</option>
+                                            <option>Recreacional</option>
+                                            <option>Guias de horario</option>
+                                            <option>Derechos estudiantiles</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contentNewsModalUpdate">Contenido</label>
+                                        <input type="text" class="form-control" id="contentNewsModalUpdate" placeholder="Contenido" autocomplete="off" />
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="btnUpdateNews" style="display:none;" onclick="return UpdateNews()">Actulizar</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!---->
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!--Student-->
     <section id="student">
         <div class="container">
@@ -878,14 +960,18 @@
                                                             <div class="form-group">
                                                                 <label for="instagramProfilePStudentModal">Instagram</label>
                                                                 <input type="text" class="form-control" id="instagramProfilePStudentModal" placeholder="Instagram" autocomplete="off" />
+                                                                                                                       </div>
+                                                            <div class="form-group">
+                                                                <label for="activityStudentModal">Actividad</label>
+                                                                <input type="text" class="form-control" id="activityStudentModal" placeholder="Actividad" autocomplete="off" disabled="disabled" />
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
 
                                                         <button type="button" class="btn btn-primary" id="btnUpdateProfileStudent" style="display:none;" onclick="UpdateProfileStudent();">Actualizar</button>
-                                                        <button type="button" class="btn btn-danger" id="disableAccountStudent" onclick="">Inhabilitar cuenta</button>
-                                                        <button type="button" class="btn btn-danger" id="deleteProfileStudent" style="display:none;" onclick="">Eliminar cuenta</button>
+                                                        <button type="button" class="btn btn-warning" id="disableAccountStudent" onclick="UpdateActivityStudent()">Actividad de la cuenta</button>
+                                                        <button type="button" class="btn btn-danger" id="deleteProfileStudent" style="display:none;" onclick="DeleteProfileStudent()">Eliminar cuenta</button>
                                                     </div>
 
 
@@ -1244,6 +1330,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="#professorConsultationRequests" onclick="return hydeShowSection('professorConsultationRequests'), keepSingleTabForProfessorConsultationRequests()">Solicitudes de consulta</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#ProfessorNews" onclick="return hydeShowSection('ProfessorNews'), keepSingleTabForNews()">Noticias</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -1339,12 +1428,16 @@
                                                                 <label for="InstagramProfileProfessorModal">Agrega link Instagram</label>
                                                                 <input type="text" class="form-control" id="InstagramProfileProfessorModal" placeholder="link Instagram" autocomplete="off" />
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="activityProfessorModal">Actividad</label>
+                                                                <input type="text" class="form-control" id="activityProfessorModal" placeholder="Actividad" autocomplete="off" disabled="disabled" />
+                                                            </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-primary" id="btnUpdateProfileProfessor" onclick="UpdateProfileProfessor();">Actualizar</button>
-                                                        <button type="button" class="btn btn-danger" id="disableAccountProfessor" onclick="">Inhabilitar cuenta</button>
-                                                        <button type="button" class="btn btn-danger" id="deleteProfileProfessor" onclick="">Eliminar cuenta</button>
+                                                        <button type="button" class="btn btn-warning" id="disableAccountProfessor" onclick="UpdateActivityProfessor()">Actividad de la cuenta</button>
+                                                        <button type="button" class="btn btn-danger" id="deleteProfileProfessor" onclick="DeleteProfileProfesor()">Eliminar cuenta</button>
                                                     </div>
 
 
@@ -1429,6 +1522,132 @@
         </div>
     </section>
 
+    <!------------------------------------------->
+
+    <section id="ProfessorNews">
+        <div class="container">
+            <div class="row">
+
+                <div class="section-title">
+                    <h2>Sección de noticias</h2>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover" id="tableNewsProfessor">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Id
+                                    </th>
+                                    <th>
+                                        Título
+                                    </th>
+                                    <th>
+                                        Categoria
+                                    </th>
+                                    <th>
+                                        Contenido
+                                    </th>
+                                    <th>
+                                        Archivos
+                                    </th>
+                                    <th>
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodytableNewsProfessor">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!---->
+
+                    <div class="modal fade" id="modalNewsProfessorComments" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Comentarios sobre las noticias</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="idNewsModal">Id</label>
+                                        <input type="text" class="form-control" id="idNewsModalProfessor" placeholder="Id" disabled="disabled" />
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-dark table-hover" id="tableLoadNewsCommentForProfessor">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Nombre
+                                                    </th>
+                                                    <th>
+                                                        Comentario
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="tbodyLoadNewsCommentForProfessor">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="text" class="form-control" id="addCommentsProfessorNews" placeholder="Comentario" autocomplete="off" />
+                                    <button type="button" class="btn btn-primary" id="btnCommentNewsProfessor" style="display:none;" onclick="return AddCommentProfessorNews()">Publicar</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!----------------------------------------------------------------------------->
+    <section id="GeneralNews">
+        <div class="container">
+            <div class="row">
+
+                <div class="section-title">
+                    <h2>Noticias del recinto</h2>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover" id="tableNewsGeneral">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Id
+                                    </th>
+                                    <th>
+                                        Título
+                                    </th>
+                                    <th>
+                                        Categoria
+                                    </th>
+                                    <th>
+                                        Contenido
+                                    </th>
+                                    <th>
+                                        Archivos
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodytableNewsGeneral">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!------------------------------------------->
     <!-- FOOTER -->
     <footer id="footer">
         <div class="container">

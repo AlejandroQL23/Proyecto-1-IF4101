@@ -28,18 +28,18 @@ namespace LabMVC.Controllers
         }
 
        // [HttpPost]
-        public IActionResult Validate([FromBody] Models.Domain.User user)
+        public IActionResult Validate([FromBody] Models.Entities.User user)
         {
 
             studentDAO = new StudentDAO(_context);
             var localUser = studentDAO.GetStudentById(user.IdCard);
-            if (studentDAO.StudentExistsUserName(user.IdCard) == true && studentDAO.StudentExistsPassword(user.Password) == true)
+            if (studentDAO.StudentExistsUserName(user.IdCard) == true && studentDAO.StudentExistsPassword(user.Password) == true && localUser.Approval == "Aceptado")
             {
                 HttpContext.Session.SetString("rol", localUser.Rol);
 
                 //aqui poner lo demas datos
                 //   return RedirectToAction("Index", "Student");
-                return Ok();
+                return Ok(localUser);
             }
             else
             {

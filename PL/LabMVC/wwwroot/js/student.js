@@ -196,14 +196,60 @@ function UpdateProfileStudent() {
 }
 
 
-function DeleteProfileStudent(EMAIL) {
+function UpdateActivityStudent() {
+
+    var act = null;
+    if ($('#activityStudentModal').val() == "Activo") {
+        act = true;
+    } else {
+        act = false;
+    }
+
+    var user = {
+        idCard: $('#idCardProfilePStudentModal').val(),
+        name: $("#nameProfilePStudentModal").val(),
+        email: $("#emailProfileStudentModal").val(),
+        phone: $("#phoneProfileStudentModal").val(),
+        personalFormation: $("#infoProfileStudentModal").val(),
+        instagram: $("#instagramProfilePStudentModal").val(),
+        facebook: $("#facebookProfilePStudentModal").val(),
+        activity: act
+    };
+
     $.ajax({
-        // url: "/Home/DeleteCourse/" + EMAIL,
-        // type: "POST",
-        contentType: "application/json;charset=UTF-8",
-        // dataType: "json",
+        url: "/Student/UpdateActivityStudent",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
         success: function (result) {
-            //cargar la dat en el perfil de neuvo
+
+            $('#modalProfileStudent').modal('hide');
+            GetStudentByIdCardForProfileEF(user.idCard);
+
+        },
+        error: function (errorMessage) {
+
+        }
+    });
+
+
+
+}
+
+
+function DeleteProfileStudent() {
+    var user = {
+        idCard: $('#idCardProfilePStudentModal').val()
+    };
+    $.ajax({
+        url: "/Student/DeleteStudent",
+        data: JSON.stringify(user),
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
+        success: function (result) {
+            alert("Usté se ha eliminado");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -451,44 +497,6 @@ function ResetFields() {
     $("imgViewerStudentProfile").attr("src", "");
 }
 
-function ValidateLogin() {
-
-    var user = {
-        idCard: $('#IdCardUser').val(),
-        password: $('#passwordUser').val()
-    };
-
-    $.ajax({
-        url: "/Login/Validate",
-        data: JSON.stringify(user),
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            alert("OK");
-
-
-        },
-        error: function (errorMessage) {
-            alert("OK'n");
-            // window.location.href = "";
-            GetAdminByIdForProfileCardEF(user.idCard);
-            linkToFacebookAdmin(user.idCard);
-            linkToInstagramAdmin(user.idCard);
-            //
-            GetProfessorByIdForProfileCardEF(user.idCard);
-            linkToFacebookProfessor(user.idCard);
-            linkToInstagramProfessor(user.idCard);
-            //
-            GetStudentByIdCardForProfileEF(user.idCard);
-            linkToFacebookStudent(user.idCard);
-            linkToInstagramStudent(user.idCard);
-
-            //window.location.href = "";
-
-        }
-    });
-}
 
 function modalToAnswerComment(ID) {
     $.ajax({
