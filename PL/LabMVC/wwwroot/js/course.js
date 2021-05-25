@@ -18,7 +18,7 @@ function AddCourse() {
         name: $('#nameCourses').val(),
         credits: parseInt($('#creditsCourse').val()),
         semester: $('#semester').val(),
-        scheduleId: parseInt($('#scheduleCourse').val()),
+        scheduleId: $('#scheduleCourse').val(),
         activity: act
     };
 
@@ -34,6 +34,7 @@ function AddCourse() {
 
                 cleanCourseSpace();
                 LoadDataCourses();
+                LoadDataToCourseStudentEF();
                 var done = $('#correctLabelCourse');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")

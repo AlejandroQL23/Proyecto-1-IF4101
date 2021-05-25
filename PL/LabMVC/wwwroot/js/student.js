@@ -491,10 +491,9 @@ function ValidateLogin() {
     });
 }
 
-//-----------------------------------------------------------------------------------------------------------
 function modalToAnswerComment(ID) {
     $.ajax({
-        
+
         url: "/ForumComment/GetForumById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
@@ -504,6 +503,8 @@ function modalToAnswerComment(ID) {
             $('#idForAnswerModal').val(result.id);
             $('#modalCoursesComments').modal('show');
             $('#btnSendCommentToForum').show();
+            var ID = $('#idForAnswerModal').val();
+            LoadDataAnswerComments(ID);
         },
         error: function (errormessage) {
             alert("Error");
@@ -514,9 +515,9 @@ function modalToAnswerComment(ID) {
 }
 
 
-function LoadDataAnswerComments() { //NO LO HE PUESTO EN EL DOCUment.READY
+function LoadDataAnswerComments(ID) { //NO LO HE PUESTO EN EL DOCUment.READY
     $.ajax({
-        //url: "/NewsComment/Get",
+        url: "/ForumComment/GetForumAnswer/" + ID,
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
@@ -540,21 +541,20 @@ function LoadDataAnswerComments() { //NO LO HE PUESTO EN EL DOCUment.READY
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
 }
 
-function AddCommentAnswer() {//LLAMAR EN LAYO
+function AddCommentAnswer() {
     var forumCommentAnswer = {
         Author: $('#nameProfileStudent').val(),
-        TextContent: $('#addCommentsInForum').val(),
-        IdComment: $('#idForAnswerModal').val()
+        IdComment: parseInt($('#idForAnswerModal').val()),
+        TextContent: $('#addCommentsInForum').val()
     };
     alert(forumCommentAnswer.Author);
-    alert(forumCommentAnswer.TextContent);
     alert(forumCommentAnswer.IdComment);
+    alert(forumCommentAnswer.TextContent);
     $.ajax({
         url: "/ForumComment/AddForumCommentAnswer",
         data: JSON.stringify(forumCommentAnswer),
@@ -562,10 +562,10 @@ function AddCommentAnswer() {//LLAMAR EN LAYO
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            alert("pasa success");
+            alert("KERÍA OCULTAR EL MODAL PERO NO ENCONTRE EL NOMBRE XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD");
         },
         error: function (errorMessage) {
-            alert("mAA");
+            alert(errorMessage.responseText);
         }
     });
 }

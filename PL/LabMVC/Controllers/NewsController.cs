@@ -173,16 +173,17 @@ namespace LabMVC.Controllers
 
 
         // DELETE: api/ApiWithActions/5
+        //[Route("[action]")]
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:44315/api/");
+                client.BaseAddress = new Uri("https://localhost:44315/api/"+ id);
 
                 //HTTP DELETE
-                var deleteTask = client.DeleteAsync("news/" + id.ToString());
+                var deleteTask = client.DeleteAsync("news/" + id);
                 deleteTask.Wait();
 
                 var result = deleteTask.Result;
