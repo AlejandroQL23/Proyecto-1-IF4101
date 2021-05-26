@@ -5,6 +5,7 @@
     hydeShowSection('adminProfessor');
     hydeShowSection('adminCourses');
     hydeShowSection('adminNews');
+    hydeShowSection('updateNewsAdmin');
     hydeShowSection('studentProfile');
     hydeShowSection('studentCourses');
     hydeShowSection('studentHoursOfAttention');
@@ -37,6 +38,8 @@ function keepSingleTabForProfile() {
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
     document.getElementById('adminNews').style.display = 'none';
+    document.getElementById('updateNewsAdmin').style.display = 'none';
+    
 }
 
 function keepSingleTabForAcceptDeny() {
@@ -44,6 +47,7 @@ function keepSingleTabForAcceptDeny() {
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
     document.getElementById('adminNews').style.display = 'none';
+    document.getElementById('updateNewsAdmin').style.display = 'none';
 }
 
 function keepSingleTabForProfessor() {
@@ -51,6 +55,7 @@ function keepSingleTabForProfessor() {
     document.getElementById('adminProfile').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
     document.getElementById('adminNews').style.display = 'none';
+    document.getElementById('updateNewsAdmin').style.display = 'none';
 }
 
 function keepSingleTabForCourses() {
@@ -58,13 +63,22 @@ function keepSingleTabForCourses() {
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminProfile').style.display = 'none';
     document.getElementById('adminNews').style.display = 'none';
+    document.getElementById('updateNewsAdmin').style.display = 'none';
 }
 
-function keepSingleTabForNews() {
+function keepSingleTabForNewsAdmin() {
     document.getElementById('adminAcceptDeny').style.display = 'none';
     document.getElementById('adminProfessor').style.display = 'none';
     document.getElementById('adminProfile').style.display = 'none';
     document.getElementById('adminCourses').style.display = 'none';
+    document.getElementById('updateNewsAdmin').style.display = 'none';
+}
+function keepSingleTabForUpdateNews() {
+    document.getElementById('adminAcceptDeny').style.display = 'none';
+    document.getElementById('adminProfessor').style.display = 'none';
+    document.getElementById('adminProfile').style.display = 'none';
+    document.getElementById('adminCourses').style.display = 'none';
+    document.getElementById('adminNews').style.display = 'none';
 }
 //---
 function keepSingleTabForstudentProfile() {
@@ -183,8 +197,6 @@ function ValidateLogin() {
 }
 
 function validateUserLogin(user) {
-    alert(user.idCard);
-    alert(user.password);
     if (user.idCard == "") {
         return "Se requiere carné Institucional";
     } else if (user.password == "") {
@@ -201,3 +213,6 @@ function cleanLogin() {
 }
 
 
+function logOut() {
+    window.location.href = "";
+}

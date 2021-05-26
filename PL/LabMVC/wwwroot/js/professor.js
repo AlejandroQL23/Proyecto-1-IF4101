@@ -151,7 +151,7 @@ function DeleteProfileProfesor() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            alert("Usté se ha eliminado");
+            window.location.href = "";
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

@@ -141,6 +141,9 @@ namespace LabMVC.Controllers
             try
             {
                 news.Id = id;
+                var oldNew = GetById(id);
+                news.CreationDate = oldNew.CreationDate;
+                news.ExtraFile = oldNew.ExtraFile;
                 using (var client = new HttpClient())
                 {
 

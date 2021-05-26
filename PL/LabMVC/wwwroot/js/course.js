@@ -197,7 +197,6 @@ function LoadDataToCourseStudentEF() {
                     item.initials,
                     item.name,
                     item.credits,
-                    item.semester,
                     item.scheduleId,
                     '<td><a onclick= GetByInitialsForModalStudent(' + JSON.stringify(item.initials) + ')>Consultar</a></td>'
                 ];

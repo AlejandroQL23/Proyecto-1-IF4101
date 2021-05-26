@@ -249,7 +249,7 @@ function DeleteProfileStudent() {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            alert("Usté se ha eliminado");
+            window.location.href = "";
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -522,7 +522,7 @@ function modalToAnswerComment(ID) {
 }
 
 
-function LoadDataAnswerComments(ID) { //NO LO HE PUESTO EN EL DOCUment.READY
+function LoadDataAnswerComments(ID) { 
     $.ajax({
         url: "/ForumComment/GetForumAnswer/" + ID,
         type: "GET",
@@ -559,9 +559,6 @@ function AddCommentAnswer() {
         IdComment: parseInt($('#idForAnswerModal').val()),
         TextContent: $('#addCommentsInForum').val()
     };
-    alert(forumCommentAnswer.Author);
-    alert(forumCommentAnswer.IdComment);
-    alert(forumCommentAnswer.TextContent);
     $.ajax({
         url: "/ForumComment/AddForumCommentAnswer",
         data: JSON.stringify(forumCommentAnswer),
@@ -569,7 +566,8 @@ function AddCommentAnswer() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            alert("KERÍA OCULTAR EL MODAL PERO NO ENCONTRE EL NOMBRE XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD");
+            
+            $('#modalCoursesComments').modal('hide');
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);

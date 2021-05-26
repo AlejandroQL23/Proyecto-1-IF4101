@@ -121,7 +121,8 @@ function GetAdminByIdForProfileCardEF(ID) {
 }
 
 function ObtainAdminProfileInformation() {
-    var ID = $('#idCardProfileProfessor').val();
+    var ID = $('#idCardProfileAdmin').val();
+    alert(ID);
     $.ajax({
         url: "/Professor/GetProfessorById/" + ID,
         type: "GET",

@@ -70,15 +70,13 @@ namespace LabMVC.Models.Entities
             {
                 entity.ToTable("ForumComment");
 
-                entity.Property(e => e.Author).HasMaxLength(20);
+                entity.Property(e => e.Author).HasMaxLength(100);
 
                 entity.Property(e => e.CourseInitials).HasMaxLength(6);
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.TextContent).HasMaxLength(300);
             });
 
             modelBuilder.Entity<ForumCommentAnswer>(entity =>
@@ -174,8 +172,6 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.PersonalFormation).HasMaxLength(100);
 
                 entity.Property(e => e.Phone).HasMaxLength(15);
 
