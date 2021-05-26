@@ -10,14 +10,12 @@
 
 function AddNews() {
     var news = {
-     
         Title: $('#nameOfNews').val(),
         Author:"Administrador",
         Category: $('#typeOfNews').val(),
         TextContent: $('#newsContent').val(),
         ExtraFile: $('#fileOfNews').val()
     };
-
         $.ajax({
             url: "/News/",
             data: JSON.stringify(news),
@@ -41,7 +39,6 @@ function AddNews() {
                 response.fadeOut(4000);
             }
         });
-
 }
 
 $("#profileImage").click(function (e) {
@@ -79,7 +76,6 @@ function LoadDataNewsStudent() {
                     item.textContent,
                     item.extraFile,
                     '<td><a onclick= modalToCommentNews(' + JSON.stringify(item.id) + ')>Comentar</a> </td>'
-
                 ];
                 dataSet.push(data);
             });
@@ -96,7 +92,6 @@ function LoadDataNewsStudent() {
     })
 }
 
-
 function modalToCommentNews(ID) {
     $.ajax({
         url: "/News/" + ID,
@@ -104,7 +99,6 @@ function modalToCommentNews(ID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            
             $('#idNewsModal').val(result.id);
             $('#modalNewsComments').modal('show');
             $('#btnSendCommentToNews').show();
@@ -117,7 +111,6 @@ function modalToCommentNews(ID) {
     return false;
 }
 
-
 function LoadDataNewsStudentComments() {
     $.ajax({
         url: "/NewsComment/Get",
@@ -125,18 +118,14 @@ function LoadDataNewsStudentComments() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-          
                 dataSet = new Array();
             $.each(result, function (key, item) {
-               
                     data = [
                         item.author,
                         item.textContent
                     ];
                     dataSet.push(data);
-                
                 });
-            
             $('#xs').DataTable({
                 "searching": true,
                 data: dataSet,
@@ -167,16 +156,11 @@ function AddCommentNews() {
             LoadDataNewsStudentComments();
         },
         error: function (errorMessage) {
-
-            // errorMessage.responseText
-
             alert(errorMessage.responseText);
         }
     });
 }
 
-
-//------
 function LoadDataNewsDeleteAdmin() {
     $.ajax({
         url: "/News/GetNewsForTable",
@@ -191,7 +175,6 @@ function LoadDataNewsDeleteAdmin() {
                     item.title,
                     item.category,
                     '<td><a onclick= DeleteOldNews(' + JSON.stringify(item.id) + ')>Borrar</a> </td>'
-
                 ];
                 dataSet.push(data);
             });
@@ -224,17 +207,13 @@ function DeleteOldNews(ID) {
     });
 }
 
-//-------------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------
 function LoadDataNewsProfessor() {
-   
     $.ajax({
         url: "/News/GetNewsForTable",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            
             dataSet = new Array();
             $.each(result, function (key, item) {
                 data = [
@@ -244,7 +223,6 @@ function LoadDataNewsProfessor() {
                     item.textContent,
                     item.extraFile,
                     '<td><a onclick= modalToCommentNewsProfessor(' + JSON.stringify(item.id) + ')>Comentar</a> </td>'
-
                 ];
                 dataSet.push(data);
             });
@@ -269,7 +247,6 @@ function modalToCommentNewsProfessor(ID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
             $('#idNewsModalProfessor').val(result.id);
             $('#modalNewsProfessorComments').modal('show');
             $('#btnCommentNewsProfessor').show();
@@ -290,18 +267,14 @@ function LoadDataNewsProfessorComments() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
             dataSet = new Array();
             $.each(result, function (key, item) {
-
                 data = [
                     item.author,
                     item.textContent
                 ];
                 dataSet.push(data);
-
             });
-
             $('#tableLoadNewsCommentForProfessor').DataTable({
                 "searching": true,
                 data: dataSet,
@@ -338,8 +311,6 @@ function AddCommentProfessorNews() {
     });
 }
 
-//------------------------------------------------
-//-----------
 function LoadDataNewsGeneral() {
     $.ajax({
         url: "/News/GetNewsForTable",
@@ -354,7 +325,6 @@ function LoadDataNewsGeneral() {
                     item.category,
                     item.textContent,
                     item.extraFile
-
                 ];
                 dataSet.push(data);
             });
@@ -370,8 +340,6 @@ function LoadDataNewsGeneral() {
         }
     })
 }
-
-//-----------------------------------------------------------
 
 function LoadDataNewsAdminUpdate() {
     $.ajax({
@@ -389,7 +357,6 @@ function LoadDataNewsAdminUpdate() {
                     item.textContent,
                     item.extraFile,
                     '<td><a onclick= modalToUpdateNews(' + JSON.stringify(item.id) + ')>Actualizar</a> </td>'
-
                 ];
                 dataSet.push(data);
             });
@@ -406,7 +373,6 @@ function LoadDataNewsAdminUpdate() {
     })
 }
 
-
 function modalToUpdateNews(ID) {
     $.ajax({
         url: "/News/" + ID, 
@@ -414,7 +380,6 @@ function modalToUpdateNews(ID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
             $('#idNewsModalUpdate').val(result.id);
             $('#titleNewsModalUpdate').val(result.title);
             $('#contentNewsModalUpdate').val(result.textContent);
@@ -449,7 +414,6 @@ function UpdateNews() {
             $('#modalNewsUpdate').modal('hide');
         },
         error: function (errorMessage) {
-
             alert(errorMessage.responseText);
         }
     });

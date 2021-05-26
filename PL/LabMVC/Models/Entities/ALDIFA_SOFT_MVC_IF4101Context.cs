@@ -60,10 +60,6 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.ScheduleId).HasColumnName("Schedule_Id");
 
                 entity.Property(e => e.Semester).HasMaxLength(8);
-
-                entity.Property(e => e.UpdateDate).HasColumnType("date");
-
-                entity.Property(e => e.UpdateUser).HasMaxLength(15);
             });
 
             modelBuilder.Entity<ForumComment>(entity =>
@@ -77,6 +73,10 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreationUser)
+                    .HasMaxLength(20)
+                    .HasDefaultValueSql("('Estudiante')");
             });
 
             modelBuilder.Entity<ForumCommentAnswer>(entity =>
@@ -88,6 +88,10 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreationUser)
+                    .HasMaxLength(20)
+                    .HasDefaultValueSql("('Estudiante')");
             });
 
             modelBuilder.Entity<Group>(entity =>
@@ -98,8 +102,11 @@ namespace LabMVC.Models.Entities
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("date")
-                    .HasColumnName("Creation_Date")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreationUser)
+                    .HasMaxLength(20)
+                    .HasDefaultValueSql("('Administrador')");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -116,6 +123,10 @@ namespace LabMVC.Models.Entities
                 entity.Property(e => e.CreationDate)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CreationUser)
+                    .HasMaxLength(20)
+                    .HasDefaultValueSql("('Estudiante')");
 
                 entity.Property(e => e.IdCardProffesor).HasMaxLength(6);
 
@@ -139,7 +150,9 @@ namespace LabMVC.Models.Entities
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.CreationUser).HasMaxLength(20);
+                entity.Property(e => e.CreationUser)
+                    .HasMaxLength(20)
+                    .HasDefaultValueSql("('Administrador')");
 
                 entity.Property(e => e.DateTime)
                     .HasMaxLength(100)
@@ -177,15 +190,9 @@ namespace LabMVC.Models.Entities
 
                 entity.Property(e => e.Photo).HasDefaultValueSql("(0x)");
 
-                entity.Property(e => e.Picture).HasColumnType("text");
-
                 entity.Property(e => e.Presidency).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Rol).HasMaxLength(20);
-
-                entity.Property(e => e.UpdateDate).HasColumnType("date");
-
-                entity.Property(e => e.UpdateUser).HasMaxLength(20);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,13 +1,9 @@
 ﻿using LabMVC.Models.Data;
 using LabMVC.Models.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LabMVC.Controllers
 {
@@ -26,12 +22,18 @@ namespace LabMVC.Controllers
             return View();
         }
 
-        public ActionResult GetExplicitStudent()
+        public IActionResult AddStudent([FromBody] User user)
         {
             studentDAO = new StudentDAO(_context);
-            return Ok(studentDAO.GetExplicitStudent());
+            studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción En Espera❞❁",
+                          "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
+                          "<br/><h3>Sede: Atlántico<br/>" +
+                          "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática Empresarial se encuentra en estado de espera hasta que uno de nuestros administradores revise su solicitud...<br/>" +
+                          "<br/>En caso de que su solicitud sea rechazada y tenga alguna consulta con el resultado del registro, puede contactarse con el servicio de atención en la página oficial de Orientación y Registro(https://ori.ucr.ac.cr/), o bien, con el coordinador de la carrera mediante correo institucional(alvaro.mena@ucr.ac.cr)<br/>" +
+                          "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
+            return Ok(studentDAO.AddStudent(user));
         }
-        
+
         public ActionResult GetWaitingStudents()
         {
             studentDAO = new StudentDAO(_context);
@@ -44,18 +46,6 @@ namespace LabMVC.Controllers
             return Ok(studentDAO.GetStudentById(id));
         }
 
-        public IActionResult AddStudent([FromBody] User user)
-        {
-            studentDAO = new StudentDAO(_context);
-                studentDAO.SendEmail(user.Email, "❁→❝Solicitud de inscripción En Espera❞❁",
-                              "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
-                              "<br/><h3>Sede: Atlántico<br/>" +
-                              "<br/>Queremos informarle que su solicitud de inscripción a la carrera de Informática Empresarial se encuentra en estado de espera hasta que uno de nuestros administradores revise su solicitud...<br/>" +
-                              "<br/>En caso de que su solicitud sea rechazada y tenga alguna consulta con el resultado del registro, puede contactarse con el servicio de atención en la página oficial de Orientación y Registro(https://ori.ucr.ac.cr/), o bien, con el coordinador de la carrera mediante correo institucional(alvaro.mena@ucr.ac.cr)<br/>" +
-                              "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
-                return Ok(studentDAO.AddStudent(user));
-        }
-
         public ActionResult UpdateApprovalAcceptDenyStudent([FromBody] User user)
         {
             studentDAO = new StudentDAO(_context);
@@ -63,7 +53,6 @@ namespace LabMVC.Controllers
             user.Password = oldUser.Password;
             user.Phone = oldUser.Phone;
             user.Address = oldUser.Address;
-           // user.Presidency = oldUser.Presidency;
             studentDAO.RemoveStudent(oldUser);
             if (user.Approval == "Aceptado")
             {
@@ -139,59 +128,6 @@ namespace LabMVC.Controllers
             var newUser = studentDAO.GetStudentById(user.IdCard);
             return Ok(studentDAO.RemoveStudent(newUser));
         }
-        //----
-
-        [HttpPost]
-        public string SaveFile(FileUpload fileObj)
-        {
-            Models.Entities.User identityUserObject = JsonConvert.DeserializeObject<Models.Entities.User>(fileObj.identityUser);
-            if (fileObj.file.Length > 0)
-            {
-                using (var ms = new MemoryStream())
-                {
-
-                    fileObj.file.CopyTo(ms);
-                    var fileBytes = ms.ToArray();
-                    identityUserObject.Photo = fileBytes;
-                    studentDAO = new StudentDAO(_context);
-                    var newUser = studentDAO.GetStudentById(identityUserObject.IdCard);
-                    newUser.Photo = identityUserObject.Photo;
-                    newUser = studentDAO.Save(newUser);
-                    if (newUser.Id > 0)
-                    {
-                        return "Saved";
-
-                    }
-
-                }
-
-            }
-            return "Failed";
-
-        }
-
-
-
-        [HttpGet]
-        public JsonResult GetSavedUser(string ID)
-        {
-            studentDAO = new StudentDAO(_context);
-            var user = studentDAO.GetSavedUser(ID);
-            user.Photo = this.GetImage(Convert.ToBase64String(user.Photo));
-            return Json(user);
-        }
-
-        public byte[] GetImage(string sBase64String)
-        {
-            byte[] bytes = null;
-            if (!string.IsNullOrEmpty(sBase64String))
-            {
-                bytes = Convert.FromBase64String(sBase64String);
-            }
-            return bytes;
-
-        }
-
 
         public ActionResult SendConsult([FromBody] ProfessorConsultation professorConsultation)
         {
@@ -205,6 +141,48 @@ namespace LabMVC.Controllers
             return Ok(studentDAO.AddProfessorConsultation(professorConsultation));
         }
 
-        //----
+        [HttpPost]
+        public string SaveStudentPhoto(FileUpload fileObj)
+        {
+            User identityUserObject = JsonConvert.DeserializeObject<User>(fileObj.IdentityUser);
+            if (fileObj.File.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    fileObj.File.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    identityUserObject.Photo = fileBytes;
+                    studentDAO = new StudentDAO(_context);
+                    var newUser = studentDAO.GetStudentById(identityUserObject.IdCard);
+                    newUser.Photo = identityUserObject.Photo;
+                    newUser = studentDAO.SaveStudentPhoto(newUser);
+                    if (newUser.Id > 0)
+                    {
+                        return "Saved";
+                    }
+                }
+            }
+            return "Failed";
+        }
+
+        [HttpGet]
+        public JsonResult GetSavedStudentPhoto(string ID)
+        {
+            studentDAO = new StudentDAO(_context);
+            var user = studentDAO.GetSavedStudentPhoto(ID);
+            user.Photo = this.GetImage(Convert.ToBase64String(user.Photo));
+            return Json(user);
+        }
+
+        public byte[] GetImage(string sBase64String)
+        {
+            byte[] bytes = null;
+            if (!string.IsNullOrEmpty(sBase64String))
+            {
+                bytes = Convert.FromBase64String(sBase64String);
+            }
+            return bytes;
+        }
+
     }
 }

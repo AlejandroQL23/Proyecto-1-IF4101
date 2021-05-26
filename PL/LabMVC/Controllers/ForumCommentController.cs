@@ -1,11 +1,6 @@
 ﻿using LabMVC.Models.Data;
 using LabMVC.Models.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LabMVC.Controllers
 {
@@ -24,6 +19,12 @@ namespace LabMVC.Controllers
             return View();
         }
 
+        public IActionResult AddForumComment([FromBody] ForumComment forumComment)
+        {
+            forumCommentDAO = new ForumDAO(_context);
+            return Ok(forumCommentDAO.AddForumComment(forumComment));
+        }
+
         public ActionResult GetForum()
         {
             forumCommentDAO = new ForumDAO(_context);
@@ -36,21 +37,16 @@ namespace LabMVC.Controllers
             return Ok(forumCommentDAO.GetForumCommentById(id));
         }
 
-        public IActionResult AddForumComment([FromBody] ForumComment forumComment)
+        public IActionResult AddForumCommentAnswer([FromBody] ForumCommentAnswer forumCommentAnswer)
         {
             forumCommentDAO = new ForumDAO(_context);
-            return Ok(forumCommentDAO.AddForumComment(forumComment));
+            return Ok(forumCommentDAO.AddForumCommentAnswer(forumCommentAnswer));
         }
 
         public ActionResult GetForumAnswer(int Id)
         {
             forumCommentDAO = new ForumDAO(_context);
             return Ok(forumCommentDAO.GetForumCommentsAnswer(Id));
-        }
-        public IActionResult AddForumCommentAnswer([FromBody] ForumCommentAnswer forumCommentAnswer)
-        {
-            forumCommentDAO = new ForumDAO(_context);
-            return Ok(forumCommentDAO.AddForumCommentAnswer(forumCommentAnswer));
         }
 
     }

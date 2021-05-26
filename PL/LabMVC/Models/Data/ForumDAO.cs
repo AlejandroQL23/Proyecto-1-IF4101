@@ -1,10 +1,8 @@
 ﻿using LabMVC.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LabMVC.Models.Data
 {
@@ -22,25 +20,12 @@ namespace LabMVC.Models.Data
         {
         }
 
-        /// <param name="context"></param>
         public ForumDAO(ALDIFA_SOFT_MVC_IF4101Context context)
         {
             _context = context;
         }
 
-        public IEnumerable<Entities.ForumComment> GetForumComments()
-        {
-            var forum = (from forumComment in _context.ForumComments select forumComment);
-            return forum.ToList();
-        }
-
-        public Entities.ForumComment GetForumCommentById(int identification) //INT STRING .ID
-        {
-            var forum = (from forumComment in _context.ForumComments where forumComment.Id == identification select forumComment);
-            return forum.FirstOrDefault();
-        }
-
-        public int AddForumComment(Entities.ForumComment forums)
+        public int AddForumComment(ForumComment forums)
         {
             int resultToReturn;
             try
@@ -55,14 +40,19 @@ namespace LabMVC.Models.Data
             return resultToReturn;
         }
 
-
-        public IEnumerable<Entities.ForumCommentAnswer> GetForumCommentsAnswer(int idComment)
+        public IEnumerable<ForumComment> GetForumComments()
         {
-            var forum = (from forumCommentAnswer in _context.ForumCommentAnswers where forumCommentAnswer.IdComment == idComment select forumCommentAnswer);
+            var forum = (from forumComment in _context.ForumComments select forumComment);
             return forum.ToList();
         }
 
-        public int AddForumCommentAnswer(Entities.ForumCommentAnswer forumAnswer)
+        public ForumComment GetForumCommentById(int identification)
+        {
+            var forum = (from forumComment in _context.ForumComments where forumComment.Id == identification select forumComment);
+            return forum.FirstOrDefault();
+        }
+
+        public int AddForumCommentAnswer(ForumCommentAnswer forumAnswer)
         {
             int resultToReturn;
             try
@@ -75,6 +65,12 @@ namespace LabMVC.Models.Data
                 throw;
             }
             return resultToReturn;
+        }
+
+        public IEnumerable<ForumCommentAnswer> GetForumCommentsAnswer(int idComment)
+        {
+            var forum = (from forumCommentAnswer in _context.ForumCommentAnswers where forumCommentAnswer.IdComment == idComment select forumCommentAnswer);
+            return forum.ToList();
         }
 
     }

@@ -11,5 +11,6 @@ namespace LabMVC.Models.Entities
         public string Name { get; set; }
         public int? ScheduleId { get; set; }
         public DateTime CreationDate { get; set; }
+        public string CreationUser { get; set; }
     }
 }

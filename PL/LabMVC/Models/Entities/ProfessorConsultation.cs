@@ -13,5 +13,6 @@ namespace LabMVC.Models.Entities
         public string StudentName { get; set; }
         public string ConsultationText { get; set; }
         public DateTime? CreationDate { get; set; }
+        public string CreationUser { get; set; }
     }
 }

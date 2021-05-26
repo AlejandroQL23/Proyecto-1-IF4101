@@ -1,15 +1,11 @@
-﻿using LabMVC.Models.Domain;
-using LabMVC.Models.Entities;
-using LabMVC15_04_2021.Models.DomainD;
+﻿using LabMVC.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
 namespace LabMVC.Models.Data
 {
@@ -27,38 +23,12 @@ namespace LabMVC.Models.Data
         {
         }
 
-        /// <param name="context"></param>
         public ProfessorDAO(ALDIFA_SOFT_MVC_IF4101Context context)
         {
             _context = context;
         }
 
-        public void SendEmail(String addressee, String title, String message)
-        {
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential("aldifasoft0@gmail.com", "LPAC2021"),
-                EnableSsl = true,
-            };
-            MailMessage mailMessage = new MailMessage("aldifasoft0@gmail.com", addressee, title, message);
-            mailMessage.IsBodyHtml = true;
-            smtpClient.Send(mailMessage);
-        }
-
-         public IEnumerable<Entities.User> GetProfessor()
-        {
-            var users = (from user in _context.Users where user.Rol == "Profesor" select user);
-            return users.ToList();
-        }
-
-        public Entities.User GetProfessorById(String identification)
-        {
-            var users = (from user in _context.Users where user.IdCard == identification select user);
-            return users.FirstOrDefault();
-        }
-
-        public int AddProfessor(Entities.User professor)
+        public int AddProfessor(User professor)
         {
             int resultToReturn;
             try
@@ -73,7 +43,37 @@ namespace LabMVC.Models.Data
             return resultToReturn;
         }
 
-        public int RemoveProfessor(Entities.User professor)
+        public IEnumerable<User> GetProfessor()
+        {
+            var professors = (from professor in _context.Users where professor.Rol == "Profesor" select professor);
+            return professors.ToList();
+        }
+
+        public User GetProfessorById(String identification)
+        {
+            var professors = (from professor in _context.Users where professor.IdCard == identification select professor);
+            return professors.FirstOrDefault();
+        }
+
+        public int EditProfessor(User professor)
+        {
+            int resultToReturn = 0;
+            try
+            {
+                if (!ProfessorExists(professor.Id))
+                {
+                    _context.Update(professor);
+                    resultToReturn = _context.SaveChangesAsync().Result;
+                }
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+            return resultToReturn;
+        }
+
+        public int RemoveProfessor(User professor)
         {
             int resultToReturn;
             var studentToRemove = _context.Users.Find(professor.Id);
@@ -82,49 +82,39 @@ namespace LabMVC.Models.Data
             return resultToReturn;
         }
 
-        public int EditProfessor(Entities.User professor)
+        public IEnumerable<ProfessorConsultation> GetProfessorConsultations(String idCardProffesor)
         {
-            int resultToReturn = 0;
-
-            try
-            {
-                if (!ProfessorExists(professor.Id))
-                {
-
-                    _context.Update(professor);
-                    resultToReturn = _context.SaveChangesAsync().Result;
-                }
-
-            }
-            catch (DbUpdateException)
-            {
-
-                throw;
-
-            }
-
-            return resultToReturn;
-
+            var consultations = (from consultation in _context.ProfessorConsultations where consultation.IdCardProffesor == idCardProffesor select consultation);
+            return consultations.ToList();
         }
 
-        public List<Entities.User> GetExplicitProfessor()
+        public ProfessorConsultation GetProfessorConsult(int identification)
         {
-            List<Entities.User> professors = null;
+            var professors = (from professor in _context.ProfessorConsultations where professor.Id == identification select professor);
+            return professors.FirstOrDefault();
+        }
 
-            using (var context = new ALDIFA_SOFT_MVC_IF4101Context())
-            {
-                professors = context.Users.Select(professorItem => new Entities.User()
-                {
-                    Id = professorItem.Id,
-                    Name = professorItem.Name,
-                    Email = professorItem.Email,
-                    Password = professorItem.Password
+        public int RemoveConsult(ProfessorConsultation consultation)
+        {
+            int resultToReturn;
+            var consultToRemove = _context.ProfessorConsultations.Find(consultation.Id);
+            _context.ProfessorConsultations.Remove(consultToRemove);
+            resultToReturn = _context.SaveChangesAsync().Result;
+            return resultToReturn;
+        }
 
-                }).ToList<Entities.User>();
-            }
+        public User SaveProfessorPhoto(User professor)
+        {
 
-            return professors;
+            _context.Users.Update(professor);
+            _context.SaveChanges();
+            return professor;
+        }
 
+        public User GetSavedProfessorPhoto(string ID)
+        {
+            var professors = (from professor in _context.Users where professor.IdCard == ID select professor);
+            return professors.FirstOrDefault();
         }
 
         private bool ProfessorExists(int id)
@@ -132,41 +122,18 @@ namespace LabMVC.Models.Data
             return _context.Users.Any(e => e.Id == id);
         }
 
-        public Entities.User Save(Entities.User user)
-        { 
-
-            _context.Users.Update(user);
-            _context.SaveChanges();
-            return user;
-        }
-
-        public Entities.User GetSavedUser(string ID)
-        { 
-            var users = (from user in _context.Users where user.IdCard == ID select user);
-            return users.FirstOrDefault();
-        }
-
-        public IEnumerable<Entities.ProfessorConsultation> GetProfessorConsultations(String IdCardProffesor)
+        public void SendEmail(String addressee, String title, String message)
         {
-            var consultations = (from consultation in _context.ProfessorConsultations where consultation.IdCardProffesor == IdCardProffesor select consultation);
-            return consultations.ToList();
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("aldifasoft0@gmail.com", "LPAC2021"),
+                EnableSsl = true,
+            };
+            MailMessage mailMessage = new MailMessage("aldifasoft0@gmail.com", addressee, title, message);
+            mailMessage.IsBodyHtml = true;
+            smtpClient.Send(mailMessage);
         }
-
-        public ProfessorConsultation GetProfessorConsult(int identification)
-        {
-            var users = (from user in _context.ProfessorConsultations where user.Id == identification select user);
-            return users.FirstOrDefault();
-        }
-
-        public int RemoveConsult(ProfessorConsultation professorConsultation)
-        {
-            int resultToReturn;
-            var consultToRemove = _context.ProfessorConsultations.Find(professorConsultation.Id);
-            _context.ProfessorConsultations.Remove(consultToRemove);
-            resultToReturn = _context.SaveChangesAsync().Result;
-            return resultToReturn;
-        }
-
 
     }
 }

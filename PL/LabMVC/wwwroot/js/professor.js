@@ -1,22 +1,19 @@
 ﻿$(document).ready(function () {
-    LoadDataProfessorForStudentHoursOfAttentiontEF();
+    LoadDataProfessorForStudentHoursOfAttentiont();
     LoadDataProfessorStudentConsultationRequests();
 });
 
 
-function GetProfessorByIdForProfileCardEF(ID) {
+function GetProfessorByIdForProfileCard(ID) {
     $.ajax({
         url: "/Professor/GetProfessorById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
             var getFullName = result.name + " " + result.lastName;
-
             $('#nameProfileProfessor').val(getFullName);
             $('#idCardProfileProfessor').val(result.idCard);
-
             $('#emailProfileProfessor').val(result.email);
             $('#phoneProfileProfessor').val(result.phone);
             $('#infoProfileProfessor').val(result.personalFormation);
@@ -24,7 +21,6 @@ function GetProfessorByIdForProfileCardEF(ID) {
             linkToInstagramProfessor(ID);
             ReadImageProfessor(ID);
             LoadDataProfessorStudentConsultationRequests();
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -41,7 +37,6 @@ function ObtainProfessorProfileInformation() {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-
         success: function (result) {
 
             $('#idCardProfileProfessorModal').val(result.idCard);
@@ -49,15 +44,12 @@ function ObtainProfessorProfileInformation() {
             $('#emailProfileProfessorModal').val(result.email);
             $('#phoneProfileProfessorModal').val(result.phone);
             $('#infoProfileProfessorModal').val(result.personalFormation);
-
             $('#FacebookfileProfessorModal').val(result.facebook);
-           $('#InstagramProfileProfessorModal').val(result.instagram);
-
+            $('#InstagramProfileProfessorModal').val(result.instagram);
             $('#modalProfileProfessor').modal('show');
             $('#btnUpdateProfileProfessor').show();
             $('#disableAccountProfessor').show();
             $('#deleteProfileProfessor').show();
-            
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -65,7 +57,6 @@ function ObtainProfessorProfileInformation() {
     });
     return false;
 }
-
 
 function UpdateProfileProfessor() {
     var user = {
@@ -88,12 +79,12 @@ function UpdateProfileProfessor() {
 
           
             $('#modalProfileProfessor').modal('hide');
-            GetProfessorByIdForProfileCardEF(user.idCard);
+            GetProfessorByIdForProfileCard(user.idCard);
 
 
         },
         error: function (errorMessage) {
-            
+            alert(errormessage.responseText);
         }
     });
 
@@ -126,13 +117,11 @@ function UpdateActivityProfessor() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
             $('#modalProfileProfessor').modal('hide');
-            GetProfessorByIdForProfileCardEF(user.idCard);
-
+            GetProfessorByIdForProfileCard(user.idCard);
         },
         error: function (errorMessage) {
-
+            alert(errormessage.responseText);
         }
     });
 
@@ -177,19 +166,15 @@ function linkToFacebookProfessor(ID) {
         }
     });
     return false;
-
-
 }
 
 function linkToInstagramProfessor(ID) {
-
     $.ajax({
         url: "/Professor/GetProfessorById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
             var link = result.instagram;
             $('#instagramProfileProfessor').attr('href', link);
         },
@@ -198,10 +183,7 @@ function linkToInstagramProfessor(ID) {
         }
     });
     return false;
-
-
 }
-
 
 function saveConsultationHours() {
     var user = {
@@ -233,7 +215,7 @@ function saveConsultationHours() {
     });
 }
 
-function LoadDataProfessorForStudentHoursOfAttentiontEF() {
+function LoadDataProfessorForStudentHoursOfAttentiont() {
     $.ajax({
         url: "/Professor/GetProfessor",
         type: "GET",
@@ -265,9 +247,6 @@ function LoadDataProfessorForStudentHoursOfAttentiontEF() {
 }
 
 function GetByIdCardProfessor(ID) {
-
-
-
     $.ajax({
         url: "/Professor/GetProfessorById/" + ID,
         type: "GET",
@@ -285,63 +264,48 @@ function GetByIdCardProfessor(ID) {
         }
     });
     return false;
-    
 }
 
 
 function cleanProfessorConsultationHours() {
     document.getElementById('Consultation').value = '';
-
 }
 
 $("#txtFileProfesssor").change(function (event) {
-    
     var files = event.target.files;
-  
     $("#imgViewer").attr("src", window.URL.createObjectURL(files[0]));
-  
 });
 $("#btnSave").click(function () {
-
     var files = $("#txtFileProfesssor").prop("files");
     var formData = new FormData();
-   
     for (var i = 0; i < files.length; i++) {
         formData.append("file", files[i]);
     }
     var user = {
-        
         IdCard: $("#idCardProfileProfessor").val(),
         Name: $("#nameProfileProfessor").val()
-
     };
   
     formData.append("IdentityUser", JSON.stringify(user));
-
     $.ajax({
         type: "POST",
-        url: "/Professor/SaveFile",
+        url: "/Professor/SaveProfessorPhoto",
         data: formData,
         processData: false,
         contentType: false,
         success: function (result) {
             ResetFields();
-        
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
         }
     });
-
 });
 
-
-
 function ReadImageProfessor(ID) {
-
     $.ajax({
         type: "GET",
-        url: "/Professor/GetSavedUser/" + ID,
+        url: "/Professor/GetSavedProfessorPhoto/" + ID,
         success: function (result) {
 
             $("#imgViewer").attr("src", "data:image/jpg;base64," + result.photo + "");
@@ -358,7 +322,6 @@ function ResetFields() {
 }
 
 function LoadDataProfessorStudentConsultationRequests() {
-
     var professorConsultation = {
         idCardProffesor: $('#idCardProfileProfessor').val()
     };
@@ -377,7 +340,6 @@ function LoadDataProfessorStudentConsultationRequests() {
                     item.studentName,
                     item.consultationText,
                     '<td><a onclick= AcceptStudentConsult(' + consultId + ')>Aceptar</a> | <a onclick= DenyStudentConsult(' + consultId + ')>Rechazar</a></td>'
-
                 ];
                 dataSet.push(data);
             });
@@ -386,8 +348,6 @@ function LoadDataProfessorStudentConsultationRequests() {
                 data: dataSet,
                 "bDestroy": true
             });
-
-
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
@@ -403,14 +363,11 @@ function AcceptStudentConsult(ID) {
         dataType: "json",
         success: function (result) {
             LoadDataProfessorStudentConsultationRequests();
-
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
         }
     });
-
-
 }
 
 function DenyStudentConsult(ID) {
@@ -426,7 +383,4 @@ function DenyStudentConsult(ID) {
             alert(errorMessage.responseText);
         }
     });
-
-
 }
-

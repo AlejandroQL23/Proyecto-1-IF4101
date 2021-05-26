@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-    LoadDataAcceptDenyEF();
+    LoadDataAcceptDenyStudent();
     LoadDataToForumCourse();
 });
 
-function AddEF() {
+function AddStudent() {
     var user = {
         idCard: $('#studentCard').val(),
         name: $('#name').val(),
@@ -28,7 +28,7 @@ function AddEF() {
             dataType: "json",
             success: function (result) {
                 clean();
-                LoadDataAcceptDenyEF();
+                LoadDataAcceptDenyStudent();
                 var done = $('#correctLabel');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")
@@ -54,7 +54,7 @@ function AddEF() {
     }
 }
 
-function LoadDataAcceptDenyEF() {
+function LoadDataAcceptDenyStudent() {
     $.ajax({
         url: "/Student/GetWaitingStudents",
         type: "GET",
@@ -68,7 +68,7 @@ function LoadDataAcceptDenyEF() {
                     item.name,
                     item.lastName,
                     item.email,
-                    '<td><a onclick= GetStudentByIdCardEF(' + JSON.stringify(item.idCard) + ')>Gestionar</a></td>'
+                    '<td><a onclick= GetStudentByIdCard(' + JSON.stringify(item.idCard) + ')>Gestionar</a></td>'
                 ];
                 dataSet.push(data);
             });
@@ -84,9 +84,7 @@ function LoadDataAcceptDenyEF() {
     })
 }
 
-
-
-function GetStudentByIdCardEF(ID) {
+function GetStudentByIdCard(ID) {
     $.ajax({
         url: "/Student/GetStudentById/" + ID,
         type: "GET",
@@ -108,7 +106,7 @@ function GetStudentByIdCardEF(ID) {
 }
 
 
-function GetStudentByIdCardForProfileEF(ID) {
+function GetStudentByIdCardForProfile(ID) {
     $.ajax({
         url: "/Student/GetStudentById/" + ID,
         type: "GET",
@@ -138,21 +136,19 @@ function GetStudentByIdCardForProfileEF(ID) {
 function ObtainStudentProfileInformation() {
     var ID = $('#idCardProfileStudent').val();
     $.ajax({
-         url: "/Student/GetStudentById/" + ID,
+        url: "/Student/GetStudentById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-       
+
         success: function (result) {
             $('#idCardProfilePStudentModal').val(result.idCard);
             $('#nameProfilePStudentModal').val(result.name);
             $('#emailProfileStudentModal').val(result.email);
             $('#phoneProfileStudentModal').val(result.phone);
             $('#infoProfileStudentModal').val(result.personalFormation);
-
             $('#facebookProfilePStudentModal').val(result.facebook);
             $('#instagramProfilePStudentModal').val(result.instagram);
-
             $('#modalProfileStudent').modal('show');
             $('#btnUpdateProfileStudent').show();
             $('#disableAccountStudent').show();
@@ -178,14 +174,14 @@ function UpdateProfileStudent() {
 
     $.ajax({
         url: "/Student/UpdateStudent",
-          data: JSON.stringify(user),
-         type: "POST",
+        data: JSON.stringify(user),
+        type: "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
 
             $('#modalProfileStudent').modal('hide');
-            GetStudentByIdCardForProfileEF(user.idCard);
+            GetStudentByIdCardForProfile(user.idCard);
 
         },
         error: function (errorMessage) {
@@ -225,15 +221,13 @@ function UpdateActivityStudent() {
         success: function (result) {
 
             $('#modalProfileStudent').modal('hide');
-            GetStudentByIdCardForProfileEF(user.idCard);
+            GetStudentByIdCardForProfile(user.idCard);
 
         },
         error: function (errorMessage) {
 
         }
     });
-
-
 
 }
 
@@ -269,9 +263,6 @@ function linkToFacebookStudent(ID) {
 
             var link = result.facebook;
             $('#facebookProfileStudent').attr('href', link);
-
-
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -293,17 +284,12 @@ function linkToInstagramStudent(ID) {
 
             var link = result.instagram;
             $('#instagramProfileStudent').attr('href', link);
-
-
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
     return false;
-
-
 }
 
 function addCommentToForum() {
@@ -322,7 +308,7 @@ function addCommentToForum() {
         dataType: "json",
         success: function (result) {
             $('#modalStudentCourse').modal('hide');
-           LoadDataToForumCourse();
+            LoadDataToForumCourse();
         },
         error: function (errorMessage) {
 
@@ -362,8 +348,6 @@ function LoadDataToForumCourse() {
         }
     })
 }
-
-
 
 function AddQuestionProfessor() {
     var ProfessorConsultation = {
@@ -460,7 +444,7 @@ $("#btnSaveStudent").click(function () {
 
     $.ajax({
         type: "POST",
-        url: "/Student/SaveFile",
+        url: "/Student/SaveStudentPhoto",
         data: formData,
         processData: false,
         contentType: false,
@@ -476,16 +460,14 @@ $("#btnSaveStudent").click(function () {
 });
 
 
-
 function ReadImageStudent(ID) {
 
     $.ajax({
         type: "GET",
-        url: "/Student/GetSavedUser/" + ID,
+        url: "/Student/GetSavedStudentPhoto/" + ID,
         success: function (result) {
 
             $("#imgViewerStudentProfile").attr("src", "data:image/jpg;base64," + result.photo + "");
-
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
@@ -522,7 +504,7 @@ function modalToAnswerComment(ID) {
 }
 
 
-function LoadDataAnswerComments(ID) { 
+function LoadDataAnswerComments(ID) {
     $.ajax({
         url: "/ForumComment/GetForumAnswer/" + ID,
         type: "GET",
@@ -566,7 +548,7 @@ function AddCommentAnswer() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            
+
             $('#modalCoursesComments').modal('hide');
         },
         error: function (errorMessage) {

@@ -1,11 +1,6 @@
 ﻿using LabMVC.Models.Data;
 using LabMVC.Models.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LabMVC.Controllers
 {
@@ -24,10 +19,10 @@ namespace LabMVC.Controllers
             return View();
         }
 
-        public ActionResult GetExplicitCourse()
+        public IActionResult AddCourse([FromBody] Course course)
         {
             courseDAO = new CourseDAO(_context);
-            return Ok(courseDAO.GetExplicitCourse());
+            return Ok(courseDAO.AddCourse(course));
         }
 
         public ActionResult GetCourses()
@@ -42,10 +37,10 @@ namespace LabMVC.Controllers
             return Ok(courseDAO.GetCourseById(id));
         }
 
-        public IActionResult AddCourse([FromBody] Course course)
+        public ActionResult GetCoursesBySemester()
         {
             courseDAO = new CourseDAO(_context);
-            return Ok(courseDAO.AddCourse(course));
+            return Ok(courseDAO.GetCoursesBySemester());
         }
 
         public ActionResult EditCourse([FromBody] Course course)
@@ -55,7 +50,6 @@ namespace LabMVC.Controllers
             courseDAO.RemoveCourse(oldUser);
             int resultToReturn = courseDAO.EditCourse(course);
             return Ok(resultToReturn);
-
         }
 
         public IActionResult RemoveCourse(string id)
@@ -65,10 +59,5 @@ namespace LabMVC.Controllers
             return Ok(courseDAO.RemoveCourse(courseSearch));
         }
 
-        public ActionResult GetCoursesBySemester()
-        {
-            courseDAO = new CourseDAO(_context);
-            return Ok(courseDAO.GetCoursesBySemester());
     }
-}
 }
