@@ -1,0 +1,41 @@
+{
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=DESKTOP-OPCIQUT;Initial Catalog=ALDIFA_SOFT_MVC_IF4101;;Integrated Security=True"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+
+---------------------------------------
+
+{
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=DESKTOP-OPCIQUT;Initial Catalog=ALDIFA_SOFT_API_IF4101;;Integrated Security=True"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
