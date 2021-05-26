@@ -29,11 +29,12 @@ namespace LabMVC.Controllers
             professorDAO.SendEmail(user.Email, "❁→❝Trámites de Inscripción Listo❞❁",
                            "<html><body ><h1>Estimado/a " + user.Name + "</h1><br/>" +
                            "<br/><h3>Sede: Atlántico<br/>" +
-                           "<br/>Queremos informarle que el proceso de su inscripción al entorno oficial de Informática Empresarial para la Sede del Atlántico ha sido procesada y terminada con éxito, le hemos asignado una identificación oficial la cual es: " + user.IdCard + ", el cual necesitará para autenticarse en nuestros sitios oficiales con sesión de Profesor.  <br/>" +
+                           "<br/>Queremos informarle que el proceso de su inscripción al entorno oficial de Informática Empresarial para la Sede del Atlántico ha sido procesada y terminada con éxito, le hemos asignado una identificación oficial la cual es: " + user.IdCard + ", esta la necesitará para autenticarse en nuestros sitios oficiales con sesión de Profesor.  <br/>" +
                            "<br/>Le solicitamos atentamente que revise esta y más de su infomación oficial en el entorno de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/), así mismo, revisar en días posteriores al proceso de matrícula estudiantil si su respectivo entorno está habilitado en Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
                            "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
             return Ok(professorDAO.AddProfessor(user));
         }
+
 
         public ActionResult GetProfessor()
         {
@@ -133,7 +134,7 @@ namespace LabMVC.Controllers
             var student = studentDAO.GetStudentById(professorConsultation.IdCardStudent);
             professorDAO.SendEmail(student.Email, "❁→❝Respuesta a su solicitud de consulta❞❁",
                           "<html><body ><h1>Estimado/a " + student.Name + " " + student.LastName + "</h1><br/>" +
-                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha ACEPTADO su solicitud de consulta<br/></h3></body></html>");
+                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha ACEPTADO su solicitud de consulta, porfavor mantengase atento a la posible confirmacion de consulta.<br/></h3></body></html>");
             return Ok(professorDAO.RemoveConsult(professorConsultation));
         }
 
@@ -146,7 +147,7 @@ namespace LabMVC.Controllers
             var student = studentDAO.GetStudentById(professorConsultation.IdCardStudent);
             professorDAO.SendEmail(student.Email, "❁→❝Respuesta a su solicitud de consulta❞❁",
                           "<html><body ><h1>Estimado/a " + student.Name + " " + student.LastName + "</h1><br/>" +
-                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha RECHAZADO su solicitud de consulta<br/></h3></body></html>");
+                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha RECHAZADO su solicitud de consulta, en caso de inconformidad con el resultado, puede volver a escribirle al respectico profesor.<br/></h3></body></html>");
             return Ok(professorDAO.RemoveConsult(professorConsultation));
         }
 

@@ -2,7 +2,7 @@
     LoadDataAcceptDenyStudent();
     LoadDataToForumCourse();
 });
-
+document.getElementById('btnSaveStudent').disabled = true;
 function AddStudent() {
     var user = {
         idCard: $('#studentCard').val(),
@@ -419,14 +419,14 @@ function validateStudent(user) {
 }
 
 $("#txtFileStudent").change(function (event) {
-
+    document.getElementById('btnSaveStudent').disabled = false;
     var files = event.target.files;
 
     $("#imgViewerStudentProfile").attr("src", window.URL.createObjectURL(files[0]));
 
 });
 $("#btnSaveStudent").click(function () {
-
+    
     var files = $("#txtFileStudent").prop("files");
     var formData = new FormData();
 
@@ -456,7 +456,7 @@ $("#btnSaveStudent").click(function () {
             alert(errorMessage.responseText);
         }
     });
-
+    document.getElementById('btnSaveStudent').disabled = true;
 });
 
 

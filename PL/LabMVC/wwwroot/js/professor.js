@@ -3,7 +3,7 @@
     LoadDataProfessorStudentConsultationRequests();
 });
 
-
+document.getElementById('btnSave').disabled = true;
 function GetProfessorByIdForProfileCard(ID) {
     $.ajax({
         url: "/Professor/GetProfessorById/" + ID,
@@ -272,6 +272,7 @@ function cleanProfessorConsultationHours() {
 }
 
 $("#txtFileProfesssor").change(function (event) {
+    document.getElementById('btnSave').disabled = false;
     var files = event.target.files;
     $("#imgViewer").attr("src", window.URL.createObjectURL(files[0]));
 });
@@ -300,6 +301,7 @@ $("#btnSave").click(function () {
             alert(errorMessage.responseText);
         }
     });
+    document.getElementById('btnSave').disabled = true;
 });
 
 function ReadImageProfessor(ID) {

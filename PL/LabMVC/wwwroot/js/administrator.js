@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 });
-
+document.getElementById('btnSaveAdmin').disabled = true;
 function AddProfessor() {
     var user = {
         idCard: $('#CardProfessor').val(),
@@ -85,6 +85,8 @@ function AcceptDenyStudent() {
             alert(errorMessage.responseText);
         }
     });
+    
+    $('#condition').val('0');
     $('#presidency').val('-1');
 }
 
@@ -237,6 +239,7 @@ function cleanProfessor() {
 }
 
 $("#txtFileAdmin").change(function (event) {
+    document.getElementById('btnSaveAdmin').disabled = false;
     var files = event.target.files;
     $("#imgViewerAdminProfile").attr("src", window.URL.createObjectURL(files[0]));
 });
@@ -265,6 +268,7 @@ $("#btnSaveAdmin").click(function () {
             alert(errorMessage.responseText);
         }
     });
+    document.getElementById('btnSaveAdmin').disabled = true;
 });
 
 function ReadImageAdmin(ID) {
