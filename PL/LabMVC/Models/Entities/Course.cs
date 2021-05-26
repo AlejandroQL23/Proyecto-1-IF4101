@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace LabMVC.Models.Entities
+namespace ALDIFASOFT_MVC.Models.Entities
 {
     public partial class Course
     {

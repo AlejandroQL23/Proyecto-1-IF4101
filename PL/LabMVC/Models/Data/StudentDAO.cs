@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using LabMVC.Models.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ALDIFASOFT_MVC.Models.Entities;
 
 namespace LabMVC.Models.Data
 {

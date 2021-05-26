@@ -1,4 +1,5 @@
-﻿using LabMVC.Models.Entities;
+﻿using ALDIFASOFT_MVC.Models.Entities;
+using LabMVC.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
