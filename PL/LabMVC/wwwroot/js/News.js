@@ -3,6 +3,7 @@
     LoadDataNewsStudentComments();
     LoadDataNewsDeleteAdmin();
     LoadDataNewsProfessor();
+    LoadDataNewsAdminUpdate();
     LoadDataNewsProfessorComments();
     LoadDataNewsGeneral();
 });
@@ -25,6 +26,7 @@ function AddNews() {
             dataType: "json",
             success: function (result) {
                 cleanNews();
+                LoadDataNewsDeleteAdmin();
                 var done = $('#correctLabelAddNews');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")
@@ -41,6 +43,20 @@ function AddNews() {
         });
 
 }
+
+$("#profileImage").click(function (e) {
+    $("#imageUpload").click();
+});
+
+function fasterPreview(uploader) {
+    if (uploader.files && uploader.files[0]) {
+        $('#profileImage').attr('src', window.URL.createObjectURL(uploader.files[0]));
+    }
+}
+
+$("#imageUpload").change(function () {
+    fasterPreview(this);
+});
 
 function cleanNews() {
     document.getElementById('nameOfNews').value = '';
@@ -199,7 +215,8 @@ function DeleteOldNews(ID) {
          type: "DELETE",
          contentType: "application/json;charset=UTF-8",
         success: function (result) {
-           
+            LoadDataNewsDeleteAdmin();
+            LoadDataNewsAdminUpdate();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -210,12 +227,14 @@ function DeleteOldNews(ID) {
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------
 function LoadDataNewsProfessor() {
+   
     $.ajax({
         url: "/News/GetNewsForTable",
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
+            
             dataSet = new Array();
             $.each(result, function (key, item) {
                 data = [
@@ -331,7 +350,6 @@ function LoadDataNewsGeneral() {
             dataSet = new Array();
             $.each(result, function (key, item) {
                 data = [
-                    item.id,
                     item.title,
                     item.category,
                     item.textContent,
@@ -355,7 +373,7 @@ function LoadDataNewsGeneral() {
 
 //-----------------------------------------------------------
 
-function LoadDataNewsProfessor() {
+function LoadDataNewsAdminUpdate() {
     $.ajax({
         url: "/News/GetNewsForTable",
         type: "GET",
@@ -412,18 +430,13 @@ function modalToUpdateNews(ID) {
 }
 
 function UpdateNews() {
-
     ID = $('#idNewsModalUpdate').val();
     var news = {
         Title: $('#titleNewsModalUpdate').val(),
         Author: "Administrador",
         Category: $('#categNewsModalUpdate').val(),
-        TextContent: $('#contentNewsModalUpdate').val(),
-       // CreationDate: "2021-05-21"
+        TextContent: $('#contentNewsModalUpdate').val()
     };
-    alert(ID);
-    alert(news.Title);
-
     $.ajax({
         url: "/News/"+ ID,
         data: JSON.stringify(news),
@@ -431,7 +444,9 @@ function UpdateNews() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            alert("chuculuko");
+            LoadDataNewsDeleteAdmin();
+            LoadDataNewsAdminUpdate();
+            $('#modalNewsUpdate').modal('hide');
         },
         error: function (errorMessage) {
 
