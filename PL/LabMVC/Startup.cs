@@ -1,3 +1,4 @@
+using ALDIFASOFT_MVC.Models.Entities;
 using LabMVC.Models.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

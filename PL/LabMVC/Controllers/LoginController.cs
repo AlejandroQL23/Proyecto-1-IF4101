@@ -1,4 +1,5 @@
-﻿using LabMVC.Models;
+﻿using ALDIFASOFT_MVC.Models.Entities;
+using LabMVC.Models;
 using LabMVC.Models.Data;
 using LabMVC.Models.Entities;
 using Microsoft.AspNetCore.Http;

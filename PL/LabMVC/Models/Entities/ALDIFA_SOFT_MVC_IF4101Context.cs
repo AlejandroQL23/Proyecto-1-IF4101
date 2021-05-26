@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace LabMVC.Models.Entities
+namespace ALDIFASOFT_MVC.Models.Entities
 {
     public partial class ALDIFA_SOFT_MVC_IF4101Context : DbContext
     {
