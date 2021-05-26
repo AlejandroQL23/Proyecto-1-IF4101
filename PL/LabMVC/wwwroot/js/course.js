@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     LoadDataCourses();
-    LoadDataToCourseStudentEF();
+    LoadDataToCourseStudent();
 });
 
 function AddCourse() {
@@ -31,10 +31,9 @@ function AddCourse() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-
                 cleanCourseSpace();
                 LoadDataCourses();
-                LoadDataToCourseStudentEF();
+                LoadDataToCourseStudent();
                 var done = $('#correctLabelCourse');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")
@@ -59,8 +58,6 @@ function AddCourse() {
         response.fadeOut(4000);
     }
 }
-
-
 
 function LoadDataCourses() {
     $.ajax({
@@ -120,7 +117,6 @@ function GetByInitials(ID) {
     } else {
         upd = "Inactivo";
     }
-
     $.ajax({
         url: "/Course/GetCourseById/" + ID,
         type: "GET",
@@ -142,9 +138,7 @@ function GetByInitials(ID) {
     return false;
 }
 
-
 function UpdateCourse() {
-    
     var upd;
     if ($('#activityCourse').val() == 1) {
         upd = true;
@@ -184,7 +178,7 @@ function UpdateCourse() {
     $('#activityCourse').val('-1');
 }
 
-function LoadDataToCourseStudentEF() {
+function LoadDataToCourseStudent() {
     $.ajax({
         url: "/Course/GetCoursesBySemester",
         type: "GET",
@@ -216,7 +210,6 @@ function LoadDataToCourseStudentEF() {
 
 
 function GetByInitialsForModalStudent(ID) {
-
     $.ajax({
         url: "/Course/GetCourseById/" + ID,
         type: "GET",

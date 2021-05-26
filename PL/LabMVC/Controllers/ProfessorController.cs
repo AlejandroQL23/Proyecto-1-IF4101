@@ -1,19 +1,14 @@
 ﻿using LabMVC.Models.Data;
 using LabMVC.Models.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LabMVC.Controllers
 {
     public class ProfessorController : Controller
     {
-
         private readonly ALDIFA_SOFT_MVC_IF4101Context _context;
         ProfessorDAO professorDAO;
         StudentDAO studentDAO;
@@ -23,28 +18,9 @@ namespace LabMVC.Controllers
             _context = context;
         }
 
-        // GET: ProfessorController
         public ActionResult Index()
         {
             return View();
-        }
-
-        public ActionResult GetExplicitProfessor()
-        {
-            professorDAO = new ProfessorDAO(_context);
-            return Ok(professorDAO.GetExplicitProfessor());
-        }
-
-        public ActionResult GetProfessor()
-        {
-            professorDAO = new ProfessorDAO(_context);
-            return Ok(professorDAO.GetProfessor());
-        }
-
-        public ActionResult GetProfessorById(string id)
-        {
-            professorDAO = new ProfessorDAO(_context);
-            return Ok(professorDAO.GetProfessorById(id));
         }
 
         public IActionResult AddProfessor([FromBody] User user)
@@ -57,7 +33,18 @@ namespace LabMVC.Controllers
                            "<br/>Le solicitamos atentamente que revise esta y más de su infomación oficial en el entorno de E-Matrícula(https://ematricula.ucr.ac.cr/ematricula/), así mismo, revisar en días posteriores al proceso de matrícula estudiantil si su respectivo entorno está habilitado en Mediación Virtual(https://mv1.mediacionvirtual.ucr.ac.cr/login/index.php)<br/>" +
                            "<br/>- Oficina de Orientación y Registro.</h3></body></html>");
             return Ok(professorDAO.AddProfessor(user));
+        }
 
+        public ActionResult GetProfessor()
+        {
+            professorDAO = new ProfessorDAO(_context);
+            return Ok(professorDAO.GetProfessor());
+        }
+
+        public ActionResult GetProfessorById(string id)
+        {
+            professorDAO = new ProfessorDAO(_context);
+            return Ok(professorDAO.GetProfessorById(id));
         }
 
         public ActionResult UpdateProfessor([FromBody] User user)
@@ -109,7 +96,6 @@ namespace LabMVC.Controllers
             return Ok(professorDAO.RemoveProfessor(newUser));
         }
 
-
         public ActionResult AddDateTimeProfessor([FromBody] User user)
         {
             professorDAO = new ProfessorDAO(_context);
@@ -133,59 +119,6 @@ namespace LabMVC.Controllers
             return Ok(resultToReturn);
         }
 
-
-        [HttpPost]
-        public string SaveFile(FileUpload fileObj)
-        { 
-            Models.Entities.User identityUserObject = JsonConvert.DeserializeObject<Models.Entities.User>(fileObj.identityUser);
-            if (fileObj.file.Length > 0)
-            {
-                using (var ms = new MemoryStream())
-                {
-
-                    fileObj.file.CopyTo(ms);
-                    var fileBytes = ms.ToArray();
-                    identityUserObject.Photo = fileBytes;
-                    professorDAO = new ProfessorDAO(_context);
-                    var newUser = professorDAO.GetProfessorById(identityUserObject.IdCard);
-                    newUser.Photo = identityUserObject.Photo;
-                    newUser = professorDAO.Save(newUser);
-                    if (newUser.Id > 0)
-                    {
-                        return "Saved";
-
-                    }
-
-                }
-
-            }
-            return "Failed";
-
-        }
-
-
-
-        [HttpGet]
-        public JsonResult GetSavedUser(string ID)
-        { 
-            professorDAO = new ProfessorDAO(_context);
-            var user = professorDAO.GetSavedUser(ID);
-            user.Photo = this.GetImage(Convert.ToBase64String(user.Photo));
-            return Json(user);
-        }
-
-        public byte[] GetImage(string sBase64String)
-        {
-            byte[] bytes = null;
-            if (!string.IsNullOrEmpty(sBase64String))
-            {
-                bytes = Convert.FromBase64String(sBase64String);
-            }
-            return bytes;
-
-        }
-
-
         public ActionResult GetProfessorConsultations(string id)
         {
             professorDAO = new ProfessorDAO(_context);
@@ -193,7 +126,6 @@ namespace LabMVC.Controllers
         }
         public ActionResult AcceptConsult(int id)
         {
-
             professorDAO = new ProfessorDAO(_context);
             studentDAO = new StudentDAO(_context);
             var professorConsultation = professorDAO.GetProfessorConsult(id);
@@ -218,6 +150,48 @@ namespace LabMVC.Controllers
             return Ok(professorDAO.RemoveConsult(professorConsultation));
         }
 
+        [HttpPost]
+        public string SaveProfessorPhoto(FileUpload fileObj)
+        {
+            User identityUserObject = JsonConvert.DeserializeObject<User>(fileObj.IdentityUser);
+            if (fileObj.File.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    fileObj.File.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    identityUserObject.Photo = fileBytes;
+                    professorDAO = new ProfessorDAO(_context);
+                    var newUser = professorDAO.GetProfessorById(identityUserObject.IdCard);
+                    newUser.Photo = identityUserObject.Photo;
+                    newUser = professorDAO.SaveProfessorPhoto(newUser);
+                    if (newUser.Id > 0)
+                    {
+                        return "Saved";
+                    }
+                }
+            }
+            return "Failed";
+        }
+
+        [HttpGet]
+        public JsonResult GetSavedProfessorPhoto(string ID)
+        {
+            professorDAO = new ProfessorDAO(_context);
+            var user = professorDAO.GetSavedProfessorPhoto(ID);
+            user.Photo = this.GetImage(Convert.ToBase64String(user.Photo));
+            return Json(user);
+        }
+
+        public byte[] GetImage(string sBase64String)
+        {
+            byte[] bytes = null;
+            if (!string.IsNullOrEmpty(sBase64String))
+            {
+                bytes = Convert.FromBase64String(sBase64String);
+            }
+            return bytes;
+        }
 
     }
 }

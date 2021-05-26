@@ -15,8 +15,6 @@ namespace LabMVC.Models.Entities
         public string ScheduleId { get; set; }
         public bool? Activity { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime? UpdateDate { get; set; }
         public string CreationUser { get; set; }
-        public string UpdateUser { get; set; }
     }
 }

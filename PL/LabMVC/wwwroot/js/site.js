@@ -17,7 +17,6 @@
     hydeShowSection('professor');
     hydeShowSection('student');
     hydeShowSection('admin');
-    
 });
 
 function hydeShowSection(a) {
@@ -39,7 +38,6 @@ function keepSingleTabForProfile() {
     document.getElementById('adminCourses').style.display = 'none';
     document.getElementById('adminNews').style.display = 'none';
     document.getElementById('updateNewsAdmin').style.display = 'none';
-    
 }
 
 function keepSingleTabForAcceptDeny() {
@@ -80,7 +78,7 @@ function keepSingleTabForUpdateNews() {
     document.getElementById('adminCourses').style.display = 'none';
     document.getElementById('adminNews').style.display = 'none';
 }
-//---
+
 function keepSingleTabForstudentProfile() {
     document.getElementById('studentCourses').style.display = 'none';
     document.getElementById('studentHoursOfAttention').style.display = 'none';
@@ -104,35 +102,34 @@ function keepSingleTabForstudentNews() {
     document.getElementById('studentHoursOfAttention').style.display = 'none';
     document.getElementById('studentProfile').style.display = 'none';
 }
-//---
+
 function keepSingleTabForProfessorProfile() {
     document.getElementById('ConsultationHours').style.display = 'none';
-    document.getElementById('professorConsultationRequests').style.display = 'none'; 
-    document.getElementById('ProfessorNews').style.display = 'none'; 
+    document.getElementById('professorConsultationRequests').style.display = 'none';
+    document.getElementById('ProfessorNews').style.display = 'none';
 }
 
 function keepSingleTabForProfessorConsultation() {
     document.getElementById('professorProfile').style.display = 'none';
-    document.getElementById('professorConsultationRequests').style.display = 'none'; 
-    document.getElementById('ProfessorNews').style.display = 'none'; 
+    document.getElementById('professorConsultationRequests').style.display = 'none';
+    document.getElementById('ProfessorNews').style.display = 'none';
 }
 
 function keepSingleTabForProfessorConsultationRequests() {
     document.getElementById('professorProfile').style.display = 'none';
-    document.getElementById('ConsultationHours').style.display = 'none';  
-    document.getElementById('ProfessorNews').style.display = 'none';  
-    
+    document.getElementById('ConsultationHours').style.display = 'none';
+    document.getElementById('ProfessorNews').style.display = 'none';
+
 }
 
 function keepSingleTabForNews() {
     document.getElementById('professorProfile').style.display = 'none';
     document.getElementById('ConsultationHours').style.display = 'none';
-    document.getElementById('professorConsultationRequests').style.display = 'none'; 
+    document.getElementById('professorConsultationRequests').style.display = 'none';
 }
 
 
 function ValidateLogin() {
-
     var user = {
         idCard: $('#IdCardUser').val(),
         password: $('#passwordUser').val()
@@ -140,21 +137,15 @@ function ValidateLogin() {
     var messageValidateLogin = validateUserLogin(user);
     if (messageValidateLogin == "") {
         $.ajax({
-            url: "/Login/Validate",
+            url: "/Login/ValidateLogin",
             data: JSON.stringify(user),
             type: "POST",
             contentType: "application/json;charset=utf-8",
             success: function (result) {
-
-                //alert("Hola soy: " + result.rol);
-
-                //window.location.href = "";
-
-
                 if (result.rol == "Estudiante") {
                     document.getElementById("student").style.display = "block";
                     document.getElementById('GeneralNews').style.display = 'none';
-                    GetStudentByIdCardForProfileEF(user.idCard);
+                    GetStudentByIdCardForProfile(user.idCard);
                     linkToFacebookStudent(user.idCard);
                     linkToInstagramStudent(user.idCard);
                 } else if (result.rol == "Administrador") {
@@ -166,11 +157,11 @@ function ValidateLogin() {
                 } else if (result.rol == "Profesor") {
                     document.getElementById("professor").style.display = "block";
                     document.getElementById('GeneralNews').style.display = 'none';
-                    GetProfessorByIdForProfileCardEF(user.idCard);
+                    GetProfessorByIdForProfileCard(user.idCard);
                     linkToFacebookProfessor(user.idCard);
                     linkToInstagramProfessor(user.idCard);
                 } else {
-                    alert("Error INESPERADO");
+                    alert("Error inesperado");
                 }
                 cleanLogin();
             },
@@ -182,7 +173,6 @@ function ValidateLogin() {
                 response.addClass("alert alert-danger register-alert");
                 response.fadeIn(1800);
                 response.fadeOut(4000);
-
             }
         });
     } else {
@@ -192,7 +182,6 @@ function ValidateLogin() {
         response.html(messageValidateLogin);
         response.fadeIn(1800);
         response.fadeOut(4000);
-
     }
 }
 

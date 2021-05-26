@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
 });
 
 function AddProfessor() {
@@ -53,7 +52,6 @@ function AddProfessor() {
 }
 
 function AcceptDenyStudent() {
-
     var presi = null;
     if ($('#presidency').val() == 1) {
         presi = true;
@@ -80,7 +78,7 @@ function AcceptDenyStudent() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-            LoadDataAcceptDenyEF();
+            LoadDataAcceptDenyStudent();
             $('#modalAcceptDeny').modal('hide');
         },
         error: function (errorMessage) {
@@ -98,20 +96,15 @@ function GetAdminByIdForProfileCardEF(ID) {
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
             var getFullName = result.name + " " + result.lastName;
-
             $('#nameProfileAdmin').val(getFullName);
             $('#idCardProfileAdmin').val(result.idCard);
-
             $('#emailProfileAdmin').val(result.email);
             $('#phoneProfileAdmin').val(result.phone);
             $('#infoProfileAdmin').val(result.personalFormation);
             linkToFacebookAdmin(ID);
             linkToInstagramAdmin(ID);
             ReadImageAdmin(ID);
-
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -128,21 +121,16 @@ function ObtainAdminProfileInformation() {
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-
         success: function (result) {
-
             $('#idCardProfileAdminModal').val(result.idCard);
             $('#nameProfileAdminModal').val(result.name);
             $('#emailProfileAdminModal').val(result.email);
             $('#phoneProfileAdminModal').val(result.phone);
             $('#infoProfileAdminModal').val(result.personalFormation);
-
             $('#FacebookfileAdminModal').val(result.facebook);
             $('#InstagramProfileAdminModal').val(result.instagram);
-
             $('#modalProfileAdmin').modal('show');
             $('#btnUpdateProfileAdmin').show();
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -150,7 +138,6 @@ function ObtainAdminProfileInformation() {
     });
     return false;
 }
-
 
 function UpdateProfileAdmin() {
     var user = {
@@ -170,67 +157,49 @@ function UpdateProfileAdmin() {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
-
-
             $('#modalProfileAdmin').modal('hide');
             GetAdminByIdForProfileCardEF(user.idCard);
-
-
         },
         error: function (errorMessage) {
-
+            alert(errormessage.responseText);
         }
     });
-
 }
 
 
 function linkToFacebookAdmin(ID) {
-
     $.ajax({
         url: "/Professor/GetProfessorById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-            
             var link = result.facebook;
             $('#facebookProfileAdmin').attr('href', link);
 
-
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
     return false;
-
-
 }
 
 function linkToInstagramAdmin(ID) {
-
     $.ajax({
         url: "/Professor/GetProfessorById/" + ID,
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
         success: function (result) {
-
             var link = result.instagram;
             $('#instagramProfileAdmin').attr('href', link);
-
-
-
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
     return false;
-
-
 }
 
 
@@ -265,63 +234,45 @@ function cleanProfessor() {
     document.getElementById('passwordProfessor').value = '';
     document.getElementById('phoneProfessor').value = '';
     document.getElementById('addressProfessor').value = '';
-
 }
 
-
-
 $("#txtFileAdmin").change(function (event) {
-
     var files = event.target.files;
-
     $("#imgViewerAdminProfile").attr("src", window.URL.createObjectURL(files[0]));
-
 });
 $("#btnSaveAdmin").click(function () {
-
     var files = $("#txtFileAdmin").prop("files");
     var formData = new FormData();
-
     for (var i = 0; i < files.length; i++) {
         formData.append("file", files[i]);
     }
     var user = {
-
         IdCard: $("#idCardProfileAdmin").val(),
         Name: $("#nameProfileAdmin").val()
-
     };
 
     formData.append("IdentityUser", JSON.stringify(user));
-
     $.ajax({
         type: "POST",
-        url: "/Professor/SaveFile",
+        url: "/Professor/SaveProfessorPhoto",
         data: formData,
         processData: false,
         contentType: false,
         success: function (result) {
             ResetFields();
-
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
         }
     });
-
 });
 
-
-
 function ReadImageAdmin(ID) {
-
     $.ajax({
         type: "GET",
-        url: "/Professor/GetSavedUser/" + ID,
+        url: "/Professor/GetSavedProfessorPhoto/" + ID,
         success: function (result) {
-
             $("#imgViewerAdminProfile").attr("src", "data:image/jpg;base64," + result.photo + "");
-
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);

@@ -12,5 +12,6 @@ namespace LabMVC.Models.Entities
         public int? IdComment { get; set; }
         public string TextContent { get; set; }
         public DateTime? CreationDate { get; set; }
+        public string CreationUser { get; set; }
     }
 }

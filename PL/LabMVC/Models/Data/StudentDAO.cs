@@ -1,14 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
-using LabMVC15_04_2021.Models.DomainD;
 using System.Data;
 using System.Collections.Generic;
-using LabMVC.Models.Domain;
 using LabMVC.Models.Entities;
-using User = LabMVC.Models.Domain.User;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,88 +25,12 @@ namespace LabMVC.Models.Data
         {
         }
 
-        /// <param name="context"></param>
         public StudentDAO(ALDIFA_SOFT_MVC_IF4101Context context)
         {
             _context = context;
         }
 
-        public Boolean VerifyEmail(string studentEmail)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("VerifyEmail", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("Email", studentEmail);
-                var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int);
-                returnParameter.Direction = ParameterDirection.ReturnValue;
-                command.ExecuteNonQuery();
-                int result = (int)returnParameter.Value;
-                connection.Close();
-                if (result == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public Boolean loginAuthentication(string userIdCard, string userPassword)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("loginAuthentication", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("IdCard", userIdCard);
-                command.Parameters.AddWithValue("Password", userPassword);
-                var returnParameter = command.Parameters.Add("@Exists", System.Data.SqlDbType.Int);
-                returnParameter.Direction = ParameterDirection.ReturnValue;
-                command.ExecuteNonQuery();
-                int result = (int)returnParameter.Value;
-                connection.Close();
-                if (result == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public void SendEmail(String addressee, String title, String message)
-        {
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential("aldifasoft0@gmail.com", "LPAC2021"),
-                EnableSsl = true,
-            };
-            MailAddress mailaddress = new MailAddress(addressee);
-            MailMessage mailMessage = new MailMessage("aldifasoft0@gmail.com", addressee, title, message);
-            mailMessage.IsBodyHtml = true;
-            smtpClient.Send(mailMessage);
-        }
-
-        public IEnumerable<Entities.User> GetWaitingStudents()
-        {
-            var users = (from user in _context.Users where user.Approval == "En Espera" select user);
-            return users.ToList();
-        }
-
-        public Entities.User GetStudentById(String identification)
-        {
-            var users = (from user in _context.Users where user.IdCard == identification select user);
-            return users.FirstOrDefault();
-        }
-
-        public int AddStudent(Entities.User student)
+        public int AddStudent(User student)
         {
             int resultToReturn;
             try
@@ -125,13 +45,19 @@ namespace LabMVC.Models.Data
             return resultToReturn;
         }
 
-        public int RemoveStudent(Entities.User student)
+        public IEnumerable<User> GetWaitingStudents()
         {
-            _context.Users.Remove(_context.Users.Find(student.Id));
-            return _context.SaveChangesAsync().Result;
+            var students = (from student in _context.Users where student.Approval == "En Espera" select student);
+            return students.ToList();
         }
 
-        public int EditStudent(Entities.User student)
+        public User GetStudentById(String identification)
+        {
+            var students = (from student in _context.Users where student.IdCard == identification select student);
+            return students.FirstOrDefault();
+        }
+
+        public int EditStudent(User student)
         {
             int resultToReturn = 0;
             try
@@ -149,23 +75,39 @@ namespace LabMVC.Models.Data
             return resultToReturn;
         }
 
-        public List<Entities.User> GetExplicitStudent()
+        public int RemoveStudent(User student)
         {
-            List<Entities.User> students = null;
-            using (var context = new ALDIFA_SOFT_MVC_IF4101Context())
-            {
-                students = context.Users.Select(studentItem => new Entities.User()
-                {
-                    Id = studentItem.Id,
-                    Name = studentItem.Name,
-                    Email = studentItem.Email,
-                    Password = studentItem.Password
-
-                }).ToList<Entities.User>();
-            }
-            return students;
+            _context.Users.Remove(_context.Users.Find(student.Id));
+            return _context.SaveChangesAsync().Result;
         }
 
+        public int AddProfessorConsultation(ProfessorConsultation consultation)
+        {
+            int resultToReturn;
+            try
+            {
+                _context.Add(consultation);
+                resultToReturn = _context.SaveChangesAsync().Result;
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+            return resultToReturn;
+        }
+
+        public User SaveStudentPhoto(User student)
+        {
+            _context.Users.Update(student);
+            _context.SaveChanges();
+            return student;
+        }
+
+        public User GetSavedStudentPhoto(string ID)
+        {
+            var students = (from student in _context.Users where student.IdCard == ID select student);
+            return students.FirstOrDefault();
+        }
         private bool StudentExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
@@ -179,33 +121,18 @@ namespace LabMVC.Models.Data
             return _context.Users.Any(e => e.Password == password);
         }
 
-        public Entities.User Save(Entities.User user)
+        public void SendEmail(String addressee, String title, String message)
         {
-
-            _context.Users.Update(user);
-            _context.SaveChanges();
-            return user;
-        }
-
-        public Entities.User GetSavedUser(string ID)
-        {
-            var users = (from user in _context.Users where user.IdCard == ID select user);
-            return users.FirstOrDefault();
-        }
-
-        public int AddProfessorConsultation(ProfessorConsultation professorConsultation)
-        {
-            int resultToReturn;
-            try
+            var smtpClient = new SmtpClient("smtp.gmail.com")
             {
-                _context.Add(professorConsultation);
-                resultToReturn = _context.SaveChangesAsync().Result;
-            }
-            catch (DbUpdateException)
-            {
-                throw;
-            }
-            return resultToReturn;
+                Port = 587,
+                Credentials = new NetworkCredential("aldifasoft0@gmail.com", "LPAC2021"),
+                EnableSsl = true,
+            };
+            MailAddress mailaddress = new MailAddress(addressee);
+            MailMessage mailMessage = new MailMessage("aldifasoft0@gmail.com", addressee, title, message);
+            mailMessage.IsBodyHtml = true;
+            smtpClient.Send(mailMessage);
         }
 
     }
