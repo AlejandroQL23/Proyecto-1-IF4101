@@ -43,8 +43,6 @@ namespace WebAPIProject.Controllers
         }
 
         // PUT: api/NewsComments/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNewsComment(int id, NewsComment newsComment)
         {
@@ -75,8 +73,6 @@ namespace WebAPIProject.Controllers
         }
 
         // POST: api/NewsComments
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<NewsComment>> PostNewsComment(NewsComment newsComment)
         {

@@ -86,7 +86,6 @@ function LoadDataNewsStudent() {
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
@@ -104,7 +103,6 @@ function modalToCommentNews(ID) {
             $('#btnSendCommentToNews').show();
         },
         error: function (errormessage) {
-            alert("Error");
             alert(errormessage.responseText);
         }
     });
@@ -133,7 +131,6 @@ function LoadDataNewsStudentComments() {
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
@@ -185,7 +182,6 @@ function LoadDataNewsDeleteAdmin() {
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
@@ -233,7 +229,6 @@ function LoadDataNewsProfessor() {
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
@@ -252,7 +247,6 @@ function modalToCommentNewsProfessor(ID) {
             $('#btnCommentNewsProfessor').show();
         },
         error: function (errormessage) {
-            alert("Error");
             alert(errormessage.responseText);
         }
     });
@@ -282,7 +276,6 @@ function LoadDataNewsProfessorComments() {
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
@@ -335,7 +328,6 @@ function LoadDataNewsGeneral() {
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
@@ -367,7 +359,6 @@ function LoadDataNewsAdminUpdate() {
             });
         },
         error: function (errorMessage) {
-            alert("Error");
             alert(errorMessage.responseText);
         }
     })
