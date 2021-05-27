@@ -148,7 +148,7 @@ namespace LabMVC.Controllers
             var student = studentDAO.GetStudentById(professorConsultation.IdCardStudent);
             professorDAO.SendEmail(student.Email, "❁→❝Respuesta a su solicitud de consulta❞❁",
                           "<html><body ><h1>Estimado/a " + student.Name + " " + student.LastName + "</h1><br/>" +
-                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha RECHAZADO su solicitud de consulta, en caso de inconformidad con el resultado, puede volver a escribirle al respectico profesor.<br/></h3></body></html>");
+                          "<br/><h3>El profesor " + professor.Name + " " + professor.LastName + " ha RECHAZADO su solicitud de consulta, en caso de inconformidad con el resultado, puede volver a escribirle al respectivo profesor.<br/></h3></body></html>");
             return Ok(professorDAO.RemoveConsult(professorConsultation));
         }
 
