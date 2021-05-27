@@ -126,7 +126,7 @@
                 <div class="col-md-3 col-sm-3">
                     <div class="feature-thumb">
                         <h2>Inicia sesión</h2>
-                        <input type="text" name="IdCardUser" id="IdCardUser" class="form-control" placeholder="Carné" autocomplete="off" required="">
+                        <input type="text" maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="IdCardUser" id="IdCardUser" class="form-control" placeholder="Carné" autocomplete="off" required="">
                         <input type="password" name="password" id="passwordUser" class="form-control" placeholder="Contraseña" autocomplete="off" required="">
                         <div><button class="submit-btn form-control" onclick="return ValidateLogin()" id="form-submitI">Iniciar sesión</button></div>
                         <div id="incorrectLabelLogin" class="hide" role="alert">El usuario no existe o aún no ha sido aceptado</div>
@@ -814,7 +814,7 @@
                 <div class="section-title">
                     <h2>Cursos disponibles en el semestre ❁❁❁❁❁❁❁❁❁❁❁❁❁ Foro de consultas</h2>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-5 col-sm-12">
                     <div class="table-responsive">
                         <table class="table table-dark table-hover" id="tableStudentCourses">
                             <thead>
@@ -860,7 +860,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-offset-1 col-md-5 col-sm-12">
+                <div class="col-md-offset-1 col-md-6 col-sm-12">
                     <div class="table-responsive">
                         <table class="table table-dark table-hover" id="tableForum">
                             <thead>
@@ -1051,13 +1051,13 @@
                                 <a class="nav-link active" href="#professorProfile" onclick="return hydeShowSection('professorProfile'), keepSingleTabForProfessorProfile()">Perfil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#consultationHours" onclick="return hydeShowSection('ConsultationHours'), keepSingleTabForProfessorConsultation()">Horas de consulta</a>
+                                <a class="nav-link active" href="#consultationHours" onclick="return hydeShowSection('consultationHours'), keepSingleTabForProfessorConsultation()">Horas de consulta</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="#professorConsultationRequests" onclick="return hydeShowSection('professorConsultationRequests'), keepSingleTabForProfessorConsultationRequests()">Solicitudes de consulta</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#professorNews" onclick="return hydeShowSection('ProfessorNews'), keepSingleTabForNews()">Noticias</a>
+                                <a class="nav-link active" href="#professorNews" onclick="return hydeShowSection('professorNews'), keepSingleTabForNews()">Noticias</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" onclick="return logOut()">Cerrar sesión</a>

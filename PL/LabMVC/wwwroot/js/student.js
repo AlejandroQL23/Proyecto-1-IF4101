@@ -146,6 +146,7 @@ function ObtainStudentProfileInformation() {
             $('#infoProfileStudentModal').val(result.personalFormation);
             $('#facebookProfilePStudentModal').val(result.facebook);
             $('#instagramProfilePStudentModal').val(result.instagram);
+            $('#activityStudentModal').val(result.activity);
             $('#modalProfileStudent').modal('show');
             $('#buttonUpdateProfileStudent').show();
             $('#disableAccountStudent').show();
@@ -289,7 +290,6 @@ function addCommentToForum() {
         success: function (result) {
             $('#modalStudentCourse').modal('hide');
             LoadDataToForumCourse();
-          //  $('#consultationAreaForCourse').val("");
         },
         error: function (errorMessage) {
             alert(errormessage.responseText);
@@ -512,4 +512,5 @@ function AddCommentAnswer() {
             alert(errorMessage.responseText);
         }
     });
+    document.getElementById('addCommentsInForum').value = '';
 }
