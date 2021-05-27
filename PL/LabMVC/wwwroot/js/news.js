@@ -25,6 +25,7 @@ function AddNews() {
             success: function (result) {
                 cleanNews();
                 LoadDataNewsDeleteAdmin();
+                LoadDataNewsAdminUpdate();
                 var done = $('#correctLabelAddNews');
                 done.removeClass();
                 done.addClass("alert alert-success register-alert")
@@ -151,11 +152,13 @@ function AddCommentNews() {
         dataType: "json",
         success: function (result) {
             LoadDataNewsStudentComments();
+            $('#modalNewsComments').modal('hide');
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
         }
     });
+    document.getElementById('addCommentsToNews').value = '';
 }
 
 function LoadDataNewsDeleteAdmin() {
@@ -294,11 +297,13 @@ function AddCommentProfessorNews() {
         dataType: "json",
         success: function (result) {
             LoadDataNewsProfessorComments();
+            $('#modalNewsProfessorComments').modal('hide');
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);
         }
     });
+    document.getElementById('addCommentsProfessorNews').value = '';
 }
 
 function LoadDataNewsGeneral() {

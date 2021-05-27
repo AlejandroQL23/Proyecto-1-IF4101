@@ -100,7 +100,7 @@ function DeleteCourse(ID) {
         dataType: "json",
         success: function (result) {
             LoadDataCourses();
-            alert("Se ha eliminado 1 noticia del registro oficial con éxito.");
+            alert("Se ha eliminado 1 curso del registro oficial con éxito.");
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

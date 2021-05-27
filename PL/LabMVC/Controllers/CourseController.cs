@@ -46,8 +46,9 @@ namespace LabMVC.Controllers
         public ActionResult EditCourse([FromBody] Course course)
         {
             courseDAO = new CourseDAO(_context);
-            var oldUser = courseDAO.GetCourseById(course.Initials);
-            courseDAO.RemoveCourse(oldUser);
+            var oldCourse = courseDAO.GetCourseById(course.Initials);
+            course.Schedule = oldCourse.Schedule;
+            courseDAO.RemoveCourse(oldCourse);
             int resultToReturn = courseDAO.EditCourse(course);
             return Ok(resultToReturn);
         }

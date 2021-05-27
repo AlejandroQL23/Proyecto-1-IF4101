@@ -45,6 +45,7 @@ function ObtainProfessorProfileInformation() {
             $('#infoProfileProfessorModal').val(result.personalFormation);
             $('#FacebookfileProfessorModal').val(result.facebook);
             $('#InstagramProfileProfessorModal').val(result.instagram);
+            $('#activityProfessorModal').val(result.activity);
             $('#modalProfileProfessor').modal('show');
             $('#buttonUpdateProfileProfessor').show();
             $('#disableAccountProfessor').show();

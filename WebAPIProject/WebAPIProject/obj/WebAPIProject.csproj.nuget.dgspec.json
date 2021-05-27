@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\VERSIONES\\PROYECTO FINAL\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj": {}
+    "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\VERSIONES\\PROYECTO FINAL\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj": {
+    "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\VERSIONES\\PROYECTO FINAL\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj",
+        "projectUniqueName": "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj",
         "projectName": "WebAPIProject",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\VERSIONES\\PROYECTO FINAL\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\VERSIONES\\PROYECTO FINAL\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\obj\\",
+        "projectPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\WebAPIProject.csproj",
+        "packagesPath": "C:\\Users\\Ale\\.nuget\\packages\\",
+        "outputPath": "C:\\Proy1Len\\Proyecto-1-IF4101\\WebAPIProject\\WebAPIProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ale\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -302,3 +302,4 @@ C:\Users\Usuario\Desktop\VERSIONES\PROYECTO FINAL\Proyecto-1-IF4101\PL\LabMVC\ob
 C:\Users\Usuario\Desktop\VERSIONES\PROYECTO FINAL\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\ALDIFASOFT_MVC.pdb
 C:\Users\Usuario\Desktop\VERSIONES\PROYECTO FINAL\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\ALDIFASOFT_MVC.genruntimeconfig.cache
 C:\Users\Usuario\Desktop\VERSIONES\PROYECTO FINAL\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\ALDIFASOFT_MVC.csprojAssemblyReference.cache
+C:\Proy1Len\Proyecto-1-IF4101\PL\LabMVC\obj\Debug\netcoreapp3.1\ALDIFASOFT_MVC.csprojAssemblyReference.cache

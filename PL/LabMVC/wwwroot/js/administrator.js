@@ -127,8 +127,8 @@ function ObtainAdminProfileInformation() {
             $('#emailProfileAdminModal').val(result.email);
             $('#phoneProfileAdminModal').val(result.phone);
             $('#infoProfileAdminModal').val(result.personalFormation);
-            $('#FacebookfileAdminModal').val(result.facebook);
-            $('#InstagramProfileAdminModal').val(result.instagram);
+            $('#facebookProfileAdminModal').val(result.facebook);
+            $('#instagramProfileAdminModal').val(result.instagram);
             $('#modalProfileAdmin').modal('show');
             $('#buttonUpdateProfileAdmin').show();
         },
